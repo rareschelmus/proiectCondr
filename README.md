@@ -1,2 +1,4 @@
 # proiectCondr
-College project on consumer's choice.
+
+
+College project on consumer's choice .
