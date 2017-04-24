@@ -1,0 +1,18 @@
+<html>
+<head></head>
+
+<body>
+
+ <ul>
+ 
+   #foreach ($product in $allProducts) 
+      <li> $product </li>
+   #end
+   
+ </ul>
+ 
+ <p> $name.length() </p>
+
+</body>
+
+</html>
