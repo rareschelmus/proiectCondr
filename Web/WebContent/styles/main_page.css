@@ -1,1 +1,79 @@
+body{
+    margin: 0px 0px 0px 0px;
+}
 
+.header {
+    height:90px;
+    background-color: rgb(27,197,237);
+}
+
+.logo {
+    width: 103px;
+    height: 80px;
+    position: relative;
+}
+
+.search-bar{
+    float:left;
+    width: 320px;
+    margin-top: 15px;
+    margin-left:20px;
+}
+
+footer{
+    background-color: #222;
+    border-color: #080808;
+    height:120px;
+}
+
+footer>p{
+    color:#eee;
+    text-align:right;
+}
+
+/* pentru modala >
+*/
+
+
+.slider{
+    height:900px;
+    background-color:rgb(255,255,239);
+}
+
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* <pentru modala
+*/
