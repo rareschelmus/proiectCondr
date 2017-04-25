@@ -1,5 +1,12 @@
+
+
+
 body{
     margin: 0px 0px 0px 0px;
+}
+
+#balbla {
+   text-align: center; 
 }
 
 .header {
@@ -28,7 +35,7 @@ footer{
 
 footer>p{
     color:#eee;
-    text-align:right;
+    text-align:center;
 }
 
 /* pentru modala >
