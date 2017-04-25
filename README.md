@@ -25,11 +25,11 @@ Java Servlet API https://mvnrepository.com/artifact/javax.servlet/javax.servlet-
 
 ## Contributors
 
-<b>Chelmus Rares (b5) <br />
+Chelmus Rares (b5) <br />
 Crucerescu Ion (b6) <br />
 Vrabie Victor (b6) <br />
 Catana Vasile (b5)<br />
-<b/>
+
 
 ## License
 
