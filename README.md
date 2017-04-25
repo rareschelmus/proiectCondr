@@ -15,7 +15,10 @@ The aplication is a project for Web Technologies Class.
 
 
 ## API Reference
-
+Barcode Scanner API https://serratus.github.io/quaggaJS/ <br />
+Apache Velocity 1.7 API https://velocity.apache.org/engine/1.7/apidocs/ <br />
+Java JDBC API https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/ <br />
+Java Servlet API https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
 
 ## Tests
 
