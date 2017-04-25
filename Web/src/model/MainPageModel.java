@@ -47,7 +47,7 @@ VelocityEngine ve = common.VelocityEngineObject.getVelocityEngine();
 		
 		
 		
-		template = ve.getTemplate("main_page.vm");        
+		template = ve.getTemplate("main_page.html");        
 		
 		template.merge( context, writer );
         response.getWriter().println(writer.toString());
