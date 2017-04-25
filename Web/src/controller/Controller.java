@@ -50,8 +50,8 @@ public class Controller extends HttpServlet {
 		
 		
 	    if (result.equals("Test"))
-		 requestDispatcher = request.getRequestDispatcher("/Test"); else return ;
-	     
+		 requestDispatcher = request.getRequestDispatcher("/Test"); else 	    
+	     requestDispatcher = request.getRequestDispatcher("/MainPageModel"); 
 		 	 
 		requestDispatcher.forward(request, response);
         
