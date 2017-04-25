@@ -1,24 +1,29 @@
-package controller;
+package model;
 
 import java.io.IOException;
+import java.io.StringWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class Controller
- */
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
 
-public class Controller extends HttpServlet {
+/**
+ * Servlet implementation class MainPageModel
+ */
+@WebServlet("/MainPageModel")
+public class MainPageModel extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Controller() {
+    public MainPageModel() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,34 +32,25 @@ public class Controller extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request,response);
+	   doPost(request,response);	
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+VelocityEngine ve = common.VelocityEngineObject.getVelocityEngine();
 		
-		String url=request.getRequestURL().toString();
-		String result="";
-		
-		RequestDispatcher requestDispatcher=null;
-		
-		int i=url.length()-1;
-		
-		while (i>=0 && url.charAt(i)!='/') {
-			result=url.charAt(i)+result;
-			i--;
-		}
+		StringWriter writer = new StringWriter();
+		Template template = null;
+		VelocityContext context = new VelocityContext();
 		
 		
 		
-	    if (result.equals("Test"))
-		 requestDispatcher = request.getRequestDispatcher("/Test"); else 	    
-	     requestDispatcher = request.getRequestDispatcher("/MainPageModel"); 
-		 	 
-		requestDispatcher.forward(request, response);
-        
+		template = ve.getTemplate("main_page.vm");        
+		
+		template.merge( context, writer );
+        response.getWriter().println(writer.toString());
 	}
 
 }
