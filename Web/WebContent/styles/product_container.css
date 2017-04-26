@@ -124,6 +124,14 @@ footer{
 .gallery>div>img{
     height:100%
     max-height:400px;
+    text-align:center;
+}
+
+.produs-substante{
+    position:relative;
+    bottom:0;
+    margin-top:5px;
+    margin-bottom:5px;
 }
 
 .star-produs{
@@ -131,8 +139,28 @@ footer{
     position:absolute;
     bottom:0;
     left:0;
-    width:120px;
+    width:140px;
     height:30px;
+}
+
+.comment-rate{
+    font-style:bold;
+    margin-top:10px;
+}
+
+.comment-box{
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.comment-button{
+    margin-top:-10px;
+}
+
+.comment-star{
+    width:140px;
+    height:30px;
+    margin-bottom:5px;
 }
 
 .comment-container{
@@ -159,4 +187,8 @@ footer{
 
 .greutate-produs{
     
+}
+
+.comment-nume{
+    text-align:center;
 }
