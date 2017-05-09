@@ -4,9 +4,10 @@
 
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/main_page.css" />
+        <link rel="stylesheet" type="text/css" href="../styles/main_page.css" />
+        <link rel="stylesheet" type="text/css" href="../bootstrap_social/bootstrap-social.css" />
         <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
         <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
@@ -14,6 +15,8 @@
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1"> <!--ca sa fie responsive-->
+
+       <title> Home </title>
     </head>
     
     <body>
@@ -33,9 +36,9 @@
                 </div>
                 <div class="collapse navbar-collapse navbar-right" id="navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="#SignIn">Sign-up</a>
-                        <li><a href="#log-in" data-toggle="modal" data-target="#sign-in-modal" >Log-in</a>
-                        <li><a href="#about">About</a>
+                        <li><a href="#log-in" data-toggle="modal" data-target="#sign-in-modal" ><span class="glyphicon glyphicon-log-in"> </span> Log-in</a>
+                        <li><a href="#about"><span class="glyphicon glyphicon-th"> </span> About</a>
+                        
                         
                     </ul>
                     
@@ -45,7 +48,7 @@
         <!-- jumbotronus -->
         <div class="jumbotron">
             <div class="container text-center">
-                <h1>Condr</h1>
+                <h1 >Condr</h1>
                 <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore."</p>
                 
                 <!-- SEARCH BAR!!! -->
@@ -64,30 +67,29 @@
         </div>
         
         <div class="container">
-            <h1>Chestii</h1><br/>
+            <h1 id="balbla">Chestii</h1><br/>
             <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
         </div>
         
         <div class="container">
             <section>
                 <div class="page-header" id="contact">
-                    <h2>Contact Us.<small>Send n...s.</small></h2>
+                    <h2>Contact Us.<small>Contact info</small></h2>
                 </div>
                 <div class="row">
                     <div class="col-lg-4">
                         <p>Send us the message, or contact us through a pigeon.</p>
                         
                         <address>
-                            <strong>Condr vrabie ciunga cu nas gigantic si catana SRL</strong><br/>
+                            <strong>Ceva SRL</strong><br/>
                             str. Bomfaierul Ghidus, 72, Pipera<br/> 
-                            langa hanul "La cateaua lesinata"<br/>
                             Iasi, Romania<br>
                             Fax: 09283789992
                         </address>
                     </div>
                     
                     <div class="col-lg-8">
-                        <h4> office.condr.vccngsc@condr.com<\h4>
+                        <h4> office.condr.vccngsc@condr.com
                     </div>
                     
                 </div>
@@ -95,14 +97,14 @@
         </div>
         
         <div class="container-full">
+          
             <footer class="footer row">
-                
-                    <p >Blog template built for <a href="">Bootstrap</a> by <a href="">@mdo</a>.</p>
-                    <p>
-                        <a href="#">Back to top</a>
-                    </p>
-                
+
+                    <p >Condr, your daily asistant(c).</p>
+                    <p> <a href="#">Back to top</a> </p>  
+   
             </footer>
+          
         </div>
     
         <!-- Aci ai modala de sign-in -->
@@ -111,18 +113,19 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <form class="form-signin" action="#LogIn" method="post">
-                            <h2 class="form-signin-heading">Please log in</h2>
-                            <label for="inputEmail" class="sr-only">Email address</label>
-                            <input name="mail" type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-                            <label for="inputPassword" class="sr-only">Password</label>
-                            <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" value="remember-me"> Remember me
-                                </label>
-                            </div>
-                            <button class="btn btn-lg btn-primary btn-block" type="submit"  >Sign in</button>
+                        <form class="form-signin" action="#LogIn" method="post">               
+                              <br/>
+							<div>
+								<a class="btn btn-block btn-social btn-google">
+								<span class="fa fa-google"></span> Log in with gmail
+								</a>
+							
+								<a class="btn btn-block btn-social btn-facebook">
+								<span class="fa fa-facebook"></span> Log in with facebook
+								</a>
+							</div>
+							<br/>
+							
                         </form>
                     </div>
                 </div>    

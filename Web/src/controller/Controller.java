@@ -46,12 +46,17 @@ public class Controller extends HttpServlet {
 			result=url.charAt(i)+result;
 			i--;
 		}
-		
+
 		
 		
 	    if (result.equals("Test"))
-		 requestDispatcher = request.getRequestDispatcher("/Test"); else 	    
-	     requestDispatcher = request.getRequestDispatcher("/MainPageModel"); 
+		 requestDispatcher = request.getRequestDispatcher("/Test"); else 	
+	    if (result.contains("css1"))  {
+	     requestDispatcher = request.getRequestDispatcher("/Resources"); 
+	     request.setAttribute("ADR",result.substring(0,result.length()-1));
+	    } else 
+	     requestDispatcher = request.getRequestDispatcher("/MainPageModel");
+	    
 		 	 
 		requestDispatcher.forward(request, response);
         

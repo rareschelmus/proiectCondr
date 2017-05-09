@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="../WebContent/styles/product_container.css" />
+		<link rel="stylesheet" href="../WebContent/starability-master/starability-minified/starability-all.min.css">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1"> <!--ca sa fie responsive-->
+    </head>
+    
+    <body>
+        <!--Navbar-->
+        
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="my-navbar">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    
+                    <a href="" class="navbar-brand">Condr</a>
+                    
+                </div>
+                <div class="col-sm-3 col-md-3">
+                    <form class="navbar-form" role="search">
+                        <div class="input-group ">
+                            <input type="text" class="form-control" placeholder="Search" name="q">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="collapse navbar-collapse navbar-right" id="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><img class="icon-navbar" href="" src="../WebContent/images/dogee.png">
+                        <li><a href="#username">Username</a>
+                        <li class="dropdown">
+                            <a href="#settings" class="dropdown-toggle" data-toggle="dropdown">Settings<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Change password</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Delete account</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#log-out">Log out</a>
+                        
+                    </ul>
+                    
+                </div>    
+            </div>
+        </nav>
+        
+        
+        <div class="container container-produs">
+            <div class="row">
+                <div class="col-md-5">
+                    <!--<img src="jacobs.jpg" class="img-produs center-block"> -->
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                        </ol>
+
+                          <!-- Wrapper for slides -->
+                        <div class="carousel-inner gallery" role="listbox">
+                            <div class="item active">
+                                <img src="../WebContent/images/jacobs.jpg" class="vertical-center">
+                            </div>
+
+                            <div class="item">
+                                <img src="../WebContent/images/coffee.jpg" class="vertical-center">
+                            </div>
+
+                            <div class="item">
+                                <img src="../WebContent/images/bean.jpg" class="vertical-center cneter-block">
+                            </div>
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="text-produs">
+                        <h4><b>Jacobs</b></h4><br/>
+                        
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <div class="greutate-produs">
+                            <b>Weight:</b> 200g
+                        </div>
+                        <div>
+                            <h5><b>Ingredients:</b></h5>
+                            <div class="produs-substante">
+                                <button class="btn btn-info">
+                                    Coffee
+                                </button>
+                                
+                                <button class="btn btn-danger">
+                                    Milk
+                                </button>
+                                
+                                <button class="btn btn-warning">
+                                    Cinammon
+                                </button>
+                            </div>
+                            
+                            <h5><b>Alergens:</b></h5>
+                            <div class="produs-substante">
+                                <button class="btn btn-info">
+                                    Gluten
+                                </button>
+                                
+                                <button class="btn btn-info">
+                                    Alune
+                                </button>
+                                
+                                <button class="btn btn-danger">
+                                    Eritromicina
+                                </button>
+                                
+                                <button class="btn btn-info">
+                                    Lactate
+                                </button>
+                            </div>
+                            <img src="../WebContent/images/star.png" class="star-produs">
+                        </div>
+                    </div>
+               </div>
+           </div>
+        </div>
+        
+        <br/>
+        
+        <div class="jumbotron">
+            <div class="container">
+                <h4>Related with this product</h4>
+                <div class="row">
+                    <div class="col-md-2 col-sm-2">
+                        <div class="suggestion-container">
+                            <div class="suggestion-container-img ">
+                                <img src="../WebContent/images/capsuna.jpg" class="center-block">
+                            </div>
+                            
+                            <div class="suggestion-title">
+                                <h5>Capsuna</h5>
+                            </div>
+                            
+                            <div class="button-product">
+                                <button class="btn btn-primary center-block ">
+                                    Check it
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-2 col-sm-2">
+                        <div class="suggestion-container">
+                            <div class="suggestion-container-img ">
+                                <img src="../WebContent/images/capsuna.jpg" class="center-block">
+                            </div>
+                            
+                            <div class="suggestion-title">
+                                <h5>Capsuna</h5>
+                            </div>
+                            
+                            <div class="button-product">
+                                <button class="btn btn-primary center-block ">
+                                    Check it
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-2 col-sm-2">
+                        <div class="suggestion-container">
+                            <div class="suggestion-container-img ">
+                                <img src="../WebContent/images/capsuna.jpg" class="center-block">
+                            </div>
+                            
+                            <div class="suggestion-title">
+                                <h5>Capsuna</h5>
+                            </div>
+                            
+                            <div class="button-product">
+                                <button class="btn btn-primary center-block ">
+                                    Check it
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                        <div class="suggestion-container">
+                            <div class="suggestion-container-img ">
+                                <img src="../WebContent/images/capsuna.jpg" class="center-block">
+                            </div>
+                            
+                            <div class="suggestion-title">
+                                <h5>Capsuna</h5>
+                            </div>
+                            
+                            <div class="button-product">
+                                <button class="btn btn-primary center-block ">
+                                    Check it
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-2 col-sm-2">
+                        <div class="suggestion-container">
+                            <div class="suggestion-container-img ">
+                                <img src="../WebContent/images/capsuna.jpg" class="center-block">
+                            </div>
+                            
+                            <div class="suggestion-title">
+                                <h5>Capsuna</h5>
+                            </div>
+                            
+                            <div class="button-product">
+                                <button class="btn btn-primary center-block ">
+                                    Check it
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-2 col-sm-2">
+                        <div class="suggestion-container">
+                            <div class="suggestion-container-img ">
+                                <img src="../WebContent/images/capsuna.jpg" class="center-block">
+                            </div>
+                            
+                            <div class="suggestion-title">
+                                <h5>Capsuna</h5>
+                            </div>
+                            
+                            <div class="button-product">
+                                <button class="btn btn-primary center-block ">
+                                    Check it
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <h3>Comments</h3>
+            
+            <div class="form-group comment-box">
+                <label for="comment">Comment:</label>
+                <textarea class="form-control" rows="5" id="comment"></textarea>
+                <div class="comment-rate">
+                    <b>Rate this product</b>
+                    <fieldset class="starability-basic"> 
+                        <input type="radio" id="rate5" name="rating" value="5" />
+                        <label for="rate5" title="Amazing">5 stars</label>
+
+                        <input type="radio" id="rate4" name="rating" value="4" />
+                        <label for="rate4" title="Very good">4 stars</label>
+
+                        <input type="radio" id="rate3" name="rating" value="3" />
+                        <label for="rate3" title="Average">3 stars</label>
+
+                        <input type="radio" id="rate2" name="rating" value="2" />
+                        <label for="rate2" title="Not good">2 stars</label>
+
+                        <input type="radio" id="rate1" name="rating" value="1" />
+                        <label for="rate1" title="Terrible">1 star</label>
+                    </fieldset>
+                </div>
+                
+                <button class="btn btn-primary comment-button">
+                    Post it
+                </button>
+            </div>
+           
+            <div class="comment-container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="../WebContent/images/dogee.png" class="comment-img center-block">
+                        <div class="comment-nume">
+                            Dogee Patroclescu
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-9 comment-area">
+                        <div>
+                            <img src="../WebContent/images/star.png" class="comment-star">
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="comment-container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="../WebContent/images/yoda.jpg" class="comment-img center-block">
+                        <div class="comment-nume">
+                            Dog Dyoda
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-9 comment-area">
+                        <div>
+                            <img src="../WebContent/images/star.png" class="comment-star">
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="comment-container">
+                <div class="row">
+                    <div class="col-md-3">
+                        
+                        <img src="../WebContent/images/dog.jpg" class="comment-img center-block">
+                        <div class="comment-nume">
+                            Doug Dogyan
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-9 comment-area">
+                        <div>
+                            <img src="../WebContent/images/star.png" class="comment-star">
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container-full">    
+            <footer class="footer"> <!-- -->
+                
+                    <p >Condr, your daily asistant(c).</p>
+                    <p>
+                        <a href="#">Back to top</a>
+                    </p>
+                
+            </footer>
+        </div>
+    
+        
+    </body>
+</html>

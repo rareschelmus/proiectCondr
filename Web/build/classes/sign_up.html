@@ -1,0 +1,133 @@
+<html lang="en">
+  
+    <head>
+        <link rel="stylesheet" type="text/css" href="../WebContent/styles/sign_up.css" />
+		<link rel="stylesheet" type="text/css" href="../WebContent/styles/main_page.css" />
+		<link rel="stylesheet" type="text/css" href="../WebContent/bootstrap_social/bootstrap-social.css" />
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1"> <!--ca sa fie responsive-->
+    </head>
+    
+  
+  <body>
+  
+    <nav class="navbar navbar-inverse navbar-fixed-top" id="my-navbar">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                
+                <a href="main_page.html" class="navbar-brand">Condr</a>
+            </div>
+			<div class="col-sm-3 col-md-3">
+                    <form class="navbar-form" role="search">
+                        <div class="input-group ">
+                            <input type="text" class="form-control" placeholder="Search" name="q">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            <div class="collapse navbar-collapse navbar-right" id="navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#sign-up">Sign-up</a>
+                    <li><a href="#sign-in"  data-toggle="modal" data-target="#sign-in-modal" >Sign-in</a>
+                    <li><a href="#about">About</a>
+                </ul>
+            </div>
+        </div>
+    </nav>
+        
+    
+    <div class="container">
+
+      <form class="form-signin">
+        <h2 class="form-signin-heading">Please sign up</h2>
+        
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+        
+        <label for="inputNickname" class="sr-only">Nickname</label>
+        <input type="text" id="inputNickname" class="form-control" placeholder="Nickname" required="">
+        
+        
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+        
+        <br/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+		<br/>
+		 <div>
+		 <a class="btn btn-block btn-social btn-google">
+			<span class="fa fa-twitter"></span> Sing up with gmail
+		</a>
+		<a class="btn btn-block btn-social btn-facebook">
+			<span class="fa fa-twitter"></span> Sign up with facebook
+		</a>
+		</div>
+      </form>
+    </div> <!-- /container -->
+
+    <div class="container-full navbar-fixed-bottom">
+        <footer class="footer row">
+            
+                <p >Condr, your daily asistant(c).</p>
+                <p>
+                    <a href="#">Back to top</a>
+                </p>
+            
+        </footer>
+    </div>
+     <div class="modal fade" id="sign-in-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form class="form-signin">
+                            <h2 class="form-signin-heading">Please sign in</h2>
+                            <label for="inputEmail" class="sr-only">Email address</label>
+                            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+                            <label for="inputPassword" class="sr-only">Password</label>
+                            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="remember-me"> Remember me
+                                </label>
+                            </div>
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+							
+							<br/>
+							<div>
+								<a class="btn btn-block btn-social btn-google">
+								<span class="fa fa-twitter"></span> Log in with gmail
+								</a>
+								<a class="btn btn-block btn-social btn-facebook">
+								<span class="fa fa-twitter"></span> Log in with facebook
+								</a>
+							</div>
+							<br/>
+							<center><a align="center" href="forgot_password.html">Forgot password?</a></center>
+                        </form>
+                    </div>
+                </div>    
+            </div>
+        </div>   
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  
+
+</body></html>
