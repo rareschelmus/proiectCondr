@@ -45,7 +45,7 @@ VelocityEngine ve = common.VelocityEngineObject.getVelocityEngine();
 		Template template = null;
 		VelocityContext context = new VelocityContext();
 		
-		
+       System.out.println(request.getSession().getAttribute("user"));		
 		
 		template = ve.getTemplate("main_page.html");        
 		

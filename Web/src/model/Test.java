@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -39,7 +40,11 @@ public class Test extends HttpServlet {
 		Template template = null;
 		VelocityContext context = new VelocityContext();
 		
-		
+		 System.out.println(request.getParameter("token"));
+		 
+		 
+		 HttpSession x = request.getSession();
+		 x.setAttribute("user",request.getParameter("name"));
 		
 		Vector<String> pl = new Vector<String>();
 		
