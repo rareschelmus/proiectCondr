@@ -8,6 +8,7 @@
         <link rel="stylesheet" type="text/css" href="../bootstrap_social/bootstrap-social.css" />
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
 
         <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
@@ -15,6 +16,34 @@
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1"> <!--ca sa fie responsive-->
+       <script src="https://apis.google.com/js/api:client.js"></script>       
+         <script>
+         var googleUser = {};
+         var startApp = function() {
+           gapi.load('auth2', function(){
+             // Retrieve the singleton for the GoogleAuth library and set up the client.
+             auth2 = gapi.auth2.init({
+               client_id: '494217629857-3qlnbam99rn8v2o3521c3nuq7lpp1o8f.apps.googleusercontent.com',
+               cookiepolicy: 'single_host_origin',
+               // Request scopes in addition to 'profile' and 'email'
+               //scope: 'additional_scope'
+             });
+             attachSignin(document.getElementById('customBtn'));
+           });
+         };
+
+         function attachSignin(element) {
+           console.log(element.id);
+           auth2.attachClickHandler(element, {},
+               function(googleUser) {
+                 document.getElementById('name').innerText = "Signed in: " +
+                     googleUser.getBasicProfile().getName();
+               }, function(error) {
+                 alert(JSON.stringify(error, undefined, 2));
+               });
+         }
+         
+         </script>
 
        <title> Home </title>
     </head>
@@ -49,7 +78,7 @@
         <div class="jumbotron">
             <div class="container text-center">
                 <h1 >Condr</h1>
-                <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore."</p>
+                <p id="name">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore."</p>
                 
                 <!-- SEARCH BAR!!! -->
                 <form>
@@ -116,9 +145,12 @@
                         <form class="form-signin" action="#LogIn" method="post">               
                               <br/>
 							<div>
-								<a class="btn btn-block btn-social btn-google">
-								<span class="fa fa-google"></span> Log in with gmail
-								</a>
+								<div id="gSignInWrapper">
+                                 <div id="customBtn" class="customGPlusSignIn">
+                                   <span class="icon"></span>
+                                   <span class="buttonText">Sign in with Google</span>
+                                 </div>
+                                </div>
 							
 								<a class="btn btn-block btn-social btn-facebook">
 								<span class="fa fa-facebook"></span> Log in with facebook
@@ -133,6 +165,6 @@
         </div>
         
         <!-- pana aci e modala -->
-        
+        <script>startApp();</script>
     </body>
 </html>
