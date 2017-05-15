@@ -18,18 +18,68 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"> <!--ca sa fie responsive-->
        <script src="https://apis.google.com/js/api:client.js"></script>       
          <script>
-         var http = new XMLHttpRequest();
-         var url = "Web/Controller/Test";
-         var params = "token=11111";
-         http.open("POST", url, false);
+         var httpG = new XMLHttpRequest();
+         var httpF = new XMLHttpRequest();
+         var url = "Web/Controller/Login";
+         httpG.open("POST", url, true);
+         httpF.open("POST", url, true);
 
          //Send the proper header information along with the request
-         http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+         httpG.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+         httpF.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
 
-         http.onreadystatechange = function() {//Call a function when the state changes.
-             if(http.readyState == 4 && http.status == 200) {
-                console.log("succes");
+         httpG.onreadystatechange = function() {//Call a function when the state changes.
+             if(httpG.readyState == 4 && httpG.status == 200) {
+                console.log("succes G");
              }
+         }
+         httpF.onreadystatechange = function() {//Call a function when the state changes.
+             if(httpF.readyState == 4 && httpF.status == 200) {
+                console.log("succes F");
+             }
+         }
+         
+         window.fbAsyncInit = function() {
+       	  FB.init({
+       	    appId      : '291893044602593',
+       	    cookie     : true,  // enable cookies to allow the server to access 
+       	                        // the session
+       	    xfbml      : true,  // parse social plugins on this page
+       	    version    : 'v2.8' // use graph api version 2.8
+       	  });
+         };
+         
+      // Load the SDK asynchronously
+         (function(d, s, id) {
+           var js, fjs = d.getElementsByTagName(s)[0];
+           if (d.getElementById(id)) return;
+           js = d.createElement(s); js.id = id;
+           js.src = "//connect.facebook.net/en_US/sdk.js";
+           fjs.parentNode.insertBefore(js, fjs);
+         }(document, 'script', 'facebook-jssdk'));
+      
+         function fb_login() {
+        	    FB.login( function (response) {
+        	      if (response.authResponse) {
+        	            console.log('Welcome!  Fetching your information.... ');
+        	            
+        	            access_token = response.authResponse.accessToken; //get access token
+        	            user_id = response.authResponse.userID; //get FB UID
+        	            name = response.name;
+        	           
+        	            FB.api('/me?access_token='+access_token, {scope : 'email' } ,function (response) {
+        	                var email = response.email;
+        	                var name = response.name;    
+        	                httpF.send("token="+access_token+"&name="+name+"&mt=f");
+        	                window.location.replace("http://localhost:8080/Web/Controller/");
+        	            });
+
+        	        } else {
+        	            //user hit cancel button
+        	            console.log('User cancelled login or did not fully authorize.');
+        	        }
+        	    },{scope : 'email' });
+        	 
          }
          
          var googleUser = {};
@@ -42,21 +92,23 @@
                // Request scopes in addition to 'profile' and 'email'
                //scope: 'additional_scope'
              });
-             attachSignin(document.getElementById('customBtn'));
+             
+             attachSigninGoogle(document.getElementById('customBtn'));
            });
          };
 
-         function attachSignin(element) {
+         function attachSigninGoogle(element) {
            console.log(element.id);
            auth2.attachClickHandler(element, {},
                function(googleUser) {
-        	     http.send("token="+googleUser.getAuthResponse().id_token+"&name="+googleUser.getBasicProfile().getName());
+        	     httpG.send("token="+googleUser.getAuthResponse().id_token+"&name="+googleUser.getBasicProfile().getName()+"&mt=g");
         	  
-                 window.location.replace("http://localhost:8080/Web/Controller/")
+                 window.location.replace("http://localhost:8080/Web/Controller/");
                }, function(error) {
                  alert(JSON.stringify(error, undefined, 2));
                });
          }
+
          
          </script>
 
@@ -93,7 +145,7 @@
         <div class="jumbotron">
             <div class="container text-center">
                 <h1 >Condr</h1>
-                <p id="name">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore."</p>
+                <p id="status">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore."</p>
                 
                 <!-- SEARCH BAR!!! -->
                 <form>
@@ -112,7 +164,7 @@
         
         <div class="container">
             <h1 id="balbla">Chestii</h1><br/>
-            <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
+            <p id="if">"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
         </div>
         
         <div class="container">
@@ -165,7 +217,7 @@
 								</a>
 							</div>
 							
-								<a class="btn btn-block btn-social btn-facebook">
+								<a class="btn btn-block btn-social btn-facebook" onclick="fb_login();">
 								<span class="fa fa-facebook"></span> Log in with facebook
 								</a>
 							</div>

@@ -8,31 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class Controller
- */
 
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public Controller() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request,response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String url=request.getRequestURL().toString();
@@ -50,11 +39,9 @@ public class Controller extends HttpServlet {
 		
 		
 	    if (result.equals("Test"))
-		 requestDispatcher = request.getRequestDispatcher("/Test"); else 	
-	    if (result.contains("css1"))  {
-	     requestDispatcher = request.getRequestDispatcher("/Resources"); 
-	     request.setAttribute("ADR",result.substring(0,result.length()-1));
-	    } else 
+		 requestDispatcher = request.getRequestDispatcher("/Test"); else 
+	    if (result.equals("Login"))
+		 requestDispatcher = request.getRequestDispatcher("/Login"); else 
 	     requestDispatcher = request.getRequestDispatcher("/MainPageModel");
 	    
 		 	 

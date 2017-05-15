@@ -40,17 +40,17 @@ public class Test extends HttpServlet {
 		Template template = null;
 		VelocityContext context = new VelocityContext();
 		
-		 System.out.println(request.getParameter("token"));
-		 
-		 
-		 HttpSession x = request.getSession();
-		 x.setAttribute("user",request.getParameter("name"));
+//		 System.out.println(request.getParameter("token"));
+//		 
+//		 
+//		 HttpSession x = request.getSession();
+//		 x.setAttribute("user",request.getParameter("name"));
 		
-		Vector<String> pl = new Vector<String>();
-		
-		pl.add("test1");
-		pl.add("test2");
-		context.put("allProducts", pl);
+//		Vector<String> pl = new Vector<String>();
+//		
+//		pl.add("test1");
+//		pl.add("test2");
+//		context.put("allProducts", pl);
 		
 		
 		
