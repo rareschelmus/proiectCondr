@@ -1,0 +1,34 @@
+body {
+  min-height: 100%;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+body>div:nth-child(2){
+    min-height:400px;
+}
+
+body>div>h5{
+    text-align:center;
+}
+
+footer{
+    background-color: #222;
+    border-color: #080808;
+    height:120px;
+    
+}
+
+footer>p{
+    color:#eee;
+    text-align:center;
+}
+
+.buton-formular{
+    margin-top:10px;
+}
+
+.add-top{
+    margin-top:50px;
+}
