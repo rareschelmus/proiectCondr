@@ -3,7 +3,8 @@
 
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="../WebContent/styles/user_profile.css" />
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="../ResourceLoader?v=$encrypt_user_profile" />
 		<link rel="stylesheet" href="starability-master/starability-minified/starability-all.min.css">
 
         <!-- Latest compiled and minified CSS -->
@@ -11,6 +12,24 @@
 
         <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <script > 
+         var http = new XMLHttpRequest();
+         var url = "Web/Controller/Logout";
+         http.open("POST", url, true);
+         http.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+         
+         http.onreadystatechange = function() {//Call a function when the state changes.
+             if(http.readyState == 4 && http.status == 200) {
+                 console.log("log out ok");
+                  window.location.replace("http://localhost:8080/Web/Controller/M");
+             }
+         }
+         
+         function logout() {
+           http.send("");
+         }
+         
+        </script>
 
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -45,17 +64,20 @@
                 </div>
                 <div class="collapse navbar-collapse navbar-right" id="navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><img class="icon-navbar" href="" src="../WebContent/images/dogee.png">
-                        <li><a href="#username">Username</a>
+                    #if ($urlImage)
+                        <li> 
+                        
+                       <div class="image-cropper">
+                       
+                         <img class="my-picture" src="$urlImage" alt="This is a picture of me"/>
+                         
+                       </div>
+       
+                     #end
+                        <li><a href="#username">$name</a>
                         <li class="dropdown">
-                            <a href="#settings" class="dropdown-toggle" data-toggle="dropdown">Settings<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Change password</a></li> 
-                                <li class="divider"></li>
-                                <li><a href="#">Delete account</a></li>
-                            </ul>
                         </li>
-                        <li><a href="#log-out">Log out</a>
+                        <li><a href="#log-out" onclick=logout();>Log out</a>
                         
                     </ul>
                     
@@ -64,14 +86,15 @@
         </nav>
         
         
-        <div class="container container-produs">
+        <div class="container container-produs yyy">
             <div class="row">
                 <div class="col-md-3 col-sm-3">
-                    <img src="../WebContent/images/dogee.png" class="profile-img center-block">
-					<center><button class="btn btn-primary center-block button-product">
-                                Change profile picture
-                            </button>
-					</center>
+                 </br>
+                 </br>
+                 </br>
+ 
+                    <img src="$urlImage" class="profile-img center-block xxx" align="left">
+			
 					
                 </div>
                 <div class="col-md-9 col-sm-9">

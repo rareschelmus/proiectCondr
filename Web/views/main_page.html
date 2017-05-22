@@ -4,8 +4,8 @@
 
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="../styles/main_page.css" />
-        <link rel="stylesheet" type="text/css" href="../bootstrap_social/bootstrap-social.css" />
+        <link rel="stylesheet" type="text/css" href="../ResourceLoader?v=$encrypt_main_page" />
+        <link rel="stylesheet" type="text/css" href="../ResourceLoader?v=$encrypt_bootstrap_social" />
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
@@ -30,12 +30,21 @@
 
          httpG.onreadystatechange = function() {//Call a function when the state changes.
              if(httpG.readyState == 4 && httpG.status == 200) {
-                console.log("succes G");
+                 if (httpG.responseText=="++")  {
+                	 window.location.replace("http://localhost:8080/Web/Controller/UserProfile");
+                 } else {
+                	 window.location.replace("http://localhost:8080/Web/Controller/LoginFail");
+                 }
              }
          }
+         
          httpF.onreadystatechange = function() {//Call a function when the state changes.
              if(httpF.readyState == 4 && httpF.status == 200) {
-                console.log("succes F");
+            	 if (httpF.responseText=="++")  {
+                	 window.location.replace("http://localhost:8080/Web/Controller/UserProfile");
+                 } else {
+                	 window.location.replace("http://localhost:8080/Web/Controller/LoginFail");
+                 }
              }
          }
          
@@ -69,9 +78,10 @@
         	           
         	            FB.api('/me?access_token='+access_token, {scope : 'email' } ,function (response) {
         	                var email = response.email;
-        	                var name = response.name;    
-        	                httpF.send("token="+access_token+"&name="+name+"&mt=f");
-        	                window.location.replace("http://localhost:8080/Web/Controller/");
+        	                var name = response.name;   
+        	                console.log(access_token);
+        	                httpF.send("token="+access_token+"&mt=f");
+        	                
         	            });
 
         	        } else {
@@ -101,9 +111,7 @@
            console.log(element.id);
            auth2.attachClickHandler(element, {},
                function(googleUser) {
-        	     httpG.send("token="+googleUser.getAuthResponse().id_token+"&name="+googleUser.getBasicProfile().getName()+"&mt=g");
-        	  
-                 window.location.replace("http://localhost:8080/Web/Controller/");
+        	     httpG.send("token="+googleUser.getAuthResponse().id_token+"&mt=g&name="+googleUser.getBasicProfile().getName()+"&url="+googleUser.getBasicProfile().getImageUrl());  
                }, function(error) {
                  alert(JSON.stringify(error, undefined, 2));
                });
@@ -146,6 +154,12 @@
             <div class="container text-center">
                 <h1 >Condr</h1>
                 <p id="status">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore."</p>
+                #if ($urlImage) 
+        <div class="image-cropper">
+            <img class="my-picture" src="$urlImage" alt="This is a picture of me"/>
+        </div>
+       
+                #end
                 
                 <!-- SEARCH BAR!!! -->
                 <form>
@@ -211,6 +225,10 @@
                     <div class="modal-body">
                         <form class="form-signin" action="#LogIn" method="post">               
                               <br/>
+                              #if ($loginFail) 
+                                 <p style="color:#FF0000";>Login Failure</p>
+                              #end
+                              
 							<div id="customBtn" >
 							<a class="btn btn-block btn-social btn-google">
 								<span id="spn" class="fa fa-google-plus"></span> Log in with gmail

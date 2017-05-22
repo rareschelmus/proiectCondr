@@ -17,7 +17,22 @@ margin : 0 0 0 0;
       cursor: pointer;
     }
 
-    
+  .image-cropper {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    border: 2px solid white;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    overflow:hidden;
+}
+.my-picture {
+    display: block;
+    margin: 0 auto;
+    height: auto;
+    width: 100%;
+}  
    
 
 #balbla {
@@ -77,3 +92,7 @@ margin-bottom : -1px;
 .form-signin input[type="password"] {
 margin-bottom : 10px;
 }
+
+
+
+

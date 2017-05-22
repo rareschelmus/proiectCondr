@@ -36,13 +36,21 @@ public class Controller extends HttpServlet {
 			i--;
 		}
 
-		
-		
+		if (result.equals("Logout"))
+			 requestDispatcher = request.getRequestDispatcher("/Logout"); else 
+		if (result.equals("LoginFail"))
+			 requestDispatcher = request.getRequestDispatcher("/LoginFail"); else 
+		if (result.equals("UserProfile"))
+			 requestDispatcher = request.getRequestDispatcher("/UserProfile"); else 
 	    if (result.equals("Test"))
 		 requestDispatcher = request.getRequestDispatcher("/Test"); else 
+			 if (result.equals("TestF"))
+				 requestDispatcher = request.getRequestDispatcher("/TestF"); else 
 	    if (result.equals("Login"))
 		 requestDispatcher = request.getRequestDispatcher("/Login"); else 
-	     requestDispatcher = request.getRequestDispatcher("/MainPageModel");
+		if (request.getSession().getAttribute("name")==null)
+	     requestDispatcher = request.getRequestDispatcher("/MainPageModel"); else 
+	    	 requestDispatcher = request.getRequestDispatcher("/UserProfile");
 	    
 		 	 
 		requestDispatcher.forward(request, response);
