@@ -39,12 +39,18 @@
 package model;
 
 import java.io.IOException;
+import java.io.StringWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
 
 
 /**
@@ -68,7 +74,24 @@ public class Test extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-		request.getRequestDispatcher("/LoginFail").forward(request, response);
+VelocityEngine ve = common.VelocityEngineObject.getVelocityEngine();
+		
+
+        if (request.getParameter("filename")==null) {
+		StringWriter writer = new StringWriter();
+		Template template = null;
+		VelocityContext context = new VelocityContext();
+		
+		
+		
+       
+		template = ve.getTemplate("test.vm");        
+		
+		template.merge( context, writer );
+        response.getWriter().println(writer.toString());
+        } else { 
+        	System.out.println("ceva este");
+        }
 	}
 
 }

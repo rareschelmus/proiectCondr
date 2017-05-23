@@ -2,6 +2,14 @@ body{
     margin: 0px 0px 0px 0px;
 }
 
+
+.my-picture {
+    display: block;
+    margin: 0 auto;
+    height: auto;
+    width: 100%;
+}
+
 image-cropper {
     width: 40px;
     height: 40px;
@@ -12,12 +20,6 @@ image-cropper {
     border-radius: 20px;
     overflow:hidden;
     margin: 4px;
-}
-.my-picture {
-    display: block;
-    margin: 0 auto;
-    height: auto;
-    width: 100%;
 }
 
 .xxx {

@@ -25,6 +25,7 @@ public class ResourceLoader extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = (String) request.getParameter("v");
 		System.out.println(DigestUtils.sha256Hex("4"));
+		System.out.println(path);
 		if (path.equals(DigestUtils.sha256Hex("2"))) {
 			 //styles/main_page.css 2
 			request.getRequestDispatcher("/styles/main_page.css").forward(request, response);
@@ -35,7 +36,7 @@ public class ResourceLoader extends HttpServlet {
 		} else 
 	    if (path.equals(DigestUtils.sha256Hex("4"))) {
 				///bootstrap_social/bootstrap-social.css 3
-				request.getRequestDispatcher("/styles/main_page.css").forward(request, response);
+				request.getRequestDispatcher("/styles/user_profile.css").forward(request, response);
 	    } 
 	}
 

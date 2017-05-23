@@ -38,8 +38,6 @@ public class UserProfile extends HttpServlet {
  		VelocityContext context = new VelocityContext();
  		
  		
- 		
-        String sha256hex = DigestUtils.sha256Hex("2");
  		context.put("encrypt_user_profile",DigestUtils.sha256Hex("4"));
  		context.put("name", (String) request.getSession().getAttribute("name"));
  		context.put("urlImage",(String) request.getSession().getAttribute("urlImage"));
