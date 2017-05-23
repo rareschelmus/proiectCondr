@@ -41,9 +41,11 @@ public class UserProfile extends HttpServlet {
  		context.put("encrypt_user_profile",DigestUtils.sha256Hex("4"));
  		context.put("name", (String) request.getSession().getAttribute("name"));
  		context.put("urlImage",(String) request.getSession().getAttribute("urlImage"));
+ 		context.put("encrypt_js", DigestUtils.sha256Hex("5"));
  		template = ve.getTemplate("user_profile.html");        
  		
  		template.merge( context, writer );
+ 		response.setCharacterEncoding("UTF-8");
          response.getWriter().println(writer.toString());
  	}
 

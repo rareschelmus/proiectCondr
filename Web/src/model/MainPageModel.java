@@ -29,21 +29,23 @@ public class MainPageModel extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      VelocityEngine ve = common.VelocityEngineObject.getVelocityEngine();
-		
+       VelocityEngine ve = common.VelocityEngineObject.getVelocityEngine();
 		StringWriter writer = new StringWriter();
 		Template template = null;
 		VelocityContext context = new VelocityContext();
 		
-		
+		System.out.println(DigestUtils.sha256Hex("4"));
 		
        String sha256hex = DigestUtils.sha256Hex("2");
 		context.put("encrypt_main_page",DigestUtils.sha256Hex("2"));
 		context.put("encrypt_bootstrap_social", DigestUtils.sha256Hex("3"));
 		context.put("urlImage",(String) request.getSession().getAttribute("urlImage"));
+		context.put("name", (String) request.getSession().getAttribute("name"));
+		context.put("encrypt_js", DigestUtils.sha256Hex("5"));
 		template = ve.getTemplate("main_page.html");        
 		
 		template.merge( context, writer );
+		response.setCharacterEncoding("UTF-8");
         response.getWriter().println(writer.toString());
 	}
 

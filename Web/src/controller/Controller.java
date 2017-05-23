@@ -36,6 +36,10 @@ public class Controller extends HttpServlet {
 			i--;
 		}
 
+		if (result.equals("UserProfile"))
+			 requestDispatcher = request.getRequestDispatcher("/UserProfile"); else
+		if (result.equals("MainPageModel"))
+			 requestDispatcher = request.getRequestDispatcher("/MainPageModel"); else 
 		if (result.equals("Logout"))
 			 requestDispatcher = request.getRequestDispatcher("/Logout"); else 
 		if (result.equals("LoginFail"))

@@ -1,9 +1,8 @@
 
-<!DOCTYPE html>
-
-
-<html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ru">
     <head>
+        <META http-equiv="content-type" content="text/html; charset=utf-8">
         <link rel="stylesheet" type="text/css" href="../ResourceLoader?v=$encrypt_main_page" />
         <link rel="stylesheet" type="text/css" href="../ResourceLoader?v=$encrypt_bootstrap_social" />
         <!-- Latest compiled and minified CSS -->
@@ -16,109 +15,9 @@
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1"> <!--ca sa fie responsive-->
-       <script src="https://apis.google.com/js/api:client.js"></script>       
-         <script>
-         var httpG = new XMLHttpRequest();
-         var httpF = new XMLHttpRequest();
-         var url = "Web/Controller/Login";
-         httpG.open("POST", url, true);
-         httpF.open("POST", url, true);
+       <script src="https://apis.google.com/js/api:client.js"></script>  
+       <script src="../ResourceLoader?v=$encrypt_js"></script>     
 
-         //Send the proper header information along with the request
-         httpG.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
-         httpF.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
-
-         httpG.onreadystatechange = function() {//Call a function when the state changes.
-             if(httpG.readyState == 4 && httpG.status == 200) {
-                 if (httpG.responseText=="++")  {
-                	 window.location.replace("http://localhost:8080/Web/Controller/UserProfile");
-                 } else {
-                	 window.location.replace("http://localhost:8080/Web/Controller/LoginFail");
-                 }
-             }
-         }
-         
-         httpF.onreadystatechange = function() {//Call a function when the state changes.
-             if(httpF.readyState == 4 && httpF.status == 200) {
-            	 if (httpF.responseText=="++")  {
-                	 window.location.replace("http://localhost:8080/Web/Controller/UserProfile");
-                 } else {
-                	 window.location.replace("http://localhost:8080/Web/Controller/LoginFail");
-                 }
-             }
-         }
-         
-         window.fbAsyncInit = function() {
-       	  FB.init({
-       	    appId      : '291893044602593',
-       	    cookie     : true,  // enable cookies to allow the server to access 
-       	                        // the session
-       	    xfbml      : true,  // parse social plugins on this page
-       	    version    : 'v2.8' // use graph api version 2.8
-       	  });
-         };
-         
-      // Load the SDK asynchronously
-         (function(d, s, id) {
-           var js, fjs = d.getElementsByTagName(s)[0];
-           if (d.getElementById(id)) return;
-           js = d.createElement(s); js.id = id;
-           js.src = "//connect.facebook.net/en_US/sdk.js";
-           fjs.parentNode.insertBefore(js, fjs);
-         }(document, 'script', 'facebook-jssdk'));
-      
-         function fb_login() {
-        	    FB.login( function (response) {
-        	      if (response.authResponse) {
-        	            console.log('Welcome!  Fetching your information.... ');
-        	            
-        	            access_token = response.authResponse.accessToken; //get access token
-        	            user_id = response.authResponse.userID; //get FB UID
-        	            name = response.name;
-        	           
-        	            FB.api('/me?access_token='+access_token, {scope : 'email' } ,function (response) {
-        	                var email = response.email;
-        	                var name = response.name;   
-        	                console.log(access_token);
-        	                httpF.send("token="+access_token+"&mt=f");
-        	                
-        	            });
-
-        	        } else {
-        	            //user hit cancel button
-        	            console.log('User cancelled login or did not fully authorize.');
-        	        }
-        	    },{scope : 'email' });
-        	 
-         }
-         
-         var googleUser = {};
-         var startApp = function() {
-           gapi.load('auth2', function(){
-             // Retrieve the singleton for the GoogleAuth library and set up the client.
-             auth2 = gapi.auth2.init({
-               client_id: '494217629857-3qlnbam99rn8v2o3521c3nuq7lpp1o8f.apps.googleusercontent.com',
-               cookiepolicy: 'single_host_origin',
-               // Request scopes in addition to 'profile' and 'email'
-               //scope: 'additional_scope'
-             });
-             
-             attachSigninGoogle(document.getElementById('customBtn'));
-           });
-         };
-
-         function attachSigninGoogle(element) {
-           console.log(element.id);
-           auth2.attachClickHandler(element, {},
-               function(googleUser) {
-        	     httpG.send("token="+googleUser.getAuthResponse().id_token+"&mt=g&name="+googleUser.getBasicProfile().getName()+"&url="+googleUser.getBasicProfile().getImageUrl());  
-               }, function(error) {
-                 alert(JSON.stringify(error, undefined, 2));
-               });
-         }
-
-         
-         </script>
 
        <title> Home </title>
     </head>
@@ -136,14 +35,30 @@
                         <span class="icon-bar"></span>
                     </button>
                     
-                    <a href="#Condr" class="navbar-brand">Condr</a>
+                    <a href="http://localhost:8080/Web/Controller/MainPageModel" class="navbar-brand">Condr</a>
                 </div>
                 <div class="collapse navbar-collapse navbar-right" id="navbar-collapse">
                     <ul class="nav navbar-nav">
+                    #if ($urlImage)
+                        <li> 
+                        
+                       <div class="image-cropper">
+                       
+                         <img class="my-picture" src="$urlImage" alt="This is a picture of me"/>
+                         
+                       </div>
+                       <li><a href="http://localhost:8080/Web/Controller/UserProfile">$name</a>
+                        <li class="dropdown">
+                        </li>
+                        <li><a href="#log-out" onclick=logout();>Log out</a>
+       
+                     #else
                         <li><a href="#log-in" data-toggle="modal" data-target="#sign-in-modal" ><span class="glyphicon glyphicon-log-in"> </span> Log-in</a>
+                       #end 
+                        
                         <li><a href="#about"><span class="glyphicon glyphicon-th"> </span> About</a>
                         
-                        
+                      
                     </ul>
                     
                 </div>    
@@ -154,12 +69,6 @@
             <div class="container text-center">
                 <h1 >Condr</h1>
                 <p id="status">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore."</p>
-                #if ($urlImage) 
-        <div class="image-cropper">
-            <img class="my-picture" src="$urlImage" alt="This is a picture of me"/>
-        </div>
-       
-                #end
                 
                 <!-- SEARCH BAR!!! -->
                 <form>
