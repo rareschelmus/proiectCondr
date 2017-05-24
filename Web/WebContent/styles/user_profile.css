@@ -2,6 +2,35 @@ body{
     margin: 0px 0px 0px 0px;
 }
 
+.image-cropper {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    border: 2px solid white;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    overflow:hidden;
+    margin: 4px;
+}
+
+.my-picture {
+    display: block;
+    margin: 0 auto;
+    height: auto;
+    width: 100%;
+}
+
+
+
+.xxx {
+	margin: 10px;
+}
+
+.yyy {
+	margin: 10px;
+}
+
 .header {
     height:90px;
     background-color: rgb(27,197,237);
