@@ -40,6 +40,7 @@ margin : 0 0 0 0;
 #balbla {
 text-align : center;
 }
+
 .header {
 height : 90px;
 background-color : rgb(27, 197, 237);
@@ -56,14 +57,20 @@ margin-top : 15px;
 margin-left : 20px;
 }
 footer {
+    
 background-color : #222;
 border-color : #080808;
-height : 120px;
+height : 320px;
 }
 footer > p {
 color : #eee;
 text-align : center;
 }
+
+footer{
+    color:#999;
+} 
+
 .slider {
 height : 900px;
 background-color : rgb(255, 255, 239);
@@ -96,5 +103,72 @@ margin-bottom : 10px;
 }
 
 
+.search-text1{
+    margin-top:50px;
+    text-align:center;
+    font-size:72px;
+}
 
+.search-text2{
+    text-align:center;
+    font-size:24px;
+}
+
+
+.main-text1{
+    text-align:center;
+    font-size:48px;
+}
+
+
+.main-img{
+    max-width:100%;
+    max-height:100%;
+}
+
+.main-text2{
+    text-align:center;
+    font-size:48px;
+}
+
+.why-text1{
+    text-align:center;
+    font-size:36px;
+}
+
+
+.why-text2{
+    margin-top:30px;
+    font-size:18px;
+    font-style:bold;
+}
+
+.suggestion-container{
+    height:280px;
+    padding:5px 5px 5px 5px;
+    background-color:white;
+    border-radius:5%;
+    border-width:1;
+    border-color: rgba(0,0,0,.1);
+}
+
+.suggestion-container-img{
+    padding-top:10px;
+    padding-bottom:10px;
+    height:120px;
+}
+
+.suggestion-container-img > img{
+    
+    height:100px;
+}
+
+.button-product{
+    position:relative;
+}
+
+.suggestion-title{
+    height:100px;
+    padding:10px 10px 10px 10px;
+}
 
