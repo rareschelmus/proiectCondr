@@ -7,22 +7,7 @@
 </head>
 <body>
 
-<canvas id="xxx" width="50" height="50"></canvas>
-
-<script>
-var canvas = document.getElementById("xxx");
-var imageData = canvas.toDataURL('image/jpeg', 1.0);
-var params = "filename=" + imageData;
-
-//Initiate the request
-var httpRequest = new XMLHttpRequest();            
-httpRequest.open('POST', 'Web/Controller/Test', true);
-
-//Send proper headers
-httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-//Send your data
-httpRequest.send(params);
-</script>
+<img src="../ImageLoader" height="200" width="200"/>
 
 </body>
 </html>

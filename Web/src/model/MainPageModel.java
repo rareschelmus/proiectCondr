@@ -34,7 +34,7 @@ public class MainPageModel extends HttpServlet {
 		Template template = null;
 		VelocityContext context = new VelocityContext();
 		
-		System.out.println(DigestUtils.sha256Hex("4"));
+//		System.out.println(DigestUtils.sha256Hex("4"));
 		
        String sha256hex = DigestUtils.sha256Hex("2");
 		context.put("encrypt_main_page",DigestUtils.sha256Hex("2"));

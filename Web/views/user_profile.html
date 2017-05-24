@@ -56,12 +56,16 @@
                          
                        </div>
        
-                     #end
+                     
                         <li><a href="http://localhost:8080/Web/Controller/UserProfile">$name</a>
                         <li class="dropdown">
+                            <a href="#settings" class="dropdown-toggle" data-toggle="dropdown">Settings<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" onclick=deleteAction();>Delete account</a></li>
+                            </ul>
                         </li>
                         <li><a href="#log-out" onclick=logout();>Log out</a>
-                        
+                        #end
                     </ul>
                     
                 </div>    

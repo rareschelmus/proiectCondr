@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import javax.servlet.ServletException;
@@ -13,11 +14,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import oracle.jdbc.driver.OracleConnection;
+import oracle.jdbc.internal.OraclePreparedStatement;
+import oracle.jdbc.internal.OracleResultSet;
+import oracle.sql.CHAR;
+
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Version;
 import com.restfb.exception.FacebookOAuthException;
 import com.restfb.types.User;
+import common.DBConnection;
 
 
 
@@ -51,8 +58,10 @@ public class Login extends HttpServlet {
 	        user_id= user.getId();
 	        urlImage = "https://graph.facebook.com/"+user_id+"/picture?type=large";
 			} catch (FacebookOAuthException e) {
-				response.getOutputStream().write(0);
-				return ;
+				p.append("--");
+	    		p.flush();
+	    		p.close();
+            	return ;
 			}
 		} else 
 	    if (method.equals("g")) {
@@ -97,12 +106,28 @@ public class Login extends HttpServlet {
 	    		return ;
 	    	}
 	    }
-		System.out.println(name);
-		System.out.println(user_id);
-		System.out.println(urlImage);
+		System.out.println(name+" logat");
+//		System.out.println(user_id);
+//		System.out.println(urlImage);
 		request.getSession().setAttribute("name", name);
 		request.getSession().setAttribute("user_id", user_id);
 		request.getSession().setAttribute("urlImage", urlImage);
+		// utilizator logat verific daca utilizatorul este pentru prima data logat si inserez in bd
+		OracleConnection c = DBConnection.getConnection();
+		try {
+			OraclePreparedStatement st = (OraclePreparedStatement) c.prepareStatement("select count(id) from user_ where id=?");
+			st.setString(1, user_id);
+			OracleResultSet r = (OracleResultSet) st.executeQuery();
+			if (r.next() && r.getInt(1)==0) {
+				//utilizatorul este pentru prima data logat
+				st = (OraclePreparedStatement) c.prepareStatement("insert into user_(id,type) values(?,?)");
+				st.setString(1, user_id);
+				st.setString(2, method);
+				st.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		p.append("++");
 		p.flush();
 		p.close();

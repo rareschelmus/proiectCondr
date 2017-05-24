@@ -1,6 +1,10 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,12 +12,47 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import oracle.jdbc.OracleConnection;
+import oracle.jdbc.internal.OraclePreparedStatement;
+import common.DBConnection;
+
 
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     public Controller() {
         super();
+        new Thread(){
+        	public void run() {
+        		while (true) {
+	        		Calendar date = new GregorianCalendar();
+	        		date.set(Calendar.HOUR_OF_DAY, 0);
+	        		date.set(Calendar.MINUTE, 0);
+	        		date.set(Calendar.SECOND, 0);
+	        		date.set(Calendar.MILLISECOND, 0);
+	        		long x =24*3600*1000-new Date().getTime() + date.getTime().getTime();
+	        		
+	        		try {
+	        			System.out.println("astept ora 00:00 ca sa apelez trigger ul pentru a sterge conturile ");
+						this.sleep(x);
+	        			 OracleConnection c = DBConnection.getConnection();
+						  OraclePreparedStatement st = (OraclePreparedStatement) c.prepareStatement("update util set x = ?");
+						  st.setInt(1, 4);
+						  st.executeUpdate();
+						st.close();
+						c.commit();
+						System.out.println("gata");
+						
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+        		}
+ 
+        	};
+        	
+        }.start();
     }
 
 
@@ -36,6 +75,10 @@ public class Controller extends HttpServlet {
 			i--;
 		}
 
+		if (result.equals("ImageLoader"))
+			 requestDispatcher = request.getRequestDispatcher("/ImageLoader"); else
+		if (result.equals("DeleteAcount"))
+			 requestDispatcher = request.getRequestDispatcher("/DeleteAcount"); else
 		if (result.equals("UserProfile"))
 			 requestDispatcher = request.getRequestDispatcher("/UserProfile"); else
 		if (result.equals("MainPageModel"))

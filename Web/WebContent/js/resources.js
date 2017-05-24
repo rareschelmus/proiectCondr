@@ -112,5 +112,20 @@ var httpG = new XMLHttpRequest();
          function logout() {
            http.send("");
          }
+         
+         function deleteAction() {
+        	 var http = new XMLHttpRequest();
+             var url = "Web/Controller/DeleteAcount";
+             http.open("POST", url, true);
+             http.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+             http.send("");
+             http.onreadystatechange = function() {//Call a function when the state changes.
+                 if(http.readyState == 4 && http.status == 200) {
+                     console.log("log out ok");
+                      window.location.replace("http://localhost:8080/Web/Controller/M");
+                 }
+             }
+             
+         }
 
          
