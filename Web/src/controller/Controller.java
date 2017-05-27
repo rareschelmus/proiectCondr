@@ -30,13 +30,13 @@ public class Controller extends HttpServlet {
 	        		date.set(Calendar.MINUTE, 0);
 	        		date.set(Calendar.SECOND, 0);
 	        		date.set(Calendar.MILLISECOND, 0);
-	        		long x =24*3600*1000-new Date().getTime() + date.getTime().getTime();
+	        		long x = 24*3600*1000-new Date().getTime() + date.getTime().getTime();
 	        		
 	        		try {
 	        			System.out.println("astept ora 00:00 ca sa apelez trigger ul pentru a sterge conturile ");
-						this.sleep(x);
+						Thread.sleep(x);
 	        			 OracleConnection c = DBConnection.getConnection();
-						  OraclePreparedStatement st = (OraclePreparedStatement) c.prepareStatement("update util set x = ?");
+						  OraclePreparedStatement st = (OraclePreparedStatement) c.prepareStatement("update util set id = ?");
 						  st.setInt(1, 4);
 						  st.executeUpdate();
 						st.close();
@@ -64,6 +64,7 @@ public class Controller extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String url=request.getRequestURL().toString();
+		
 		String result="";
 		
 		RequestDispatcher requestDispatcher=null;
@@ -77,6 +78,8 @@ public class Controller extends HttpServlet {
 
 		if (result.equals("ImageLoader"))
 			 requestDispatcher = request.getRequestDispatcher("/ImageLoader"); else
+	    if (result.equals("Scan"))
+		     requestDispatcher = request.getRequestDispatcher("/Scan"); else
 		if (result.equals("DeleteAcount"))
 			 requestDispatcher = request.getRequestDispatcher("/DeleteAcount"); else
 		if (result.equals("UserProfile"))
@@ -91,8 +94,8 @@ public class Controller extends HttpServlet {
 			 requestDispatcher = request.getRequestDispatcher("/UserProfile"); else 
 	    if (result.equals("Test"))
 		 requestDispatcher = request.getRequestDispatcher("/Test"); else 
-			 if (result.equals("TestF"))
-				 requestDispatcher = request.getRequestDispatcher("/TestF"); else 
+			 if (result.equals("TestL"))
+				 requestDispatcher = request.getRequestDispatcher("/TestL"); else 
 	    if (result.equals("Login"))
 		 requestDispatcher = request.getRequestDispatcher("/Login"); else 
 		if (request.getSession().getAttribute("name")==null)

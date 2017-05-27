@@ -1,4 +1,4 @@
-var httpG = new XMLHttpRequest();
+         var httpG = new XMLHttpRequest();
          var httpF = new XMLHttpRequest();
          var url = "Web/Controller/Login";
          httpG.open("POST", url, true);
