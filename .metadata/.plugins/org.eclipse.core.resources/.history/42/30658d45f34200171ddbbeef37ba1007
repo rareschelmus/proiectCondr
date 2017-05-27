@@ -1,0 +1,308 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ru">
+    <head>
+        <META http-equiv="content-type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" type="text/css" href="../ResourceLoader?v=$encrypt_main_page" />
+        <link rel="stylesheet" type="text/css" href="../ResourceLoader?v=$encrypt_bootstrap_social" />
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1"> <!--ca sa fie responsive-->
+       <script src="https://apis.google.com/js/api:client.js"></script>  
+       <script src="../ResourceLoader?v=$encrypt_js"></script>     
+
+
+       <title> Home </title>
+    </head>
+    
+    <body>
+        <!--Navbar-->
+        
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="my-navbar">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    
+                    <a href="http://localhost:8080/Web/Controller/MainPageModel" class="navbar-brand">Condr</a>
+                </div>
+                <div class="collapse navbar-collapse navbar-right" id="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                    #if ($urlImage)
+                        <li> 
+                        
+                       <div class="image-cropper">
+                       
+                         <img class="my-picture" src="$urlImage" alt="This is a picture of me"/>
+                         
+                       </div>
+                       <li><a href="http://localhost:8080/Web/Controller/UserProfile">$name</a>
+                        
+                        <li class="dropdown">
+                            <a href="#settings" class="dropdown-toggle" data-toggle="dropdown">Settings<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" onclick=deleteAction();>Delete account</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#log-out" onclick=logout();>Log out</a>
+       
+                     #else
+                        <li><a href="#log-in" data-toggle="modal" data-target="#sign-in-modal" ><span class="glyphicon glyphicon-log-in"> </span> Log-in</a>
+                       #end 
+                        
+                        <li><a href="#about"><span class="glyphicon glyphicon-th"> </span> About</a>
+                        
+                      
+                    </ul>
+                    
+                </div>    
+            </div>
+        </nav>
+        
+        
+        <!-- jumbotronus -->
+        <div class="jumbotron">
+            <div class="container text-center">
+
+                <!-- SEARCH BAR!!! -->
+                <form>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for food"> 
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <!-- END OF SEARCH BAR!!! -->
+            </div>
+        </div>
+        
+        <div class="container">
+
+        </div>
+        
+        <div class="jumbotron" style="margin-top:50px;">
+            <div class="why-text1">Why Condr?</div>
+            <blockquote>
+                <div class="row">
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-2">
+                        <img class="img-circle" src="../images/zen.jpg" style="width: 100px;height:100px;">
+                    </div>
+                    <div class="col-md-9 ">
+                        <p>In this plate of food, I see the entire universe supporting my existence.</p>
+                        <small>A Zen blessing</small>
+                    </div>
+<<<<<<< HEAD
+                </div>
+                <div class="container why-text2">
+                   In the last years, a great trend of "I have to eat healthier" dug straight in the roots of our society. And in a digitalized society, having an app that can help you to make choices for your diet it's the perfect wy to start to dive in this trend. Condr helps you to choose what you eat, beacause he knows your preferneces. Also, Condr can recommand you new and good things specially selected for your tummy.
+                </div>
+=======
+                </div>
+                <div class="container why-text2">
+                   In the last years, a great trend of "I have to eat healthier" dug straight in the roots of our society. And in a digitalized society, having an app that can help you to make choices for your diet it's the perfect wy to start to dive in this trend. Condr helps you to choose what you eat, beacause he knows your preferneces. Also, Condr can recommand you new and good things specially selected for your tummy.
+                </div>
+>>>>>>> 5c29089391e88853bda37df73907f3a37d6b843c
+            </blockquote>
+        </div>
+        
+        
+        <div class="jumbotron">
+            <div class="container">
+                <h4>Trending this week</h4>
+                <div class="row">
+                    <div class="col-md-2 col-sm-2">
+                        <div class="suggestion-container">
+                            <div class="suggestion-container-img ">
+                                <img src="../images/capsuna.jpg" class="center-block">
+                            </div>
+                            
+                            <div class="suggestion-title">
+                                <h5>Capsuna</h5>
+                            </div>
+                            
+                            <div class="button-product">
+                                <button class="btn btn-primary center-block ">
+                                    Check it
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-2 col-sm-2">
+                        <div class="suggestion-container">
+                            <div class="suggestion-container-img ">
+                                <img src="../images/capsuna.jpg" class="center-block">
+                            </div>
+                            
+                            <div class="suggestion-title">
+                                <h5>Capsuna</h5>
+                            </div>
+                            
+                            <div class="button-product">
+                                <button class="btn btn-primary center-block ">
+                                    Check it
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-2 col-sm-2">
+                        <div class="suggestion-container">
+                            <div class="suggestion-container-img ">
+                                <img src="../images/capsuna.jpg" class="center-block">
+                            </div>
+                            
+                            <div class="suggestion-title">
+                                <h5>Capsuna</h5>
+                            </div>
+                            
+                            <div class="button-product">
+                                <button class="btn btn-primary center-block ">
+                                    Check it
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                        <div class="suggestion-container">
+                            <div class="suggestion-container-img ">
+                                <img src="../images/capsuna.jpg" class="center-block">
+                            </div>
+                            
+                            <div class="suggestion-title">
+                                <h5>Capsuna</h5>
+                            </div>
+                            
+                            <div class="button-product">
+                                <button class="btn btn-primary center-block ">
+                                    Check it
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-2 col-sm-2">
+                        <div class="suggestion-container">
+                            <div class="suggestion-container-img ">
+                                <img src="../images/capsuna.jpg" class="center-block">
+                            </div>
+                            
+                            <div class="suggestion-title">
+                                <h5>Capsuna</h5>
+                            </div>
+                            
+                            <div class="button-product">
+                                <button class="btn btn-primary center-block ">
+                                    Check it
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-2 col-sm-2">
+                        <div class="suggestion-container">
+                            <div class="suggestion-container-img ">
+                                <img src="../images/capsuna.jpg" class="center-block">
+                            </div>
+                            
+                            <div class="suggestion-title">
+                                <h5>Capsuna</h5>
+                            </div>
+                            
+                            <div class="button-product">
+                                <button class="btn btn-primary center-block ">
+                                    Check it
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="container-full">
+          
+            <footer class="footer">
+
+                    <p >Condr, your daily asistant(c).</p>
+                    <div class="container">
+                        <section>
+                            <div class="page-header" id="contact">
+                                <h2>Contact Us.</h2>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <p>Send us the message, or contact us through a pigeon.</p>
+                                    
+                                    <address>
+                                        <strong>Ceva SRL</strong><br/>
+                                        str. Bomfaierul Ghidus, 72, Pipera<br/> 
+                                        Iasi, Romania<br>
+                                        Fax: 09283789992
+                                    </address>
+                                </div>
+                                
+                                <div class="col-lg-8">
+					<h4> office.condr.vccngsc@condr.com </h4>
+                                </div>
+                                
+                            </div>
+                        </section>
+                    </div>
+                    <p> <a href="#">Back to top</a> </p>  
+   
+            </footer>
+          
+        </div>
+    
+        <!-- Aci ai modala de sign-in -->
+        
+        <div class="modal fade" id="sign-in-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form class="form-signin" action="#LogIn" method="post">               
+                              <br/>
+                              #if ($loginFail) 
+                                 <p style="color:#FF0000";>Login Failure</p>
+                              #end
+                              
+							<div id="customBtn" >
+							<a class="btn btn-block btn-social btn-google">
+								<span id="spn" class="fa fa-google-plus"></span> Log in with gmail
+								</a>
+							</div>
+							
+								<a class="btn btn-block btn-social btn-facebook" onclick="fb_login();">
+								<span class="fa fa-facebook"></span> Log in with facebook
+								</a>
+							
+							<br/>
+							
+                        </form>
+                    </div>
+                </div>    
+            </div>
+        </div>
+        
+        <!-- pana aci e modala -->
+        <script>startApp();</script>
+    </body>
+</html>

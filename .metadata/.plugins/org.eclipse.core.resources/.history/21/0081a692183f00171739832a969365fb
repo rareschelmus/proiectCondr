@@ -1,0 +1,196 @@
+<html lang="en">
+  
+<head>
+        <link rel="stylesheet" type="text/css" href="../ResourceLoader?v=$encrypt_main_page" />
+        <link rel="stylesheet" type="text/css" href="../ResourceLoader?v=$encrypt_bootstrap_social" />
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1"> <!--ca sa fie responsive-->
+       <script src="https://apis.google.com/js/api:client.js"></script>       
+         <script>
+         var httpG = new XMLHttpRequest();
+         var httpF = new XMLHttpRequest();
+         var url = "Web/Controller/Login";
+         httpG.open("POST", url, true);
+         httpF.open("POST", url, true);
+
+         //Send the proper header information along with the request
+         httpG.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+         httpF.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+
+         httpG.onreadystatechange = function() {//Call a function when the state changes.
+             if(httpG.readyState == 4 && httpG.status == 200) {
+                console.log("succes G");
+             }
+         }
+         httpF.onreadystatechange = function() {//Call a function when the state changes.
+             if(httpF.readyState == 4 && httpF.status == 200) {
+                console.log("succes F");
+             }
+         }
+         
+         window.fbAsyncInit = function() {
+       	  FB.init({
+       	    appId      : '291893044602593',
+       	    cookie     : true,  // enable cookies to allow the server to access 
+       	                        // the session
+       	    xfbml      : true,  // parse social plugins on this page
+       	    version    : 'v2.8' // use graph api version 2.8
+       	  });
+         };
+         
+      // Load the SDK asynchronously
+         (function(d, s, id) {
+           var js, fjs = d.getElementsByTagName(s)[0];
+           if (d.getElementById(id)) return;
+           js = d.createElement(s); js.id = id;
+           js.src = "//connect.facebook.net/en_US/sdk.js";
+           fjs.parentNode.insertBefore(js, fjs);
+         }(document, 'script', 'facebook-jssdk'));
+      
+         function fb_login() {
+        	    FB.login( function (response) {
+        	      if (response.authResponse) {
+        	            console.log('Welcome!  Fetching your information.... ');
+        	            
+        	            access_token = response.authResponse.accessToken; //get access token
+        	            user_id = response.authResponse.userID; //get FB UID
+        	            name = response.name;
+        	           
+        	            FB.api('/me?access_token='+access_token, {scope : 'email' } ,function (response) {
+        	                var email = response.email;
+        	                var name = response.name;   
+        	                console.log(access_token);
+        	                httpF.send("token="+access_token+"&mt=f");
+        	                window.location.replace("http://localhost:8080/Web/Controller/");
+        	            });
+
+        	        } else {
+        	            //user hit cancel button
+        	            console.log('User cancelled login or did not fully authorize.');
+        	        }
+        	    },{scope : 'email' });
+        	 
+         }
+         
+         var googleUser = {};
+         var startApp = function() {
+           gapi.load('auth2', function(){
+             // Retrieve the singleton for the GoogleAuth library and set up the client.
+             auth2 = gapi.auth2.init({
+               client_id: '494217629857-3qlnbam99rn8v2o3521c3nuq7lpp1o8f.apps.googleusercontent.com',
+               cookiepolicy: 'single_host_origin',
+               // Request scopes in addition to 'profile' and 'email'
+               //scope: 'additional_scope'
+             });
+             
+             attachSigninGoogle(document.getElementById('customBtn'));
+           });
+         };
+
+         function attachSigninGoogle(element) {
+           console.log(element.id);
+           auth2.attachClickHandler(element, {},
+               function(googleUser) {
+        	     httpG.send("token="+googleUser.getAuthResponse().id_token+"&mt=g&name="+googleUser.getBasicProfile().getName()+"&url="+googleUser.getBasicProfile().getImageUrl());
+        	  
+                 window.location.replace("http://localhost:8080/Web/Controller/");
+               }, function(error) {
+                 alert(JSON.stringify(error, undefined, 2));
+               });
+         }
+
+         
+         </script>
+
+       <title> Home </title>
+    </head>
+  
+  <body>
+  
+  <!--Navbar-->
+        
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="my-navbar">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    
+                    <a href="#Condr" class="navbar-brand">Condr</a>
+                </div>
+                <div class="collapse navbar-collapse navbar-right" id="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#log-in" data-toggle="modal" data-target="#sign-in-modal" ><span class="glyphicon glyphicon-log-in"> </span> Log-in</a>
+                        <li><a href="#about"><span class="glyphicon glyphicon-th"> </span> About</a>
+                        
+                        
+                    </ul>
+                    
+                </div>    
+            </div>
+        </nav>
+        
+        </br>
+        </br>
+        </br>
+        </br>
+  
+    <div class="container">
+
+      <form class="form-signin" action="#LogIn" method="post">               
+                              <br/>
+                            
+                                 <p style="color:#FF0000">Login Failure</p>
+                             
+                              
+							<div id="customBtn" >
+							<a class="btn btn-block btn-social btn-google">
+								<span id="spn" class="fa fa-google-plus"></span> Log in with gmail
+								</a>
+							</div>
+							
+								<a class="btn btn-block btn-social btn-facebook" onclick="fb_login();">
+								<span class="fa fa-facebook"></span> Log in with facebook
+								</a>
+							</div>
+							<br/>
+							
+       </form>
+	  
+      <br/>
+      
+    </div> <!-- /container -->
+    
+    
+            <div class="container-full">
+          
+            <footer class="footer row navbar-fixed-bottom">
+
+                    <p >Condr, your daily asistant(c).</p>
+                    <p> <a href="#">Back to top</a> </p>  
+   
+            </footer>
+          
+        </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+     <script>startApp();</script>
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  
+
+</body></html>

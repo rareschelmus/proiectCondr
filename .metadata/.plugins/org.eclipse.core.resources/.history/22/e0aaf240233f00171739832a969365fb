@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+
+
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="../ResourceLoader?v=$encrypt_main_page" />
+        <link rel="stylesheet" type="text/css" href="../ResourceLoader?v=$encrypt_bootstrap_social" />
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1"> <!--ca sa fie responsive-->
+       <script src="https://apis.google.com/js/api:client.js"></script>       
+         <script>
+         var httpG = new XMLHttpRequest();
+         var httpF = new XMLHttpRequest();
+         var url = "Web/Controller/Login";
+         httpG.open("POST", url, true);
+         httpF.open("POST", url, true);
+
+         //Send the proper header information along with the request
+         httpG.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+         httpF.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+
+         httpG.onreadystatechange = function() {//Call a function when the state changes.
+             if(httpG.readyState == 4 && httpG.status == 200) {
+                 alert(httpG.responseText);
+             }
+         }
+         httpF.onreadystatechange = function() {//Call a function when the state changes.
+             if(httpF.readyState == 4 && httpF.status == 200) {
+                console.log("succes F");
+             }
+         }
+         
+         window.fbAsyncInit = function() {
+       	  FB.init({
+       	    appId      : '291893044602593',
+       	    cookie     : true,  // enable cookies to allow the server to access 
+       	                        // the session
+       	    xfbml      : true,  // parse social plugins on this page
+       	    version    : 'v2.8' // use graph api version 2.8
+       	  });
+         };
+         
+      // Load the SDK asynchronously
+         (function(d, s, id) {
+           var js, fjs = d.getElementsByTagName(s)[0];
+           if (d.getElementById(id)) return;
+           js = d.createElement(s); js.id = id;
+           js.src = "//connect.facebook.net/en_US/sdk.js";
+           fjs.parentNode.insertBefore(js, fjs);
+         }(document, 'script', 'facebook-jssdk'));
+      
+         function fb_login() {
+        	    FB.login( function (response) {
+        	      if (response.authResponse) {
+        	            console.log('Welcome!  Fetching your information.... ');
+        	            
+        	            access_token = response.authResponse.accessToken; //get access token
+        	            user_id = response.authResponse.userID; //get FB UID
+        	            name = response.name;
+        	           
+        	            FB.api('/me?access_token='+access_token, {scope : 'email' } ,function (response) {
+        	                var email = response.email;
+        	                var name = response.name;   
+        	                console.log(access_token);
+        	                httpF.send("token="+access_token+"&mt=f");
+        	                
+        	            });
+
+        	        } else {
+        	            //user hit cancel button
+        	            console.log('User cancelled login or did not fully authorize.');
+        	        }
+        	    },{scope : 'email' });
+        	 
+         }
+         
+         var googleUser = {};
+         var startApp = function() {
+           gapi.load('auth2', function(){
+             // Retrieve the singleton for the GoogleAuth library and set up the client.
+             auth2 = gapi.auth2.init({
+               client_id: '494217629857-3qlnbam99rn8v2o3521c3nuq7lpp1o8f.apps.googleusercontent.com',
+               cookiepolicy: 'single_host_origin',
+               // Request scopes in addition to 'profile' and 'email'
+               //scope: 'additional_scope'
+             });
+             
+             attachSigninGoogle(document.getElementById('customBtn'));
+           });
+         };
+
+         function attachSigninGoogle(element) {
+           console.log(element.id);
+           auth2.attachClickHandler(element, {},
+               function(googleUser) {
+        	     httpG.send("token="+googleUser.getAuthResponse().id_token+"&mt=g&name="+googleUser.getBasicProfile().getName()+"&url="+googleUser.getBasicProfile().getImageUrl());  
+               }, function(error) {
+                 alert(JSON.stringify(error, undefined, 2));
+               });
+         }
+
+         
+         </script>
+
+       <title> Home </title>
+    </head>
+    
+    <body>
+        <!--Navbar-->
+        
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="my-navbar">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    
+                    <a href="#Condr" class="navbar-brand">Condr</a>
+                </div>
+                <div class="collapse navbar-collapse navbar-right" id="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#log-in" data-toggle="modal" data-target="#sign-in-modal" ><span class="glyphicon glyphicon-log-in"> </span> Log-in</a>
+                        <li><a href="#about"><span class="glyphicon glyphicon-th"> </span> About</a>
+                        
+                        
+                    </ul>
+                    
+                </div>    
+            </div>
+        </nav>
+        <!-- jumbotronus -->
+        <div class="jumbotron">
+            <div class="container text-center">
+                <h1 >Condr</h1>
+                <p id="status">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore."</p>
+                #if ($urlImage) 
+        <div class="image-cropper">
+            <img class="my-picture" src="$urlImage" alt="This is a picture of me"/>
+        </div>
+       
+                #end
+                
+                <!-- SEARCH BAR!!! -->
+                <form>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for food"> 
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <!-- END OF SEARCH BAR!!! -->
+            </div>
+        </div>
+        
+        <div class="container">
+            <h1 id="balbla">Chestii</h1><br/>
+            <p id="if">"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
+        </div>
+        
+        <div class="container">
+            <section>
+                <div class="page-header" id="contact">
+                    <h2>Contact Us.<small>Contact info</small></h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <p>Send us the message, or contact us through a pigeon.</p>
+                        
+                        <address>
+                            <strong>Ceva SRL</strong><br/>
+                            str. Bomfaierul Ghidus, 72, Pipera<br/> 
+                            Iasi, Romania<br>
+                            Fax: 09283789992
+                        </address>
+                    </div>
+                    
+                    <div class="col-lg-8">
+                        <h4> office.condr.vccngsc@condr.com
+                    </div>
+                    
+                </div>
+            </section>
+        </div>
+        
+        <div class="container-full">
+          
+            <footer class="footer row">
+
+                    <p >Condr, your daily asistant(c).</p>
+                    <p> <a href="#">Back to top</a> </p>  
+   
+            </footer>
+          
+        </div>
+    
+        <!-- Aci ai modala de sign-in -->
+        
+        <div class="modal fade" id="sign-in-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form class="form-signin" action="#LogIn" method="post">               
+                              <br/>
+                              #if ($loginFail) 
+                                 <p style="color:#FF0000";>Login Failure</p>
+                              #end
+                              
+							<div id="customBtn" >
+							<a class="btn btn-block btn-social btn-google">
+								<span id="spn" class="fa fa-google-plus"></span> Log in with gmail
+								</a>
+							</div>
+							
+								<a class="btn btn-block btn-social btn-facebook" onclick="fb_login();">
+								<span class="fa fa-facebook"></span> Log in with facebook
+								</a>
+							</div>
+							<br/>
+							
+                        </form>
+                    </div>
+                </div>    
+            </div>
+        </div>
+        
+        <!-- pana aci e modala -->
+        <script>startApp();</script>
+    </body>
+</html>

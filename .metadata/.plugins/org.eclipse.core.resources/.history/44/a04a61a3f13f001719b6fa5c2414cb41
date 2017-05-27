@@ -1,0 +1,169 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ru">
+    <head>
+        <META http-equiv="content-type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" type="text/css" href="../ResourceLoader?v=$encrypt_main_page" />
+        <link rel="stylesheet" type="text/css" href="../ResourceLoader?v=$encrypt_bootstrap_social" />
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1"> <!--ca sa fie responsive-->
+       <script src="https://apis.google.com/js/api:client.js"></script>  
+       <script src="../ResourceLoader?v=$encrypt_js"></script>     
+
+
+       <title> Home </title>
+    </head>
+    
+    <body>
+        <!--Navbar-->
+        
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="my-navbar">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    
+                    <a href="http://localhost:8080/Web/Controller/MainPageModel" class="navbar-brand">Condr</a>
+                </div>
+                <div class="collapse navbar-collapse navbar-right" id="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                    #if ($urlImage)
+                        <li> 
+                        
+                       <div class="image-cropper">
+                       
+                         <img class="my-picture" src="$urlImage" alt="This is a picture of me"/>
+                         
+                       </div>
+                       <li><a href="http://localhost:8080/Web/Controller/UserProfile">$name</a>
+                        
+                        <li class="dropdown">
+                            <a href="#settings" class="dropdown-toggle" data-toggle="dropdown">Settings<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Change password</a></li> 
+                                <li class="divider"></li>
+                                <li><a href="#">Delete account</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#log-out" onclick=logout();>Log out</a>
+       
+                     #else
+                        <li><a href="#log-in" data-toggle="modal" data-target="#sign-in-modal" ><span class="glyphicon glyphicon-log-in"> </span> Log-in</a>
+                       #end 
+                        
+                        <li><a href="#about"><span class="glyphicon glyphicon-th"> </span> About</a>
+                        
+                      
+                    </ul>
+                    
+                </div>    
+            </div>
+        </nav>
+        <!-- jumbotronus -->
+        <div class="jumbotron">
+            <div class="container text-center">
+                <h1 >Condr</h1>
+                <p id="status">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore."</p>
+                
+                <!-- SEARCH BAR!!! -->
+                <form>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for food"> 
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <!-- END OF SEARCH BAR!!! -->
+            </div>
+        </div>
+        
+        <div class="container">
+            <h1 id="balbla">Chestii</h1><br/>
+            <p id="if">"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
+        </div>
+        
+        <div class="container">
+            <section>
+                <div class="page-header" id="contact">
+                    <h2>Contact Us.<small>Contact info</small></h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <p>Send us the message, or contact us through a pigeon.</p>
+                        
+                        <address>
+                            <strong>Ceva SRL</strong><br/>
+                            str. Bomfaierul Ghidus, 72, Pipera<br/> 
+                            Iasi, Romania<br>
+                            Fax: 09283789992
+                        </address>
+                    </div>
+                    
+                    <div class="col-lg-8">
+                        <h4> office.condr.vccngsc@condr.com
+                    </div>
+                    
+                </div>
+            </section>
+        </div>
+        
+        <div class="container-full">
+          
+            <footer class="footer row">
+
+                    <p >Condr, your daily asistant(c).</p>
+                    <p> <a href="#">Back to top</a> </p>  
+   
+            </footer>
+          
+        </div>
+    
+        <!-- Aci ai modala de sign-in -->
+        
+        <div class="modal fade" id="sign-in-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form class="form-signin" action="#LogIn" method="post">               
+                              <br/>
+                              #if ($loginFail) 
+                                 <p style="color:#FF0000";>Login Failure</p>
+                              #end
+                              
+							<div id="customBtn" >
+							<a class="btn btn-block btn-social btn-google">
+								<span id="spn" class="fa fa-google-plus"></span> Log in with gmail
+								</a>
+							</div>
+							
+								<a class="btn btn-block btn-social btn-facebook" onclick="fb_login();">
+								<span class="fa fa-facebook"></span> Log in with facebook
+								</a>
+							</div>
+							<br/>
+							
+                        </form>
+                    </div>
+                </div>    
+            </div>
+        </div>
+        
+        <!-- pana aci e modala -->
+        <script>startApp();</script>
+    </body>
+</html>

@@ -1,0 +1,12 @@
+127.0.0.1 - - [14/May/2017:14:20:04 +0300] "GET / HTTP/1.1" 404 951
+127.0.0.1 - - [14/May/2017:14:20:25 +0300] "GET /Web/Controller/Tes HTTP/1.1" 200 8192
+127.0.0.1 - - [14/May/2017:14:20:25 +0300] "GET /Web/styles/main_page.css HTTP/1.1" 200 1313
+127.0.0.1 - - [14/May/2017:14:20:25 +0300] "GET /Web/bootstrap_social/bootstrap-social.css HTTP/1.1" 200 28071
+127.0.0.1 - - [14/May/2017:14:20:26 +0300] "GET /favicon.ico HTTP/1.1" 404 973
+127.0.0.1 - - [14/May/2017:14:20:33 +0300] "GET /Web/Controller/Tes HTTP/1.1" 200 8192
+127.0.0.1 - - [14/May/2017:14:21:26 +0300] "GET /Web/Controller/Tes HTTP/1.1" 200 8192
+127.0.0.1 - - [14/May/2017:14:21:44 +0300] "POST /Web/Controller/Web/Controller/Test HTTP/1.1" 200 1
+127.0.0.1 - - [14/May/2017:14:21:44 +0300] "GET /Web/Controller/ HTTP/1.1" 200 8192
+127.0.0.1 - - [14/May/2017:14:22:22 +0300] "GET /Web/Controller/ HTTP/1.1" 200 8191
+127.0.0.1 - - [14/May/2017:14:22:29 +0300] "POST /Web/Controller/Web/Controller/Test HTTP/1.1" 200 1
+127.0.0.1 - - [14/May/2017:14:22:30 +0300] "GET /Web/Controller/ HTTP/1.1" 200 8191

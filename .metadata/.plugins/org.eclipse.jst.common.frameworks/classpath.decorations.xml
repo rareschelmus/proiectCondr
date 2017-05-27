@@ -1,0 +1,7 @@
+<classpath>
+  <container id="Web!org.eclipse.jst.j2ee.internal.web.container">
+    <entry id="/home/nemo/Downloads/scribe-1.3.7.jar">
+      <source-attachment-path>/Web</source-attachment-path>
+    </entry>
+  </container>
+</classpath>

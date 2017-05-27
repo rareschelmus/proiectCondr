@@ -1,0 +1,170 @@
+body{
+    margin: 0px 0px 0px 0px;
+}
+
+image-cropper {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    border: 2px solid white;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    overflow:hidden;
+}
+.my-picture {
+    display: block;
+    margin: 0 auto;
+    height: auto;
+    width: 100%;
+}
+
+.header {
+    height:90px;
+    background-color: rgb(27,197,237);
+}
+
+.logo {
+    width: 103px;
+    height: 80px;
+    position: relative;
+}
+
+.search-bar{
+    float:left;
+    width: 320px;
+    margin-top: 15px;
+    margin-left:20px;
+}
+
+footer{
+    background-color: #222;
+    border-color: #080808;
+    height:120px;
+}
+
+footer>p{
+    color:#eee;
+    text-align:center;
+}
+
+
+body{
+    min-height: 100%;
+}
+
+footer{
+    background-color: #222;
+    border-color: #080808;
+    height:120px;
+    
+}
+
+.search-bar{
+    min-width:200px;
+    max-width:800px;
+}
+
+.icon-navbar{
+    height:25px;
+    width:25px;
+    margin-top:12px;
+    border-radius:5%;
+    border-width:2px;
+    border-color:#fff;
+}
+
+.container-produs{
+    margin-top:80px;
+    padding-bottom:10px;
+    padding-top:10px;    
+}
+
+.img-produs{
+    height:400px;
+    width:300px;
+}
+
+.text-produs{
+    padding-right:20px;
+    padding-left:20px;
+}
+
+.first-space{
+    margin-top:80px;
+}
+
+.produs{
+    width:200px;
+    height:200px;
+}
+
+.suggestion-container{
+    height:280px;
+    padding:5px 5px 5px 5px;
+    background-color:white;
+    border-radius:5%;
+    border-width:1;
+    border-color: rgba(0,0,0,.1);
+}
+
+.suggestion-container-img{
+    padding-top:10px;
+    padding-bottom:10px;
+    height:120px;
+}
+
+.suggestion-container-img > img{
+    
+    height:100px;
+}
+
+.button-product{
+    position:relative;
+}
+
+.suggestion-title{
+    height:100px;
+    padding:10px 10px 10px 10px;
+}
+
+.gallery{
+    height:400px;
+}
+
+.gallery>div{
+   
+    vertical-align: middle;
+}
+
+.gallery>div>img{
+    height:100%;
+    max-height:400px;
+    text-align:center;
+}
+
+
+.liked-products-container{
+    margin-top:5px;
+    margin-bottom:5px;
+    border-style:solid;
+    border-width:1px 0px 0px 0px;
+    border-color:#ddd;
+    padding:10px 0px 0px 0px;
+}
+.disliked-products-container{
+    margin-top:5px;
+    margin-bottom:5px;
+    border-style:solid;
+    border-width:2px 0px 0px 0px;
+    border-color:#ddd;
+    padding:10px 0px 5px 0px;
+}
+
+.profile-img{
+    border-style:solid;
+    border-radius:5%;
+    border-width:1px 1px 1px 1px;
+    border-color:#999;
+    margin-bottom:10px;
+}

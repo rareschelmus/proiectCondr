@@ -1,0 +1,111 @@
+package model;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Scanner;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.restfb.DefaultFacebookClient;
+import com.restfb.FacebookClient;
+import com.restfb.Version;
+import com.restfb.exception.FacebookOAuthException;
+import com.restfb.types.User;
+
+
+
+@WebServlet("/Login")
+public class Login extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+    public Login() {
+        super();
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request,response);
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	  
+		String token = (String) request.getParameter("token");
+		String method = (String) request.getParameter("mt");
+		String name = (String) request.getParameter("name");
+		PrintWriter p = new PrintWriter(response.getOutputStream());
+		
+		String urlImage = null;
+		String user_id = null;
+		if (method.equals("f")) {
+			try {
+			FacebookClient facebookClient = new DefaultFacebookClient(token, "28bb62c0578cef84b395e0269349d152", Version.LATEST);        
+	        User user = facebookClient.fetchObject("me", User.class);
+	        name= user.getName();
+	        user_id= user.getId();
+	        urlImage = "https://graph.facebook.com/"+user_id+"/picture?type=square";
+			} catch (FacebookOAuthException e) {
+				response.getOutputStream().write(0);
+				return ;
+			}
+		} else 
+	    if (method.equals("g")) {
+             urlImage = (String) request.getParameter("url");
+             
+	    	try {
+
+	    	    URL url = new URL("https://www.googleapis.com/oauth2/v2/tokeninfo?id_token="+token);
+
+	    	    HttpURLConnection connection = (HttpURLConnection) url
+	    	            .openConnection();
+	    	    connection.setDoInput(true);
+	    	    
+                connection.connect();
+	    	    
+                if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+	    	         // clientul este validat 
+                	Scanner a = new Scanner (connection.getInputStream());
+                	String ab = "";
+                	while (a.hasNext()) ab+=a.next();
+                	user_id= ab.split(":")[3].split("\"")[1];
+
+                } else {
+                	p.append("--");
+    	    		p.flush();
+    	    		p.close();
+                	return ;
+                }
+	    	    	
+	    	    	
+	    	    
+	    	} catch (MalformedURLException e) {
+	    		response.getOutputStream().write(0);
+	    		response.getOutputStream().flush();
+	    		response.getOutputStream().close();
+	    		return ;
+	    	} catch (IOException e) {
+	    		
+	    		p.append("--");
+	    		p.flush();
+	    		p.close();
+	    		return ;
+	    	}
+	    }
+		System.out.println(name);
+		System.out.println(user_id);
+		System.out.println(urlImage);
+		request.getSession().setAttribute("name", name);
+		request.getSession().setAttribute("user_id", user_id);
+		request.getSession().setAttribute("urlImage", urlImage);
+		response.getOutputStream().write(1);
+		response.getOutputStream().flush();
+		response.getOutputStream().close();
+	}
+
+}

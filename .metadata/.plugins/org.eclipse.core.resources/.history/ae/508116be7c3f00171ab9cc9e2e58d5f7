@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script>
+var imageData = canvas.toDataURL('image/png');
+var params = "filename=" + imageData;
+
+//Initiate the request
+var httpRequest = new XMLHttpRequest();            
+httpRequest.open('POST', 'Web/Controller/Test', true);
+
+//Send proper headers
+httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+httpRequest.setRequestHeader("Content-length", params.length);
+httpRequest.setRequestHeader("Connection", "close");
+
+//Send your data
+httpRequest.send(params);
+</script>
+
+</head>
+<body>
+
+<input type="hidden" name="filename"/>
+
+
+
+</body>
+</html>

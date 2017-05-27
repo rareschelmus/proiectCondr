@@ -42,7 +42,11 @@ public class DeleteAcount extends HttpServlet {
 			st.setDate(1, new Date(new java.util.Date().getTime()));
 			st.setString(2,p );
 			System.out.println(st.executeUpdate()+" "+p);
+			st = (OraclePreparedStatement) c.prepareStatement("delete from util where id=?");
+			st.setString(1, (String)request.getSession().getAttribute("user_id"));
+			st.executeUpdate();
 			st.close();
+			
 			request.getSession().invalidate();
 		} catch (SQLException e) {
 			e.printStackTrace();

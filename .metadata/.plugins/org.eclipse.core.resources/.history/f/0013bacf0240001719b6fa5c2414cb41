@@ -1,0 +1,93 @@
+package controller;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import oracle.jdbc.internal.OracleStatement;
+import common.DBConnection;
+
+
+public class Controller extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+    public Controller() {
+        super();
+        new Thread(){
+        	public void run() {
+//        		while (true) {
+	        		Calendar date = new GregorianCalendar();
+	        		date.set(Calendar.HOUR_OF_DAY, 0);
+	        		date.set(Calendar.MINUTE, 0);
+	        		date.set(Calendar.SECOND, 0);
+	        		date.set(Calendar.MILLISECOND, 0);
+	        		long x =new Date().getTime() - date.getTime().getTime();
+	        		try {
+	        			System.out.println("astept");
+						//this.sleep(x);
+						  OracleStatement st = (OracleStatement) DBConnection.getConnection().createStatement();
+						  st.executeUpdate("update util set x = 5");
+						System.out.println("gata");
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+//        		}
+        	};
+        	
+        }.start();
+    }
+
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request,response);
+	}
+
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String url=request.getRequestURL().toString();
+		String result="";
+		
+		RequestDispatcher requestDispatcher=null;
+		
+		int i=url.length()-1;
+		
+		while (i>=0 && url.charAt(i)!='/') {
+			result=url.charAt(i)+result;
+			i--;
+		}
+
+		if (result.equals("UserProfile"))
+			 requestDispatcher = request.getRequestDispatcher("/UserProfile"); else
+		if (result.equals("MainPageModel"))
+			 requestDispatcher = request.getRequestDispatcher("/MainPageModel"); else 
+		if (result.equals("Logout"))
+			 requestDispatcher = request.getRequestDispatcher("/Logout"); else 
+		if (result.equals("LoginFail"))
+			 requestDispatcher = request.getRequestDispatcher("/LoginFail"); else 
+		if (result.equals("UserProfile"))
+			 requestDispatcher = request.getRequestDispatcher("/UserProfile"); else 
+	    if (result.equals("Test"))
+		 requestDispatcher = request.getRequestDispatcher("/Test"); else 
+			 if (result.equals("TestF"))
+				 requestDispatcher = request.getRequestDispatcher("/TestF"); else 
+	    if (result.equals("Login"))
+		 requestDispatcher = request.getRequestDispatcher("/Login"); else 
+		if (request.getSession().getAttribute("name")==null)
+	     requestDispatcher = request.getRequestDispatcher("/MainPageModel"); else 
+	    	 requestDispatcher = request.getRequestDispatcher("/UserProfile");
+	    
+		 	 
+		requestDispatcher.forward(request, response);
+        
+	}
+
+}

@@ -1,0 +1,48 @@
+package model;
+
+import java.io.IOException;
+import java.sql.SQLException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import oracle.jdbc.OracleConnection;
+import oracle.jdbc.internal.OraclePreparedStatement;
+import common.DBConnection;
+
+@WebServlet("/DeleteAcount")
+public class DeleteAcount extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+ 
+    public DeleteAcount() {
+        super();
+    }
+
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	}
+
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("delete");
+		
+		try {
+			request.getSession().invalidate();
+			OracleConnection c = DBConnection.getConnection();
+			  OraclePreparedStatement st;
+			st = (OraclePreparedStatement) c.prepareStatement("update user_ set data_delete = ?");
+			st.setInt(1, 4);
+			  st.executeUpdate();
+			st.close();
+			c.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		  
+	}
+
+}

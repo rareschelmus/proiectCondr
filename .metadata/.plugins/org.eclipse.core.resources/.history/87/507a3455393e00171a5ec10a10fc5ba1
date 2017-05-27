@@ -1,0 +1,90 @@
+//package model;
+//
+//import java.io.IOException;
+//
+//import javax.servlet.ServletException;
+//import javax.servlet.annotation.WebServlet;
+//import javax.servlet.http.HttpServlet;
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
+//
+//import common.Utils;
+//
+//
+///**
+// * Servlet implementation class Test
+// */
+//@WebServlet("/Test")
+//public class Test extends HttpServlet {
+//	private static final long serialVersionUID = 1L;
+// 
+//    public Test() {
+//        super();
+//        
+//    }
+//
+//	
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		doPost(request,response);
+//	}
+//
+//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//
+//        String redirectUrl = Utils.service.getAuthorizationUrl(null);
+//        response.sendRedirect(redirectUrl);
+//	    
+//	}
+//
+//}
+package model;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.scribe.builder.ServiceBuilder;
+import org.scribe.builder.api.FacebookApi;
+import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
+import org.scribe.model.Token;
+import org.scribe.model.Verb;
+import org.scribe.oauth.OAuthService;
+
+import common.Decrypt;
+import common.Encrypt;
+import common.Keys;
+
+
+/**
+ * Servlet implementation class Test
+ */
+@WebServlet("/Test")
+public class Test extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	public static final String OAUTH_KEY = "291893044602593"; 
+	 public static final String OAUTH_SECRET = "28bb62c0578cef84b395e0269349d152"; 
+ 
+    public Test() {
+        super();
+        
+    }
+
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request,response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+		Encrypt e = new Encrypt(Keys.e,Keys.n);
+	    Decrypt d = new Decrypt(Keys.d,Keys.n);
+	}
+
+}

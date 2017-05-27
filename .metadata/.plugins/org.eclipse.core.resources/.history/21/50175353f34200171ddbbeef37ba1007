@@ -1,0 +1,193 @@
+body {
+margin : 0 0 0 0;
+}
+
+
+#customBtn {
+      display: inline-block;
+      background: white;
+      color: #444;
+      width: 300px;
+      border-radius: 5px;
+      border: thin solid #888;
+      box-shadow: 1px 1px 1px grey;
+      white-space: nowrap;
+    }
+    #customBtn:hover {
+      cursor: pointer;
+    }
+
+  .image-cropper {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    border: 2px solid white;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    overflow:hidden;
+    margin: 4px;
+}
+
+.my-picture {
+    display: block;
+    margin: 0 auto;
+    height: auto;
+    width: 100%;
+} 
+   
+
+#balbla {
+text-align : center;
+}
+
+.header {
+height : 90px;
+background-color : rgb(27, 197, 237);
+}
+.logo {
+width : 103px;
+height : 80px;
+position : relative;
+}
+.search-bar {
+float : left;
+width : 320px;
+margin-top : 15px;
+margin-left : 20px;
+}
+footer {
+    
+background-color : #222;
+border-color : #080808;
+height : 320px;
+}
+footer > p {
+color : #eee;
+text-align : center;
+}
+
+footer{
+    color:#999;
+} 
+
+.slider {
+height : 900px;
+background-color : rgb(255, 255, 239);
+}
+.form-signin {
+max-width : 330px;
+padding : 15px;
+margin : 0 auto;
+}
+.form-signin .form-signin-heading, .form-signin .checkbox {
+margin-bottom : 10px;
+}
+.form-signin .checkbox {
+font-weight : normal;
+}
+.form-signin .form-control {
+position : relative;
+height : auto;
+padding : 10px;
+font-size : 16px;
+}
+.form-signin .form-control:focus {
+z-index : 2;
+}
+.form-signin input[type="email"] {
+margin-bottom : -1px;
+}
+.form-signin input[type="password"] {
+margin-bottom : 10px;
+}
+
+
+.search-text1{
+    margin-top:50px;
+    text-align:center;
+    font-size:72px;
+}
+
+.search-text2{
+    text-align:center;
+    font-size:24px;
+}
+
+
+.main-text1{
+    text-align:center;
+    font-size:48px;
+}
+
+<<<<<<< HEAD
+
+.main-img{
+    max-width:100%;
+    max-height:100%;
+}
+
+.main-text2{
+    text-align:center;
+    font-size:48px;
+}
+
+=======
+
+.main-img{
+    max-width:100%;
+    max-height:100%;
+}
+
+.main-text2{
+    text-align:center;
+    font-size:48px;
+}
+
+>>>>>>> 5c29089391e88853bda37df73907f3a37d6b843c
+.why-text1{
+    text-align:center;
+    font-size:36px;
+}
+
+
+.why-text2{
+    margin-top:30px;
+    font-size:18px;
+    font-style:bold;
+}
+
+.suggestion-container{
+    height:280px;
+    padding:5px 5px 5px 5px;
+    background-color:white;
+    border-radius:5%;
+    border-width:1;
+    border-color: rgba(0,0,0,.1);
+}
+
+.suggestion-container-img{
+    padding-top:10px;
+    padding-bottom:10px;
+    height:120px;
+}
+
+.suggestion-container-img > img{
+    
+    height:100px;
+}
+
+.button-product{
+    position:relative;
+}
+
+
+.suggestion-title{
+    height:100px;
+    padding:10px 10px 10px 10px;
+}
+
+.suggestion-title{
+    height:100px;
+    padding:10px 10px 10px 10px;
+}

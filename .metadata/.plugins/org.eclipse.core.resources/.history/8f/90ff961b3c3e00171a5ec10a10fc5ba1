@@ -1,0 +1,52 @@
+package model;
+
+import java.io.IOException;
+import java.io.StringWriter;
+import java.math.BigInteger;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
+
+import common.Encrypt;
+import common.Keys;
+
+
+@WebServlet("/MainPageModel")
+public class MainPageModel extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private static Encrypt e = new Encrypt(Keys.e,Keys.n);
+	private static BigInteger a = new BigInteger("2");
+	private static BigInteger b = new BigInteger("3");
+       
+    public MainPageModel() {
+        super();
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	   doPost(request,response);	
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      VelocityEngine ve = common.VelocityEngineObject.getVelocityEngine();
+		
+		StringWriter writer = new StringWriter();
+		Template template = null;
+		VelocityContext context = new VelocityContext();
+		
+       System.out.println(request.getSession().getAttribute("user"));		
+		context.put("encrypt_main_page",e.encrypt(a).toString());
+		context.put("encrypt_bootstrap_social", e.encrypt(b).toString());
+		template = ve.getTemplate("main_page.html");        
+		
+		template.merge( context, writer );
+        response.getWriter().println(writer.toString());
+	}
+
+}

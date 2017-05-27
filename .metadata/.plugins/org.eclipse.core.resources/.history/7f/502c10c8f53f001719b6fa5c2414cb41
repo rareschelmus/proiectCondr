@@ -1,0 +1,14 @@
+package common;
+
+import java.sql.Connection;
+
+public class DBConnection {
+  static Connection getConnection() {
+	  try {
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+	} catch (ClassNotFoundException e) {
+		e.printStackTrace();
+	}
+	  return null;
+  }
+}

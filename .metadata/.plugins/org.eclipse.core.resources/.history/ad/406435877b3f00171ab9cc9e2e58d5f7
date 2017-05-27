@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Facebook Login JavaScript Example</title>
+<meta charset="UTF-8">
+</head>
+<body>
+<script>
+
+
+  window.fbAsyncInit = function() {
+	  FB.init({
+	    appId      : '291893044602593',
+	    cookie     : true,  // enable cookies to allow the server to access 
+	                        // the session
+	    xfbml      : true,  // parse social plugins on this page
+	    version    : 'v2.8' // use graph api version 2.8
+	  });
+  };
+  
+  var access_token;
+  var user_id;
+
+  // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  
+  function fb_login() {
+    FB.login( function (response) {
+      if (response.authResponse) {
+            console.log('Welcome!  Fetching your information.... ');
+            
+            access_token = response.authResponse.accessToken; //get access token
+            user_id = response.authResponse.userID; //get FB UID
+            document.getElementById('status').innerHTML = user_id + " "+access_token;
+            FB.api('/me?access_token='+access_token, {scope : 'email' } ,function (response) {
+                var email = response.email;
+                var name = response.name;     
+                 document.getElementById('if').innerHTML = name+ " " + email;
+            });
+
+        } else {
+            //user hit cancel button
+            console.log('User cancelled login or did not fully authorize.');
+
+        }
+    },{scope : 'email' });
+ 
+  }
+
+  
+</script>
+
+
+<button name="log" onclick="fb_login();">
+</button>
+
+<div id="status">
+</div>
+
+<p id="if"> </p>
+
+</body>
+</html>

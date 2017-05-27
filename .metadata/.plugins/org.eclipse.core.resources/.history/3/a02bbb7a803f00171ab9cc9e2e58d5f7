@@ -1,0 +1,52 @@
+package model;
+
+import java.io.IOException;
+import java.io.StringWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
+
+@WebServlet("/UserProfile")
+public class UserProfile extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+    public UserProfile() {
+        super();
+    }
+
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+ 	   doPost(request,response);	
+ 	}
+
+ 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       VelocityEngine ve = common.VelocityEngineObject.getVelocityEngine();
+ 		
+       ve.setProperty("input.encoding", "UTF-8");
+       ve.setProperty("output.encoding", "UTF-8");
+       
+ 		StringWriter writer = new StringWriter();
+ 		Template template = null;
+ 		VelocityContext context = new VelocityContext();
+ 		
+ 		
+ 		
+        String sha256hex = DigestUtils.sha256Hex("2");
+ 		context.put("encrypt_user_profile",DigestUtils.sha256Hex("4"));
+ 		context.put("name", (String) request.getSession().getAttribute("name"));
+ 		context.put("urlImage",(String) request.getSession().getAttribute("urlImage"));
+ 		template = ve.getTemplate("user_profile.html");        
+ 		
+ 		template.merge( context, writer );
+         response.getWriter().println(writer.toString());
+ 	}
+
+}

@@ -1,0 +1,72 @@
+package model;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.codec.binary.Base64;
+
+
+
+
+
+@WebServlet("/Scan")
+public class Scan extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    
+    public Scan() {
+        super();
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request,response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+;
+//		InputStream in = request.getInputStream();
+//		String requestStr = request.getParameter("x"); 
+//		byte[] bytes = requestStr.getBytes(someSingleByteEncoding);
+
+//		byte[] bytes = new byte[10000];
+//		
+//		
+//		int i=0;
+//		Scanner s = new Scanner(in);
+//		
+//		while (s.hasNext())
+//		 bytes[i++]=s.nextByte();
+		
+//
+//		PrintWriter p = new PrintWriter(new File("/home/nemo/Desktop/num.txt"));
+//
+//	 for (int j=0;j<i;++j)
+
+//		p.print(new BigInteger(""+bytes[j]).toString(16).toUpperCase());
+//		
+    String x = request.getParameter("image");
+    
+    
+    x=x.split(",")[1];
+    System.out.println(x.charAt(x.length()-1));
+       new PrintWriter(new File("/home/nemo/Desktop/num.txt")).println(x);
+
+      if (x!=null) {
+    	 
+    	  byte[] decoded = Base64.decodeBase64(x);
+    	  FileOutputStream fos = null;
+    	  fos = new FileOutputStream("/home/nemo/Desktop/img.png");
+    	  fos.write(decoded);
+    	  fos.close();
+      }
+	}
+
+}

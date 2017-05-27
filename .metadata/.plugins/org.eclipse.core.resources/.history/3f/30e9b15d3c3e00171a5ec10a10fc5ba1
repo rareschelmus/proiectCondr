@@ -1,0 +1,41 @@
+package controller;
+
+import java.io.IOException;
+import java.math.BigInteger;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import common.Decrypt;
+import common.Keys;
+
+@WebServlet("/ResourceLoader")
+public class ResourceLoader extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private static Decrypt d = new Decrypt(Keys.d,Keys.n);
+ 
+    public ResourceLoader() {
+        super();
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request,response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String path = (String) request.getParameter("v");
+		System.out.println(path);
+		if (path.equals("2")) {
+			 //styles/main_page.css 2
+			request.getRequestDispatcher("/styles/main_page.css");
+		} else 
+		if (path.equals("3")) {
+			///bootstrap_social/bootstrap-social.css 3
+			request.getRequestDispatcher("/bootstrap_social/bootstrap-social.css");
+		}
+	}
+
+}

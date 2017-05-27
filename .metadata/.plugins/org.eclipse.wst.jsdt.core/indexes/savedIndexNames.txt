@@ -1,0 +1,7 @@
+INDEX VERSION 1.3+/home/nemo/Desktop/proiectCondr/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+198232023.index
+3914802636.index
+3546848904.index
+360010270.index
+3178597502.index
+1577002521.index
