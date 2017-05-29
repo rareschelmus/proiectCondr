@@ -127,5 +127,31 @@
              }
              
          }
+         
+         
+         function eanSearch() {
+      	   var element = document.getElementById("active_search_type");
+      	   element.innerHTML = document.getElementById("eanSearch").innerHTML;
+      	   var d = document.getElementById("searchText");
+      	    d.setAttribute("placeholder","Search barcode");
+         }
+         function productSearch() {
+      	  var e = document.getElementById("active_search_type");
+      	   e.innerHTML = document.getElementById("productSearch").innerHTML;
+      	   var d = document.getElementById("searchText");
+     	    d.setAttribute("placeholder","Search product name");
+         }
+         function brandSearch() {
+       	  var e = document.getElementById("active_search_type");
+       	   e.innerHTML = document.getElementById("brandSearch").innerHTML;
+       	   var d = document.getElementById("searchText");
+      	    d.setAttribute("placeholder","Search brand name");
+          }
+         function categorySearch() {
+        	  var e = document.getElementById("active_search_type");
+        	   e.innerHTML = document.getElementById("categorySearch").innerHTML;
+        	   var d = document.getElementById("searchText");
+       	    d.setAttribute("placeholder","Search category name");
+           }
 
          

@@ -18,8 +18,8 @@
        <script src="../ResourceLoader?v=$encrypt_js"></script>     
           <script scr="../js/video.js"></script>
     	
-
        <title> Home </title>
+       
     </head>
     
     <body>
@@ -73,11 +73,33 @@
                 <!-- SEARCH BAR!!! -->
                 <form>
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for food"> 
+                     <div class="input-group-btn">
+                      <button type="button" class="btn btn-default dropdown-toggle search-button-style" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                         <span id="active_search_type">EAN</span>
+                         <span class="caret"></span>
+                      </button>
+                       <ul class="dropdown-menu">
+                             <li  data-attr-type="ean" data-attr-name="EAN" data-attr-placeholder="Search  barcode">
+                               <a id="eanSearch" class="dropdown_item" href="#" onclick="eanSearch();">EAN</a>
+                             </li>
+                             <li  data-attr-type="product" data-attr-name="Product" data-attr-placeholder="Search product name">
+                               <a  id="productSearch" class="dropdown_item" href="#" onclick="productSearch();">Product</a>
+                             </li>
+                             <li  data-attr-type="brand" data-attr-name="Brand" data-attr-placeholder="Search brand name">
+                               <a id="brandSearch" class="dropdown_item" href="#" onclick="brandSearch();">Brand</a>
+                             </li>
+                             <li  data-attr-type="brand" data-attr-name="Category" data-attr-placeholder="Search category name">
+                               <a id="categorySearch" class="dropdown_item" href="#" onclick="categorySearch();">Category</a>
+                             </li>
+                            
+                            </ul>
+                     </div>   
+                        <input id="searchText"  type="text" class="form-control" placeholder="Search barcode"> 
                         <div class="input-group-btn">
                             <button class="btn btn-default" type="submit">
                                 <i class="glyphicon glyphicon-search"></i>
                             </button>
+                            
                         </div>
                     </div>
                 </form>
