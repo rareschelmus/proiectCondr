@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+Barcode result: <div id="dbr"></div>
+<div id="videoOption" style="display: none;">
+    Camera Sources: <select id="videoSource"></select>
+</div>
+<button id="go" onclick="scanBarcode()">Scan Barcode!</button>
+<div>
+    <video style="float:left"></video>
+    <canvas id="pcCanvas" width="640" height="480" style="display: none; float: left;"></canvas>
+    <canvas id="mobileCanvas" width="240" height="320" style="display: block; float: left;"></canvas>
+</div>
+</body>
+<script src = "../js/video.js" type="text/javascript"></script>
+</html>
