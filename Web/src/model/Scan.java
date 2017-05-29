@@ -1,7 +1,6 @@
 package model;
 
 import java.awt.image.BufferedImage;
-//import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileWriter;
@@ -59,27 +58,23 @@ public class Scan extends HttpServlet {
 //		p.print(new BigInteger(""+bytes[j]).toString(16).toUpperCase());
 //		
     String x = request.getParameter("image");
-  
-    System.out.println("jhghgh");
+
+    
     System.out.println(x.charAt(x.length()-1));
     System.out.println(x.length());
-
- 
+    
+       FileWriter fw = new FileWriter(new File("/home/nemo/Desktop/num.txt"));
+       fw.write(x);
+       fw.flush();
+       fw.close();
        x=x.split(",")[1];
 
-
       if (x!=null) {
-//    	  System.out.println(x.length());
-//    	  byte[] decoded = Base64.getDecoder().decode(x);
-//    	  FileOutputStream fos = null;
-//    	  fos = new FileOutputStream("/home/nemo/Desktop/img.jpg");
-//    	  fos.write(decoded);
-//    	  fos.close();
-    	  System.out.println("bbb");
+
     	  byte[] imagedata = DatatypeConverter.parseBase64Binary(x);
     	  BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imagedata));
-    	  ImageIO.write(bufferedImage, "png", new File("B:\\image.png"));
-    	  BarcodeScanner barcodeScanner = new BarcodeScanner("B:\\image.png");
+    	  ImageIO.write(bufferedImage, "png", new File("/home/nemo/Desktop/img.png"));
+
       }
 	}
 

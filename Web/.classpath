@@ -9,6 +9,12 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+
+	<classpathentry kind="lib" path="/home/nemo/Desktop/faculta/Web_lib/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="/home/nemo/Desktop/faculta/Web_lib/velocity-1.7.jar"/>
+	<classpathentry kind="lib" path="/home/nemo/Desktop/faculta/Web_lib/velocity-1.7-dep.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+
 	<classpathentry kind="lib" path="C:/Users/Vasile Catana/Documents/GitHub/proiectCondr/Web/WebContent/WEB-INF/lib/commons-codec-1.9.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Vasile Catana/Documents/GitHub/proiectCondr/Web/WebContent/WEB-INF/lib/ojdbc6.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Vasile Catana/Documents/GitHub/proiectCondr/Web/WebContent/WEB-INF/lib/restfb-2.0.0-rc.2.jar"/>
@@ -17,6 +23,8 @@
 	<classpathentry kind="lib" path="C:/Users/Vasile Catana/Desktop/core-2.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Vasile Catana/Desktop/javase-2.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Vasile Catana/Desktop/imgscalr-lib-4.2.jar"/>
+
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
