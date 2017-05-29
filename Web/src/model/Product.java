@@ -41,14 +41,11 @@ public class Product extends HttpServlet {
 	 	 template = ve.getTemplate("product_container.html");
 	 	 template.merge( context, writer );
 	     response.getWriter().println(writer.toString()); 
-	 	 
-	 	if(request.getParameterMap().containsKey("UserComment1")!=false) 
-	     {
-	    	System.out.println("exista");
-	     }
-	     else {
-	     System.out.println("nu exista");	
-	     }  
+	     
+	     String comment = request.getParameter("comment");
+	     String rating = request.getParameter("rating");
+	     System.out.println(comment);
+	     if (rating!=null) System.out.println(rating);
 	 }
 	 
 }

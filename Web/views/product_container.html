@@ -292,30 +292,11 @@
                     </fieldset>
                 </div>
                 
-                <button class="btn btn-primary comment-button">
+                <button onclick="sendComment()" class="btn btn-primary comment-button">
                     Post it
                 </button>
             </div>
-           <form action = "${pageContext.request.contextPath}/Product" method = "post">
-           <textarea cols="35" rows = "5"  name="UserComment1" > lalala</textarea>
-            <div class="comment-container">
-                <div class="row">
-                    <div class="col-md-3">
-                        <img src="../images/dogee.png" class="comment-img center-block">
-                        <div class="comment-nume">
-                            User name
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-9 comment-area" >
-                        <div>
-                            <img src="../images/star.png" class="comment-star">
-                        </div>
-						<textarea cols="35" rows = "5"  name="UserComment" > lalala</textarea>
-                    </div>
-                </div>
-            </div>
-           </form>
+           
         
         <div class="container-full">    
             <footer class="footer"> <!-- -->
@@ -328,6 +309,47 @@
             </footer>
         </div>
     
-        
+        <script>
+		function sendComment(){
+		console.log("entered send Comment function");
+		var xmlHttp = new XMLHttpRequest();
+		var url = "Web/Controller/Product";
+		xmlHttp.open("POST", url, true); //  asynchronous 
+		xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+		xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+			console.log("este text in comment box");
+			}
+			else {
+			console.log("nu este text in comment box");
+			}
+		}
+		console.log(document.getElementById("comment").value);
+		xmlHttp.send("comment="+document.getElementById("comment").value);
+		
+		  xmlHttp.open("POST", url, false);
+		  xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+		if (document.getElementById('rate5').checked) {
+			console.log("selecta5");
+			  xmlHttp.send("rating=5");
+			}
+		if (document.getElementById('rate4').checked) {
+			console.log("selecta4");
+			  xmlHttp.send("rating=4");
+			}
+		if (document.getElementById('rate3').checked) {
+			  console.log("selecta3");
+			  xmlHttp.send("rating=3");
+			}
+		if (document.getElementById('rate2').checked) {
+			console.log("selecta2");
+			  xmlHttp.send("rating=2");
+			}
+		if (document.getElementById('rate1').checked) {
+			console.log("selecta1");		
+			  xmlHttp.send("rating=1");
+			}
+		}
+		</script>
     </body>
 </html>
