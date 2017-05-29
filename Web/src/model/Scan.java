@@ -70,13 +70,7 @@ public class Scan extends HttpServlet {
        x=x.split(",")[1];
 
       if (x!=null) {
-//    	  System.out.println(x.length());
-//    	  byte[] decoded = Base64.getDecoder().decode(x);
-//    	  FileOutputStream fos = null;
-//    	  fos = new FileOutputStream("/home/nemo/Desktop/img.jpg");
-//    	  fos.write(decoded);
-//    	  fos.close();
-    	  
+
     	  byte[] imagedata = DatatypeConverter.parseBase64Binary(x);
     	  BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imagedata));
     	  ImageIO.write(bufferedImage, "png", new File("/home/nemo/Desktop/img.png"));
