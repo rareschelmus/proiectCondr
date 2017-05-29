@@ -24,6 +24,7 @@ import com.restfb.FacebookClient;
 import com.restfb.Version;
 import com.restfb.exception.FacebookOAuthException;
 import com.restfb.types.User;
+
 import common.DBConnection;
 
 
@@ -124,7 +125,16 @@ public class Login extends HttpServlet {
 				st.setString(1, user_id);
 				st.setString(2, method);
 				st.executeUpdate();
-			}
+			} else {
+				st = (OraclePreparedStatement) c.prepareStatement("update user_ set data_delete=null where id=?");
+				st.setString(1, user_id);
+				st.executeUpdate();
+				st = (OraclePreparedStatement) c.prepareStatement("insert into util (id) values(?)");
+				st.setString(1, (String)request.getSession().getAttribute("user_id"));
+				st.executeUpdate();
+				st.close();
+				
+			} 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
