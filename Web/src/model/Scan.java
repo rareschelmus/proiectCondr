@@ -58,7 +58,7 @@ public class Scan extends HttpServlet {
 //		p.print(new BigInteger(""+bytes[j]).toString(16).toUpperCase());
 //		
     String x = request.getParameter("image");
-    //x = URLDecoder.decode(x, "UTF-8");
+
     
     System.out.println(x.charAt(x.length()-1));
     System.out.println(x.length());
@@ -74,6 +74,7 @@ public class Scan extends HttpServlet {
     	  byte[] imagedata = DatatypeConverter.parseBase64Binary(x);
     	  BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imagedata));
     	  ImageIO.write(bufferedImage, "png", new File("/home/nemo/Desktop/img.png"));
+
       }
 	}
 

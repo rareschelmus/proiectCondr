@@ -161,8 +161,7 @@ function scanBarcode() {
     // convert canvas to base64
     data = encodeURIComponent(canvas.toDataURL('image/png',1.0));
     // convert base64 to binary
-  console.log(data);
-  
+
    http.send("image="+data);
   }
   else {
