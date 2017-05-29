@@ -3,8 +3,8 @@
 
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="../WebContent/styles/product_container.css" />
-		<link rel="stylesheet" href="../WebContent/starability-master/starability-minified/starability-all.min.css">
+        <link rel="stylesheet" type="text/css" href="../styles/product_container.css" />
+		<link rel="stylesheet" href="../starability-master/starability-minified/starability-all.min.css">
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -44,7 +44,7 @@
                 </div>
                 <div class="collapse navbar-collapse navbar-right" id="navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><img class="icon-navbar" href="" src="../WebContent/images/dogee.png">
+                        <li><img class="icon-navbar" href="" src="../images/dogee.png">
                         <li><a href="#username">Username</a>
                         <li class="dropdown">
                             <a href="#settings" class="dropdown-toggle" data-toggle="dropdown">Settings<b class="caret"></b></a>
@@ -78,15 +78,15 @@
                           <!-- Wrapper for slides -->
                         <div class="carousel-inner gallery" role="listbox">
                             <div class="item active">
-                                <img src="../WebContent/images/jacobs.jpg" class="vertical-center">
+                                <img src="../images/jacobs.jpg" class="vertical-center">
                             </div>
 
                             <div class="item">
-                                <img src="../WebContent/images/coffee.jpg" class="vertical-center">
+                                <img src="../images/coffee.jpg" class="vertical-center">
                             </div>
 
                             <div class="item">
-                                <img src="../WebContent/images/bean.jpg" class="vertical-center cneter-block">
+                                <img src="../images/bean.jpg" class="vertical-center cneter-block">
                             </div>
                         </div>
 
@@ -143,7 +143,7 @@
                                     Lactate
                                 </button>
                             </div>
-                            <img src="../WebContent/images/star.png" class="star-produs">
+                            <img src="../images/star.png" class="star-produs">
                         </div>
                     </div>
                </div>
@@ -159,7 +159,7 @@
                     <div class="col-md-2 col-sm-2">
                         <div class="suggestion-container">
                             <div class="suggestion-container-img ">
-                                <img src="../WebContent/images/capsuna.jpg" class="center-block">
+                                <img src="../images/capsuna.jpg" class="center-block">
                             </div>
                             
                             <div class="suggestion-title">
@@ -177,7 +177,7 @@
                     <div class="col-md-2 col-sm-2">
                         <div class="suggestion-container">
                             <div class="suggestion-container-img ">
-                                <img src="../WebContent/images/capsuna.jpg" class="center-block">
+                                <img src="../images/capsuna.jpg" class="center-block">
                             </div>
                             
                             <div class="suggestion-title">
@@ -195,7 +195,7 @@
                     <div class="col-md-2 col-sm-2">
                         <div class="suggestion-container">
                             <div class="suggestion-container-img ">
-                                <img src="../WebContent/images/capsuna.jpg" class="center-block">
+                                <img src="../images/capsuna.jpg" class="center-block">
                             </div>
                             
                             <div class="suggestion-title">
@@ -212,25 +212,7 @@
                     <div class="col-md-2 col-sm-2">
                         <div class="suggestion-container">
                             <div class="suggestion-container-img ">
-                                <img src="../WebContent/images/capsuna.jpg" class="center-block">
-                            </div>
-                            
-                            <div class="suggestion-title">
-                                <h5>Capsuna</h5>
-                            </div>
-                            
-                            <div class="button-product">
-                                <button class="btn btn-primary center-block ">
-                                    Check it
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-2 col-sm-2">
-                        <div class="suggestion-container">
-                            <div class="suggestion-container-img ">
-                                <img src="../WebContent/images/capsuna.jpg" class="center-block">
+                                <img src="../images/capsuna.jpg" class="center-block">
                             </div>
                             
                             <div class="suggestion-title">
@@ -248,7 +230,25 @@
                     <div class="col-md-2 col-sm-2">
                         <div class="suggestion-container">
                             <div class="suggestion-container-img ">
-                                <img src="../WebContent/images/capsuna.jpg" class="center-block">
+                                <img src="../images/capsuna.jpg" class="center-block">
+                            </div>
+                            
+                            <div class="suggestion-title">
+                                <h5>Capsuna</h5>
+                            </div>
+                            
+                            <div class="button-product">
+                                <button class="btn btn-primary center-block ">
+                                    Check it
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-2 col-sm-2">
+                        <div class="suggestion-container">
+                            <div class="suggestion-container-img ">
+                                <img src="../images/capsuna.jpg" class="center-block">
                             </div>
                             
                             <div class="suggestion-title">
@@ -296,61 +296,26 @@
                     Post it
                 </button>
             </div>
-           
+           <form action = "${pageContext.request.contextPath}/Product" method = "post">
+           <textarea cols="35" rows = "5"  name="UserComment1" > lalala</textarea>
             <div class="comment-container">
                 <div class="row">
                     <div class="col-md-3">
-                        <img src="../WebContent/images/dogee.png" class="comment-img center-block">
+                        <img src="../images/dogee.png" class="comment-img center-block">
                         <div class="comment-nume">
-                            Dogee Patroclescu
+                            User name
                         </div>
                     </div>
                     
-                    <div class="col-md-9 comment-area">
+                    <div class="col-md-9 comment-area" >
                         <div>
-                            <img src="../WebContent/images/star.png" class="comment-star">
+                            <img src="../images/star.png" class="comment-star">
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+						<textarea cols="35" rows = "5"  name="UserComment" > lalala</textarea>
                     </div>
                 </div>
             </div>
-            
-            <div class="comment-container">
-                <div class="row">
-                    <div class="col-md-3">
-                        <img src="../WebContent/images/yoda.jpg" class="comment-img center-block">
-                        <div class="comment-nume">
-                            Dog Dyoda
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-9 comment-area">
-                        <div>
-                            <img src="../WebContent/images/star.png" class="comment-star">
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="comment-container">
-                <div class="row">
-                    <div class="col-md-3">
-                        
-                        <img src="../WebContent/images/dog.jpg" class="comment-img center-block">
-                        <div class="comment-nume">
-                            Doug Dogyan
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-9 comment-area">
-                        <div>
-                            <img src="../WebContent/images/star.png" class="comment-star">
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+           </form>
         
         <div class="container-full">    
             <footer class="footer"> <!-- -->

@@ -43,7 +43,9 @@ public class LoginFail extends HttpServlet {
  		template = ve.getTemplate("log_in_fail.html");        
  		
  		template.merge( context, writer );
-         response.getWriter().println(writer.toString());
+        response.getWriter().println(writer.toString());
+        String s = request.getParameter("UserComment");
+        System.out.println(s);
  	}
 
 }

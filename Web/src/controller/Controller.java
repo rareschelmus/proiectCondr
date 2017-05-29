@@ -74,7 +74,11 @@ public class Controller extends HttpServlet {
 			result=url.charAt(i)+result;
 			i--;
 		}
-
+		
+		if (result.equals("Scan"))
+			 requestDispatcher = request.getRequestDispatcher("/Scan"); else
+		if (result.equals("Product"))
+			 requestDispatcher = request.getRequestDispatcher("/Product"); else
 		if (result.equals("ImageLoader"))
 			 requestDispatcher = request.getRequestDispatcher("/ImageLoader"); else
 		if (result.equals("DeleteAcount"))
