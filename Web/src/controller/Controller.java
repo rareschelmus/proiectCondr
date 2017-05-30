@@ -76,6 +76,8 @@ public class Controller extends HttpServlet {
 			i--;
 		}
 		
+		if (result.equals("Search"))
+			 requestDispatcher = request.getRequestDispatcher("/Search"); else
 		if (result.equals("Scan"))
 			 requestDispatcher = request.getRequestDispatcher("/Scan"); else
 		if (result.equals("Product"))
