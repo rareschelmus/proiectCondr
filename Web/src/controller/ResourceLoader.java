@@ -39,7 +39,19 @@ public class ResourceLoader extends HttpServlet {
 	    } else 
 		if (path.equals(DigestUtils.sha256Hex("5"))) {
 		     request.getRequestDispatcher("/js/resources.js").forward(request, response);
-		} 
+		} else 
+	    if (path.equals(DigestUtils.sha256Hex("6"))) {
+			     request.getRequestDispatcher("/styles/search_page.css").forward(request, response);
+		} else
+		if (path.equals(DigestUtils.sha256Hex("7"))) {
+		     request.getRequestDispatcher("/js/video.js").forward(request, response);
+	    } 
+		else 
+	    if (path.equals(DigestUtils.sha256Hex("8"))) {
+			  request.getRequestDispatcher("/starability-master/starability-minified/starability-all.min.css").forward(request, response);
+		}
+
+
 	}
 
 }
