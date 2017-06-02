@@ -121,13 +121,17 @@ public class Login extends HttpServlet {
 			OracleResultSet r = (OracleResultSet) st.executeQuery();
 			if (r.next() && r.getInt(1)==0) {
 				//utilizatorul este pentru prima data logat
-				st = (OraclePreparedStatement) c.prepareStatement("insert into user_(id,type) values(?,?)");
+				st = (OraclePreparedStatement) c.prepareStatement("insert into user_(id,type,user_image,user_name) values(?,?,?,?)");
 				st.setString(1, user_id);
 				st.setString(2, method);
+				st.setString(3, urlImage);
+				st.setString(4, name);
 				st.executeUpdate();
 			} else {
-				st = (OraclePreparedStatement) c.prepareStatement("update user_ set data_delete=null where id=?");
-				st.setString(1, user_id);
+				st = (OraclePreparedStatement) c.prepareStatement("update user_ set data_delete=null, user_image = ?, user_name=?  where id=?");
+				st.setString(3, user_id);
+				st.setString(1, urlImage);
+				st.setString(2, name);
 				st.executeUpdate();
 				st = (OraclePreparedStatement) c.prepareStatement("insert into util (id) values(?)");
 				st.setString(1, (String)request.getSession().getAttribute("user_id"));

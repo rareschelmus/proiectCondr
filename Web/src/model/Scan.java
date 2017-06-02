@@ -63,10 +63,10 @@ public class Scan extends HttpServlet {
     System.out.println(x.charAt(x.length()-1));
     System.out.println(x.length());
     
-       FileWriter fw = new FileWriter(new File("/home/nemo/Desktop/num.txt"));
-       fw.write(x);
-       fw.flush();
-       fw.close();
+    //   FileWriter fw = new FileWriter(new File("/home/nemo/Desktop/num.txt"));
+//       fw.write(x);
+//       fw.flush();
+//       fw.close();
        x=x.split(",")[1];
 
       if (x!=null) {
