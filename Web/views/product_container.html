@@ -102,7 +102,7 @@
                     </div>
                 </div>
                 <div class="col-md-7">
-                    <div class="text-produs">
+                    <div id="x" name="$id_product" class="text-produs">
                         <h4><b>Jacobs</b></h4><br/>
                         
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -295,8 +295,55 @@
                 <button onclick="sendComment()" class="btn btn-primary comment-button">
                     Post it
                 </button>
+				 <ul>
+	
+				  
+				  #foreach( $obj in $comments)
+    			  <div class="comment-container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src= $obj.get("userImage") class="comment-img center-block">
+                        <div class="comment-nume">
+                            $obj.get("userName") 
+                        </div>
+                         #if ($obj.get("edit")=="true")
+                         <div  class="container" align="right" >  <button style="margin-right:300px;  type="button" onclick = "sendCommentToDelete($obj.get('id'))" class="btn btn-danger">Delete</button>
+                         <input type="hidden" value=$obj.get("id") id="hidden_variable">
+                         </div>
+                         #end                  
+                      
+                    </div>
+                    
+                    <div class="col-md-9 comment-area">
+                        <div>
+                         #if ($obj.get("rating")=="1")
+                          <img src="../images/1.png" class="comment-star">
+                            #end
+                          #if ($obj.get("rating")=="2")
+                            <img src="../images/2.png" class="comment-star">
+                            #end
+                          #if ($obj.get("rating")=='3')
+                            <img src="../images/3.png" class="comment-star">
+                            #end
+                           #if ($obj.get("rating")=='4')
+                            <img src="../images/4.png" class="comment-star">
+                            #end
+                            
+                           #if ($obj.get("rating")=="5")
+                            <img src="../images/5.png" class="comment-star">
+                            #end
+                        </div>
+                        <p> $obj.get("comment")</p>
+                    </div>
+                </div>
             </div>
-           
+    					
+					#end
+				  
+				  </ul>
+            </div>
+			 
+            
         
         <div class="container-full">    
             <footer class="footer"> <!-- -->
@@ -313,7 +360,9 @@
 		function sendComment(){
 		console.log("entered send Comment function");
 		var xmlHttp = new XMLHttpRequest();
-		var url = "Web/Controller/Product";
+		var xmlHttp1 = new XMLHttpRequest();
+		var url = "Web/Controller/AddComment";
+		var toSend = "comment=";
 		xmlHttp.open("POST", url, true); //  asynchronous 
 		xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
 		xmlHttp.onreadystatechange = function() { 
@@ -325,31 +374,54 @@
 			}
 		}
 		console.log(document.getElementById("comment").value);
-		xmlHttp.send("comment="+document.getElementById("comment").value);
-		
-		  xmlHttp.open("POST", url, false);
-		  xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+		toSend+=document.getElementById("comment").value+' ';
+		toSend+="&rating=";
 		if (document.getElementById('rate5').checked) {
 			console.log("selecta5");
-			  xmlHttp.send("rating=5");
+			toSend+="5";
 			}
 		if (document.getElementById('rate4').checked) {
 			console.log("selecta4");
-			  xmlHttp.send("rating=4");
+			toSend+="4";
 			}
 		if (document.getElementById('rate3').checked) {
 			  console.log("selecta3");
-			  xmlHttp.send("rating=3");
+			  toSend+="3";
 			}
 		if (document.getElementById('rate2').checked) {
 			console.log("selecta2");
-			  xmlHttp.send("rating=2");
+			toSend+="2";
 			}
 		if (document.getElementById('rate1').checked) {
 			console.log("selecta1");		
-			  xmlHttp.send("rating=1");
+			toSend+="1";
 			}
+		var id_produs = document.getElementById("x").getAttribute("name");
+		toSend+="&product="+id_produs;
+		xmlHttp.send(toSend);
 		}
+		
+		
+		function sendCommentToDelete(text){
+            console.log("entered delete Comment function");
+    		 var xmlHttp = new XMLHttpRequest();
+    		 var url = "Web/Controller/DeleteComment";
+    		 var toSend = "delete=";
+    		 xmlHttp.open("POST", url, true); //  asynchronous 
+    		 xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+    		 xmlHttp.onreadystatechange = function() { 
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+    			console.log("este text in comment box");
+    			}
+    			else {
+    			console.log("nu este text in comment box");
+    			}
+    		}
+    		toSend+=text;
+    		console.log(text);
+    		xmlHttp.send(toSend);
+            }
+
 		</script>
     </body>
 </html>

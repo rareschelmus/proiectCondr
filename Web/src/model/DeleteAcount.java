@@ -51,6 +51,7 @@ public class DeleteAcount extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		  
 	}
 
