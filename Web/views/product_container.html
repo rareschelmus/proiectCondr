@@ -5,12 +5,15 @@
     <head>
         <link rel="stylesheet" type="text/css" href="../styles/product_container.css" />
 		<link rel="stylesheet" href="../starability-master/starability-minified/starability-all.min.css">
+        <link rel="stylesheet" type="text/css" href="../styles/comments.css" />
+        
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
         <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-
+		
+		<script src="js/like-dislike.js"></script>
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1"> <!--ca sa fie responsive-->
@@ -267,9 +270,12 @@
         </div>
         
         <div class="container">
-            <h3>Comments</h3>
-            
+            <h3>Feedback  </h3> 
             <div class="form-group comment-box">
+             #if ($canAdd == "false")
+             <label for=" comment">You have already added your feedback</label>
+             #end
+            #if ($canAdd == "true")
                 <label for="comment">Comment:</label>
                 <textarea class="form-control" rows="5" id="comment"></textarea>
                 <div class="comment-rate">
@@ -296,53 +302,55 @@
                     Post it
                 </button>
 				 <ul>
-	
+	    		#end
 				  
-				  #foreach( $obj in $comments)
-    			  <div class="comment-container">
-                <div class="row">
-                    <div class="col-md-3">
-                        <img src= $obj.get("userImage") class="comment-img center-block">
-                        <div class="comment-nume">
-                            $obj.get("userName") 
-                        </div>
-                         #if ($obj.get("edit")=="true")
-                         <div  class="container" align="right" >  <button style="margin-right:300px;  type="button" onclick = "sendCommentToDelete($obj.get('id'))" class="btn btn-danger">Delete</button>
-                         <input type="hidden" value=$obj.get("id") id="hidden_variable">
-                         </div>
-                         #end                  
-                      
-                    </div>
-                    
-                    <div class="col-md-9 comment-area">
-                        <div>
-                         #if ($obj.get("rating")=="1")
-                          <img src="../images/1.png" class="comment-star">
-                            #end
-                          #if ($obj.get("rating")=="2")
-                            <img src="../images/2.png" class="comment-star">
-                            #end
-                          #if ($obj.get("rating")=='3')
-                            <img src="../images/3.png" class="comment-star">
-                            #end
-                           #if ($obj.get("rating")=='4')
-                            <img src="../images/4.png" class="comment-star">
-                            #end
-                            
-                           #if ($obj.get("rating")=="5")
-                            <img src="../images/5.png" class="comment-star">
-                            #end
-                        </div>
-                        <p> $obj.get("comment")</p>
-                    </div>
-                </div>
-            </div>
-    					
-					#end
+				  <div class="comments-container">
+				<h1>Feedback: </h1>
+
+					<ul id="comments-list" class="comments-list">
+						<li>
 				  
-				  </ul>
+			#foreach( $obj in $comments)
+							<div class="comment-main-level">
+								<!-- Avatar -->
+								<div class="comment-avatar"><img src= $obj.get("userImage") alt=""></div>
+								<!-- Comment content -->
+								<div class="comment-box">
+									<div class="comment-head">
+										<h6 class="comment-name by-author"><a href="">$obj.get("userName") </a></h6>
+										<div>
+											#if ($obj.get("rating")=="1")
+											<img src="../images/1.png" class="comment-star">
+											#end
+											#if ($obj.get("rating")=="2")
+											<img src="../images/2.png" class="comment-star">
+											#end
+											#if ($obj.get("rating")=='3')
+											<img src="../images/3.png" class="comment-star">
+											#end
+											#if ($obj.get("rating")=='4')
+											<img src="../images/4.png" class="comment-star">
+											#end
+											#if ($obj.get("rating")=="5")
+											<img src="../images/5.png" class="comment-star">
+											#end
+											</div>
+										<i class="fa fa-times" onclick = "sendCommentToDelete($obj.get('id'))"></i>
+										<i class="fa fa-heart" ></i>
+										
+										<input type="hidden" value=$obj.get("id") id="hidden_variable">
+									</div>
+									<div class="comment-content">
+										$obj.get("comment")
+									</div>
+								</div>
+							</div>
+						#end				
+						</li>
+					</ul>
+				</div>
+				</ul>
             </div>
-			 
             
         
         <div class="container-full">    

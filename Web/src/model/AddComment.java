@@ -86,8 +86,12 @@ public class AddComment extends HttpServlet {
 			}
 			else pstmt.setString(5, rating);
 			
-			pstmt.executeUpdate();
-            pstmt.close();
+			
+			if ( !(rating.equals("") && comment.equals(" ") ))
+			{
+				pstmt.executeUpdate();
+	            pstmt.close();
+			}
 		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -69,7 +69,9 @@ public class Product extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	    
 	     
+	     String canAdd = "true";
 	    try {
 			ResultSet resultSet = st.executeQuery();
 			while (resultSet.next()){
@@ -94,6 +96,7 @@ public class Product extends HttpServlet {
 				if (userID.equals(request.getSession().getAttribute("user_id")))
 				{
 						canEdit = "true";
+						canAdd = "false";
 				}
 				map.put("edit",canEdit);
 				list.add(map);
@@ -108,6 +111,8 @@ public class Product extends HttpServlet {
 	    }
 	    
 	    context.put("comments", list);
+	    context.put("canAdd", canAdd);
+	    
 	    template.merge( context, writer );
 	    response.getWriter().println(writer.toString()); 
 	 }
