@@ -2,7 +2,9 @@ package model;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.sql.SQLException;
 
@@ -36,28 +38,36 @@ public class ImageLoader extends HttpServlet {
 		
 		byte[] content =null;
 		OracleConnection c = DBConnection.getConnection();
+		
+		String id = request.getParameter("id");
+		System.out.println(id);
 		try {
-//			OraclePreparedStatement st = (OraclePreparedStatement) c.prepareStatement("insert into item_ values('1',?,?,?,'1','1','daa')");
-//		    st.setBinaryStream(1, new ByteArrayInputStream(extractBytes("/home/nemo/Desktop/proiectCondr/Web/WebContent/images/dog.jpg")));
-//		    st.setBinaryStream(2, new ByteArrayInputStream(extractBytes("/home/nemo/Desktop/proiectCondr/Web/WebContent/images/dogee.png")));
-//		    st.setBinaryStream(3, new ByteArrayInputStream(extractBytes("/home/nemo/Desktop/proiectCondr/Web/WebContent/images/yoda.jpg")));
+//			OraclePreparedStatement st = (OraclePreparedStatement) c.prepareStatement("insert into item_ values('0070221005979','Jacobs',?,?,?,'1','Cea mai buna cafea insantanee')");
+//		    st.setBinaryStream(1, new ByteArrayInputStream(extractBytes("/home/nemo/Desktop/1.jpg")));
+//		    st.setBinaryStream(2, new ByteArrayInputStream(extractBytes("/home/nemo/Desktop/1.jpg")));
+//		    st.setBinaryStream(3, new ByteArrayInputStream(extractBytes("/home/nemo/Desktop/1.jpg")));
 //		    st.executeUpdate();
 //		    st.close();
 //		    c.commit();
-			OraclePreparedStatement st = (OraclePreparedStatement) c.prepareStatement("select image1 from item_ where id='1'");
+			OraclePreparedStatement st = (OraclePreparedStatement) c.prepareStatement("select image1 from item_ where id=?");
+			st.setString(1, id);
 		    OracleResultSet r = (OracleResultSet) st.executeQuery();
 		    if (r.next()) {
 		    	content=r.getBytes(1);
 		    }
+		    
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
+		System.out.println(content.length);
 		
 		
-		response.setContentType(getServletContext().getMimeType("x.jpg"));
+		
+		response.setContentType("image/jpg");
         response.setContentLength(content.length);
         response.getOutputStream().write(content);
+        response.getOutputStream().flush();
         response.getOutputStream().close();
 	}
 	
