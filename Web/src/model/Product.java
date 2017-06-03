@@ -74,19 +74,28 @@ public class Product extends HttpServlet {
 			ResultSet resultSet = st.executeQuery();
 			while (resultSet.next()){
 				UserCommentData commentData;
+				String commentId = resultSet.getString(1);
 				String userID = resultSet.getString(2);
 				String comment = resultSet.getString(4);
 				String rating = resultSet.getString(5);;
 				String userImage = resultSet.getString(9);
 				String userName = resultSet.getString(10);
-				System.out.println(userID+" "+comment+" "+userImage+" "+userName);
+				System.out.println(rating+" "+commentId+" "+userID+" "+comment+" "+userImage+" "+userName);
 			
 				Map map = new HashMap();
+				map.put("id", commentId);
 				map.put("user_id", userID);
 				map.put("comment", comment);
 				map.put("userName", userName);
 				map.put("userImage", userImage);
 				map.put("rating", rating);
+				
+				String canEdit = "false";
+				if (userID.equals(request.getSession().getAttribute("user_id")))
+				{
+						canEdit = "true";
+				}
+				map.put("edit",canEdit);
 				list.add(map);
 			}
 		} catch (SQLException e) {

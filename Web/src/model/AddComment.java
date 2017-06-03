@@ -74,10 +74,15 @@ public class AddComment extends HttpServlet {
 			pstmt.setString(2, userId);
 			//System.out.println(new BigInteger(userName.trim().hashCode()).toString());
 			pstmt.setString(3, productId);
+			if (comment.equals(""))
+			{
+				pstmt.setString(4, "");
+			}else
 			pstmt.setString(4, comment);
+			
 			if (rating.equals(""))
 			{
-				pstmt.setString(5, "null");
+				pstmt.setString(5, " ");
 			}
 			else pstmt.setString(5, rating);
 			

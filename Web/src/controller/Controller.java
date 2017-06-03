@@ -75,6 +75,8 @@ public class Controller extends HttpServlet {
 			result=url.charAt(i)+result;
 			i--;
 		}
+		if (result.equals("DeleteComment"))
+			 requestDispatcher = request.getRequestDispatcher("/DeleteComment"); else
 		if (result.equals("AddComment"))
 			 requestDispatcher = request.getRequestDispatcher("/AddComment"); else
 		if (result.equals("MobileScanner"))
