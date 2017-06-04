@@ -19,7 +19,7 @@ import common.DBConnection;
  */
 @WebServlet("/AddComment")
 public class AddComment extends HttpServlet {
-	private static final String STATEMENT = "insert into USER_COMMENT_ITEM_ (ID,USER_ID,ITEM_ID,COMM,RATING) values (?,?,?,?,?)";
+	private static final String STATEMENT = "insert into USER_COMMENT_ITEM_ (ID,USER_ID,ITEM_ID,COMM,RATING, TAGS) values (?,?,?,?,?,?)";
 
 	
 
@@ -48,7 +48,8 @@ public class AddComment extends HttpServlet {
 		String comment = request.getParameter("comment");
 		String rating = request.getParameter("rating");
 		String productId = request.getParameter("product");
-		
+		String tags = request.getParameter("tags");
+		System.out.println("taguri "+tags);
 		System.out.println("comment "+comment);
 		System.out.println("rating "+rating);
 		System.out.println("product "+productId);
@@ -80,14 +81,20 @@ public class AddComment extends HttpServlet {
 			}else
 			pstmt.setString(4, comment);
 			
+			
 			if (rating.equals(""))
 			{
 				pstmt.setString(5, " ");
 			}
 			else pstmt.setString(5, rating);
 			
-			pstmt.executeUpdate();
-            pstmt.close();
+			pstmt.setString(6, tags);
+			
+			if ( !(rating.equals("") && comment.equals(" ") ))
+			{
+				pstmt.executeUpdate();
+	            pstmt.close();
+			}
 		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

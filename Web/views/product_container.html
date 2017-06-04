@@ -5,15 +5,132 @@
     <head>
         <link rel="stylesheet" type="text/css" href="../styles/product_container.css" />
 		<link rel="stylesheet" href="../starability-master/starability-minified/starability-all.min.css">
+        <link rel="stylesheet" type="text/css" href="../styles/comments.css" />
+                <link rel="stylesheet" type="text/css" href="../styles/bootstrap-tagsinput.css" />
+        
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
         <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-
+		
+		<script src="js/like-dislike.js"></script>
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1"> <!--ca sa fie responsive-->
+        
+        <link href="../styles/jquery.tagit.css" rel="stylesheet" type="text/css">
+        <link href="../styles/tagit.ui-zendesk.css" rel="stylesheet" type="text/css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- The real deal -->
+        <script src="../js/tag-it.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/bootstrap-tagsinput.js"></script>
+	
+
+        <script>
+            $(function(){
+                var sampleTags = ['sugar','too salty','E321','dangerous for babies'];
+
+                //-------------------------------
+                // Minimal
+                //-------------------------------
+                $('#myTags').tagit();
+
+                //-------------------------------
+                // Single field
+                //-------------------------------
+                $('#singleFieldTags').tagit({
+                    availableTags: sampleTags,
+                    // This will make Tag-it submit a single form value, as a comma-delimited field.
+                    singleField: true,
+                    singleFieldNode: $('#mySingleField')
+                });
+
+                // singleFieldTags2 is an INPUT element, rather than a UL as in the other 
+                // examples, so it automatically defaults to singleField.
+ 
+
+                //-------------------------------
+                // Preloading data in markup
+                //-------------------------------
+                $('#myULTags').tagit({
+                    availableTags: sampleTags, // this param is of course optional. it's for autocomplete.
+                    // configure the name of the input field (will be submitted with form), default: item[tags]
+                    itemName: 'item',
+                    fieldName: 'tags'
+                });
+
+                //-------------------------------
+                // Tag events
+                //-------------------------------
+                var eventTags = $('#eventTags');
+
+                var addEvent = function(text) {
+                    $('#events_container').append(text + '<br>');
+                };
+
+                eventTags.tagit({
+                    availableTags: sampleTags,
+                    beforeTagAdded: function(evt, ui) {
+                        if (!ui.duringInitialization) {
+                            addEvent('beforeTagAdded: ' + eventTags.tagit('tagLabel', ui.tag));
+                        }
+                    },
+                    afterTagAdded: function(evt, ui) {
+                        if (!ui.duringInitialization) {
+                            addEvent('afterTagAdded: ' + eventTags.tagit('tagLabel', ui.tag));
+                        }
+                    },
+                    beforeTagRemoved: function(evt, ui) {
+                        addEvent('beforeTagRemoved: ' + eventTags.tagit('tagLabel', ui.tag));
+                    },
+                    afterTagRemoved: function(evt, ui) {
+                        addEvent('afterTagRemoved: ' + eventTags.tagit('tagLabel', ui.tag));
+                    },
+                    onTagClicked: function(evt, ui) {
+                        addEvent('onTagClicked: ' + eventTags.tagit('tagLabel', ui.tag));
+                    },
+                    onTagExists: function(evt, ui) {
+                        addEvent('onTagExists: ' + eventTags.tagit('tagLabel', ui.existingTag));
+                    }
+                });
+
+                //-------------------------------
+                // Read-only
+                //-------------------------------
+                $('#readOnlyTags').tagit({
+                    readOnly: true
+                });
+
+                //-------------------------------
+                // Tag-it methods
+                //-------------------------------
+                $('#methodTags').tagit({
+                    availableTags: sampleTags
+                });
+
+                //-------------------------------
+                // Allow spaces without quotes.
+                //-------------------------------
+                $('#allowSpacesTags').tagit({
+                    availableTags: sampleTags,
+                    allowSpaces: true
+                });
+
+                //-------------------------------
+                // Remove confirmation
+                //-------------------------------
+                $('#removeConfirmationTags').tagit({
+                    availableTags: sampleTags,
+                    removeConfirmation: true
+                });
+                
+            });
+        </script>
+
+        
     </head>
     
     <body>
@@ -267,11 +384,19 @@
         </div>
         
         <div class="container">
-            <h3>Comments</h3>
             
             <div class="form-group comment-box">
+             #if ($canAdd == "false")
+             <h3>You have already added your feedback</h3> 
+             #end
+            #if ($canAdd == "true")
+            <h3>Add your feedback </h3> 
                 <label for="comment">Comment:</label>
                 <textarea class="form-control" rows="5" id="comment"></textarea>
+                <label for="comment">Tags:</label>
+                <input name="tags" id="singleFieldTags">  
+						         
+               
                 <div class="comment-rate">
                     <b>Rate this product</b>
                     <fieldset class="starability-basic"> 
@@ -296,53 +421,70 @@
                     Post it
                 </button>
 				 <ul>
-	
+	    		#end
 				  
-				  #foreach( $obj in $comments)
-    			  <div class="comment-container">
-                <div class="row">
-                    <div class="col-md-3">
-                        <img src= $obj.get("userImage") class="comment-img center-block">
-                        <div class="comment-nume">
-                            $obj.get("userName") 
-                        </div>
-                         #if ($obj.get("edit")=="true")
-                         <div  class="container" align="right" >  <button style="margin-right:300px;  type="button" onclick = "sendCommentToDelete($obj.get('id'))" class="btn btn-danger">Delete</button>
-                         <input type="hidden" value=$obj.get("id") id="hidden_variable">
-                         </div>
-                         #end                  
-                      
-                    </div>
-                    
-                    <div class="col-md-9 comment-area">
-                        <div>
-                         #if ($obj.get("rating")=="1")
-                          <img src="../images/1.png" class="comment-star">
-                            #end
-                          #if ($obj.get("rating")=="2")
-                            <img src="../images/2.png" class="comment-star">
-                            #end
-                          #if ($obj.get("rating")=='3')
-                            <img src="../images/3.png" class="comment-star">
-                            #end
-                           #if ($obj.get("rating")=='4')
-                            <img src="../images/4.png" class="comment-star">
-                            #end
-                            
-                           #if ($obj.get("rating")=="5")
-                            <img src="../images/5.png" class="comment-star">
-                            #end
-                        </div>
-                        <p> $obj.get("comment")</p>
-                    </div>
-                </div>
-            </div>
-    					
-					#end
+				  <div class="comments-container">
+				<h1>Feedback: </h1>
+
+					<ul id="comments-list" class="comments-list">
+						<li>
 				  
-				  </ul>
+			#foreach( $obj in $comments)
+							<div class="comment-main-level">
+								<!-- Avatar -->
+								<div class="comment-avatar"><img src= $obj.get("userImage") alt=""></div>
+								<!-- Comment content -->
+								<div class="comment-box">
+									<div class="comment-head">
+										<h6 class="comment-name by-author"><a href="">$obj.get("userName") </a></h6>
+										<div>
+											#if ($obj.get("rating")=="1")
+											<img src="../images/1.png" class="comment-star">
+											#end
+											#if ($obj.get("rating")=="2")
+											<img src="../images/2.png" class="comment-star">
+											#end
+											#if ($obj.get("rating")=='3')
+											<img src="../images/3.png" class="comment-star">
+											#end
+											#if ($obj.get("rating")=='4')
+											<img src="../images/4.png" class="comment-star">
+											#end
+											#if ($obj.get("rating")=="5")
+											<img src="../images/5.png" class="comment-star">
+											#end
+											</div>
+										#if ($obj.get("edit")=="true")							
+										<i class="fa fa-times" onclick = "sendCommentToDelete($obj.get('id'))"></i>
+										#end
+										$obj.get("like_value")
+										#if ($obj.get("edit")=="false")	
+										<button type="button" class="btn btn-default" aria-label="Right Align"  >
+  										<span class="glyphicon glyphicon-thumbs-up" style="color:$obj.get("like_value")"  aria-hidden="true" onclick="if (this.style.color=='red') {this.style.color='blue'; sendDislike($obj.get('id'), $logged_user);} else {if (this.style.color!='blue') {this.style.color='red'; sendFirstLike($obj.get('id'), $logged_user); } else {this.style.color='red'; sendLike($obj.get('id'), $logged_user); }} ;"></span>
+										</button>				
+										
+										<script>
+									
+										</script>
+										#end
+
+									<input type="hidden" value=$obj.get("id") id="hidden_variable">
+									</div>
+									<div class="comment-content">
+										$obj.get("comment")
+									</div>
+								
+									<div>
+									<input class="form-control"  value=$obj.get("tags") data-role="tagsinput"> 									
+									</div>
+								</div>
+							</div>
+						#end				
+						</li>
+					</ul>
+				</div>
+				</ul>
             </div>
-			 
             
         
         <div class="container-full">    
@@ -361,6 +503,7 @@
 		console.log("entered send Comment function");
 		var xmlHttp = new XMLHttpRequest();
 		var xmlHttp1 = new XMLHttpRequest();
+
 		var url = "Web/Controller/AddComment";
 		var toSend = "comment=";
 		xmlHttp.open("POST", url, true); //  asynchronous 
@@ -398,6 +541,7 @@
 			}
 		var id_produs = document.getElementById("x").getAttribute("name");
 		toSend+="&product="+id_produs;
+		toSend+='&tags=' + document.getElementById('singleFieldTags').value;
 		xmlHttp.send(toSend);
 		}
 		
@@ -419,6 +563,79 @@
     		}
     		toSend+=text;
     		console.log(text);
+    		xmlHttp.send(toSend);
+          }
+		
+		function sendLike(text, user){
+            console.log("entered like Comment function");
+    		 var xmlHttp = new XMLHttpRequest();
+    		 var url = "Web/Controller/CommentRating";
+    		 var toSend = "id=";
+    		 var user1=user;
+    		 console.log('user='+user1);
+    		 xmlHttp.open("POST", url, true); //  asynchronous 
+    		 xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+    		 xmlHttp.onreadystatechange = function() { 
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+    			console.log("este text in comment box");
+    			}
+    			else {
+    			console.log("nu este text in comment box");
+    			}
+    		}
+    		toSend+=text;
+    		toSend+='&like=true';
+    		toSend+='&first=false';
+    		toSend+='&user='+user;
+    		console.log('Like:'+text);
+    		xmlHttp.send(toSend);
+            }
+		function sendDislike(text, user){
+            console.log("entered like Comment function");
+    		 var xmlHttp = new XMLHttpRequest();
+    		 var url = "Web/Controller/CommentRating";
+    		 var toSend = "id=";
+    		 var user1=user;
+    		 console.log('user='+user1);
+    		 xmlHttp.open("POST", url, true); //  asynchronous 
+    		 xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+    		 xmlHttp.onreadystatechange = function() { 
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+    			console.log("este text in comment box");
+    			}
+    			else {
+    			console.log("nu este text in comment box");
+    			}
+    		}
+    		toSend+=text;
+    		toSend+='&like=false';
+    		toSend+='&first=false';
+    		toSend+='&user='+user;
+    		console.log('Dislike:'+text);
+    		xmlHttp.send(toSend);
+            }
+		function sendFirstLike(text, user){
+            console.log("entered first Like Comment function");
+    		 var xmlHttp = new XMLHttpRequest();
+    		 var url = "Web/Controller/CommentRating";
+    		 var user1=user;
+    		 console.log('user='+user1);
+    		 var toSend = "id=";
+    		 xmlHttp.open("POST", url, true); //  asynchronous 
+    		 xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+    		 xmlHttp.onreadystatechange = function() { 
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+    			console.log("este text in comment box");
+    			}
+    			else {
+    			console.log("nu este text in comment box");
+    			}
+    		}
+    		toSend+=text;
+    		toSend+='&like=true';
+    		toSend+='&first=true';
+    		toSend+='&user='+user;
+    		console.log('Like:'+text);
     		xmlHttp.send(toSend);
             }
 
