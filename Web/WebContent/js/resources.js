@@ -1,6 +1,6 @@
          var httpG = new XMLHttpRequest();
          var httpF = new XMLHttpRequest();
-         var url = "Web/Controller/Login";
+         var url = "/Web/Controller/Login";
          httpG.open("POST", url, true);
          httpF.open("POST", url, true);
 
@@ -98,7 +98,7 @@
          }
          
          var http = new XMLHttpRequest();
-         var url = "Web/Controller/Logout";
+         var url = "/Web/Controller/Logout";
          http.open("POST", url, true);
          http.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
          
@@ -115,7 +115,7 @@
          
          function deleteAction() {
         	 var http = new XMLHttpRequest();
-             var url = "Web/Controller/DeleteAcount";
+             var url = "/Web/Controller/DeleteAcount";
              http.open("POST", url, true);
              http.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
              http.send("");
