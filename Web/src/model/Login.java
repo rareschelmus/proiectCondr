@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,14 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 import oracle.jdbc.driver.OracleConnection;
 import oracle.jdbc.internal.OraclePreparedStatement;
 import oracle.jdbc.internal.OracleResultSet;
-import oracle.sql.CHAR;
 
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Version;
 import com.restfb.exception.FacebookOAuthException;
 import com.restfb.types.User;
-
 import common.DBConnection;
 
 
@@ -110,9 +109,25 @@ public class Login extends HttpServlet {
 		System.out.println(name+" logat");
 //		System.out.println(user_id);
 //		System.out.println(urlImage);
+		 
 		request.getSession().setAttribute("name", name);
 		request.getSession().setAttribute("user_id", user_id);
 		request.getSession().setAttribute("urlImage", urlImage);
+		Cookie [] cookies = request.getCookies();
+		if (cookies!=null)
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("JSESSIONID")) {
+					Cookie x = (Cookie) cookie.clone();
+					cookie.setPath("/");
+					cookie.setValue("");
+					cookie.setMaxAge(0);
+					x.setMaxAge(24*3600);
+					request.getSession().setMaxInactiveInterval(24*3600);
+					x.setPath("/Web");
+					response.addCookie(x);
+					response.addCookie(cookie);
+				}
+			}
 		// utilizator logat verific daca utilizatorul este pentru prima data logat si inserez in bd
 		OracleConnection c = DBConnection.getConnection();
 		try {
