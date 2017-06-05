@@ -65,11 +65,11 @@ public class Search extends HttpServlet {
 				    st.setString(1, p);
 				} else 
 				if (b!=null) {
-					st = (OraclePreparedStatement) con.prepareStatement("select id,name,description from item_ i join brand_ b on i.brand_id=b.brand_id where lower(b.name) like '%'||lower(?)||'%'");
+					st = (OraclePreparedStatement) con.prepareStatement("select i.id,i.name,i.description from item_ i join brand_ b on i.brand_id=b.brand_id where lower(b.name) like '%'||lower(?)||'%'");
 				    st.setString(1, b);
 				} else 
 				if (c!=null) {
-					st = (OraclePreparedStatement) con.prepareStatement("select id,name,description from item_ i join category_item_ c on i.id=c.item_id join category_ cc on c.category_id=cc.category_id where lower(cc.name)=lower(?)");
+					st = (OraclePreparedStatement) con.prepareStatement("select i.id,i.name,i.description from item_ i join category_item_ c on i.id=c.item_id join category_ cc on c.category_id=cc.category_id where lower(cc.name)=lower(?)");
 				    st.setString(1, c);
 				}
 			} catch (SQLException e1) {
