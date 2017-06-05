@@ -84,7 +84,7 @@ public class Product extends HttpServlet {
 				String tags = resultSet.getString(6);
 				String userImage = resultSet.getString(10);
 				String userName = resultSet.getString(11);
-				System.out.println(tags+" "+rating+" "+commentId+" "+userID+" "+comment+" "+userImage+" "+userName);
+			//	System.out.println(tags+" "+rating+" "+commentId+" "+userID+" "+comment+" "+userImage+" "+userName);
 				Map map = new HashMap();
 				map.put("id", commentId);
 				map.put("user_id", userID);
@@ -114,9 +114,16 @@ public class Product extends HttpServlet {
 						while (resultSet1.next()){
 								String user_id1 = (String) request.getSession().getAttribute("user_id");
 								String commentID = resultSet1.getString(3);
-								System.out.println(userID+" "+user_id1+ " "+resultSet1.getString(4));
-								System.out.println(commentId+" "+commentID+ " "+resultSet1.getString(4));
+								System.out.println("current comm_id "+commentId+" aux comm_id"+commentID);
+								if (commentID.equals(commentId) && !isEqual(user_id1, userID))
+								{
 								
+									valueOfLike = resultSet1.getString(4);
+									System.out.println("++++"+valueOfLike);
+									System.out.println(commentID+" "+commentId+" "+user_id1+" "+userID);
+									break;
+								}
+						
 						}
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
@@ -174,7 +181,7 @@ public class Product extends HttpServlet {
 			 return  false;
 		 }
 		 
-		 for (int i=0; i<Math.min(s1.length(),15); ++i)
+		 for (int i=0; i<Math.min(s1.length(),13); ++i)
 		 {
 			 if (s1.charAt(i)!=s2.charAt(i))
 			 {

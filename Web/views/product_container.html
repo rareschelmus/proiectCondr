@@ -541,7 +541,7 @@
 			}
 		var id_produs = document.getElementById("x").getAttribute("name");
 		toSend+="&product="+id_produs;
-		toSend+='&tags=' + document.getElementById('singleFieldTags').value;
+		toSend+='&tags=' + document.getElementById('singleFieldTags').value+' ';
 		xmlHttp.send(toSend);
 		}
 		

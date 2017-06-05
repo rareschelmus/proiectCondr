@@ -88,6 +88,7 @@ public class AddComment extends HttpServlet {
 			}
 			else pstmt.setString(5, rating);
 			
+		
 			pstmt.setString(6, tags);
 			
 			if ( !(rating.equals("") && comment.equals(" ") ))
