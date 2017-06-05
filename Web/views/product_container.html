@@ -260,7 +260,22 @@
                                     Lactate
                                 </button>
                             </div>
-                            <img src="../images/star.png" class="star-produs">
+                            #if ($rating==1)
+								<img src="../images/1.png" class="comment-star">
+								#end
+							#if ($rating==2)
+								<img src="../images/2.png" class="comment-star">
+								#end
+							#if ($rating==3)
+								<img src="../images/3.png" class="comment-star">
+								#end
+							#if ($rating==4)
+								<img src="../images/4.png" class="comment-star">
+								#end
+							#if ($rating==5)
+						     	<img src="../images/5.png" class="comment-star">
+								#end
+							</div>
                         </div>
                     </div>
                </div>
@@ -457,7 +472,6 @@
 										#if ($obj.get("edit")=="true")							
 										<i class="fa fa-times" onclick = "sendCommentToDelete($obj.get('id'))"></i>
 										#end
-										$obj.get("like_value")
 										#if ($obj.get("edit")=="false")	
 										<button type="button" class="btn btn-default" aria-label="Right Align"  >
   										<span class="glyphicon glyphicon-thumbs-up" style="color:$obj.get("like_value")"  aria-hidden="true" onclick="if (this.style.color=='red') {this.style.color='blue'; sendDislike($obj.get('id'), $logged_user);} else {if (this.style.color!='blue') {this.style.color='red'; sendFirstLike($obj.get('id'), $logged_user); } else {this.style.color='red'; sendLike($obj.get('id'), $logged_user); }} ;"></span>

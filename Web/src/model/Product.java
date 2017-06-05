@@ -55,6 +55,8 @@ public class Product extends HttpServlet {
 	 	 context.put("id_product", id_product);
 	 	 
 	 	 template = ve.getTemplate("product_container.html");
+	 	 int averageRating = 0;
+	 	 int nrRating = 0;
 	    // response.getWriter().println(writer.toString()); 
 	     
 	     //Starting getting user comments 
@@ -93,6 +95,31 @@ public class Product extends HttpServlet {
 				map.put("userImage", userImage);
 				map.put("rating", rating);
 				map.put("tags", tags);
+				
+				if (rating.equals("5")){
+					averageRating += 5;
+					++nrRating;
+				}
+				
+				if (rating.equals("4")){
+					averageRating += 4;
+					++nrRating;
+				}
+				
+				if (rating.equals("3")){
+					averageRating += 5;
+					++nrRating;
+				}
+				
+				if (rating.equals("2")){
+					averageRating += 2;
+					++nrRating;
+				}
+				
+				if (rating.equals("1")){
+					averageRating += 1;
+					++nrRating;
+				}
 				
 				String valueOfLike="";
 				
@@ -167,6 +194,14 @@ public class Product extends HttpServlet {
 	   	    
 	    context.put("comments", list);
 	    context.put("canAdd", canAdd);
+	    if (nrRating>0)
+	    {
+	    	context.put("rating", averageRating/nrRating);
+	    }
+	    else 
+	    {
+	    	context.put("rating", 0);
+	    }
 	    String loggedUserID = (String) request.getSession().getAttribute("user_id");
 	    System.out.println("user care ii logat"+loggedUserID);
 	    context.put("logged_user", loggedUserID);
