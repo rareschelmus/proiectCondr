@@ -28,7 +28,8 @@ import common.VelocityEngineObject;
 @WebServlet("/Product")
 public class Product extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String STATEMENT = "select * from USER_COMMENT_ITEM_ c join USER_ u on u.id = c.user_id ";
+	private static final String STATEMENT = "select * from USER_COMMENT_ITEM_ c join USER_ u on u.id = c.user_id";
+	private static final String STATEMENT1 = "select * from USER_COMMENT_LIKE";
 	public Product()
 	{
 		super();
@@ -57,6 +58,8 @@ public class Product extends HttpServlet {
 		context.put("encrypt_js", DigestUtils.sha256Hex("5"));
 	 	 
 	 	 template = ve.getTemplate("product_container.html");
+	 	 int averageRating = 0;
+	 	 int nrRating = 0;
 	    // response.getWriter().println(writer.toString()); 
 	     
 	     //Starting getting user comments 
@@ -72,19 +75,21 @@ public class Product extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	    
 	     
+	     String canAdd = "true";
 	    try {
 			ResultSet resultSet = st.executeQuery();
 			while (resultSet.next()){
-				UserCommentData commentData;
+
 				String commentId = resultSet.getString(1);
 				String userID = resultSet.getString(2);
 				String comment = resultSet.getString(4);
-				String rating = resultSet.getString(5);;
-				String userImage = resultSet.getString(9);
-				String userName = resultSet.getString(10);
-				System.out.println(rating+" "+commentId+" "+userID+" "+comment+" "+userImage+" "+userName);
-			
+				String rating = resultSet.getString(5);
+				String tags = resultSet.getString(6);
+				String userImage = resultSet.getString(10);
+				String userName = resultSet.getString(11);
+			//	System.out.println(tags+" "+rating+" "+commentId+" "+userID+" "+comment+" "+userImage+" "+userName);
 				Map map = new HashMap();
 				map.put("id", commentId);
 				map.put("user_id", userID);
@@ -92,26 +97,136 @@ public class Product extends HttpServlet {
 				map.put("userName", userName);
 				map.put("userImage", userImage);
 				map.put("rating", rating);
+				map.put("tags", tags);
+				
+				if (rating.equals("5")){
+					averageRating += 5;
+					++nrRating;
+				}
+				
+				if (rating.equals("4")){
+					averageRating += 4;
+					++nrRating;
+				}
+				
+				if (rating.equals("3")){
+					averageRating += 5;
+					++nrRating;
+				}
+				
+				if (rating.equals("2")){
+					averageRating += 2;
+					++nrRating;
+				}
+				
+				if (rating.equals("1")){
+					averageRating += 1;
+					++nrRating;
+				}
+				
+				String valueOfLike="";
+				
+				 try {
+						st = (PreparedStatement) connection.prepareStatement(STATEMENT1);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					ResultSet resultSet1 = null;
+					try {
+						resultSet1 = st.executeQuery();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					try {
+						while (resultSet1.next()){
+								String user_id1 = (String) request.getSession().getAttribute("user_id");
+								String commentID = resultSet1.getString(3);
+								System.out.println("current comm_id "+commentId+" aux comm_id"+commentID);
+								if (commentID.equals(commentId) && !isEqual(user_id1, userID))
+								{
+								
+									valueOfLike = resultSet1.getString(4);
+									System.out.println("++++"+valueOfLike);
+									System.out.println(commentID+" "+commentId+" "+user_id1+" "+userID);
+									break;
+								}
+						
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}				
 				
 				String canEdit = "false";
+				if (userID!=null){
 				if (userID.equals(request.getSession().getAttribute("user_id")))
 				{
 						canEdit = "true";
+						canAdd = "false";
+				}
 				}
 				map.put("edit",canEdit);
+				System.out.println("lala"+valueOfLike);
+				if (valueOfLike.equals("like"))
+				{
+					System.out.println("aici");
+					map.put("like_value", "red");
+				}
+				else
+					if (valueOfLike.equals("dislike"))
+					{
+						System.out.println("aic2");
+						map.put("like_value", "blue");
+					}
+					else
+					{
+						System.out.println("aic3");
+						map.put("like_value", "black");	
+					}
 				list.add(map);
+				System.out.println("lal"+map.get("like_value"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    for (int i=0; i<list.size(); ++i)
-	    {
-	  //  	System.out.println(list.get(i).getComment()+" "+list.get(i).getUserName());
-	    }
 	    
+	   	    
 	    context.put("comments", list);
+	    context.put("canAdd", canAdd);
+	    if (nrRating>0)
+	    {
+	    	context.put("rating", averageRating/nrRating);
+	    }
+	    else 
+	    {
+	    	context.put("rating", 0);
+	    }
+	    String loggedUserID = (String) request.getSession().getAttribute("user_id");
+	    System.out.println("user care ii logat"+loggedUserID);
+	    context.put("logged_user", loggedUserID);
 	    template.merge( context, writer );
 	    response.getWriter().println(writer.toString()); 
+	 }
+	 
+	 private boolean isEqual(String s1, String s2)
+	 {
+		 if (s1 == null || s2==null)
+		 {
+			 return  false;
+		 }
+		 
+		 for (int i=0; i<Math.min(s1.length(),13); ++i)
+		 {
+			 if (s1.charAt(i)!=s2.charAt(i))
+			 {
+				 return false;
+			 }
+		 }
+		 
+		 return true;
 	 }
 }
