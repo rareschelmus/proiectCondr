@@ -146,3 +146,24 @@ border-left-color : #ddd;
 .comment-nume {
 text-align : center;
 }
+
+
+  .image-cropper {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    border: 2px solid white;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    overflow:hidden;
+    margin: 4px;
+}
+
+.my-picture {
+    display: block;
+    margin: 0 auto;
+    height: auto;
+    width: 100%;
+} 
+  
