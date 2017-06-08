@@ -84,14 +84,17 @@ public class Search extends HttpServlet {
 					res=(OracleResultSet) st.executeQuery();
 					while (res.next()) {
 						arr.add(new common.Product(res.getString(1), res.getString(2), res.getString(3)));						
-						arr.add(new common.Product(res.getString(1), res.getString(2), res.getString(3)));
-						
+						arr.add(new common.Product(res.getString(1), res.getString(2), res.getString(3)));		
 					}
 					if (arr.size()>0) {
 						context.put("exists_product", arr.size());
-						context.put("arr", arr);
+						
+						if (arr.size()>5)
+							context.put("total",arr.size()); else {
+						       context.put("total", 0);
+						       context.put("arr", arr);
+							}
 					}
-					
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -105,6 +108,8 @@ public class Search extends HttpServlet {
 			context.put("urlImage",(String) request.getSession().getAttribute("urlImage"));
 			context.put("name", (String) request.getSession().getAttribute("name"));
 			context.put("encrypt_js", DigestUtils.sha256Hex("5"));
+			context.put("sageata_stanga",'←');
+			context.put("sageata_dreapta",'→');
 			template = ve.getTemplate("search_page.html");        
 			
 			template.merge( context, writer );

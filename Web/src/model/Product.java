@@ -53,6 +53,9 @@ public class Product extends HttpServlet {
 	 	 context.put("encrypt_main_page",DigestUtils.sha256Hex("2"));
 	 	 context.put("encrypt_bootstrap_social", DigestUtils.sha256Hex("3"));
 	 	 context.put("id_product", id_product);
+	 	context.put("urlImage",(String) request.getSession().getAttribute("urlImage"));
+		context.put("name", (String) request.getSession().getAttribute("name"));
+		context.put("encrypt_js", DigestUtils.sha256Hex("5"));
 	 	 
 	 	 template = ve.getTemplate("product_container.html");
 	 	 int averageRating = 0;
