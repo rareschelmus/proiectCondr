@@ -37,7 +37,8 @@
 
         <script>
             $(function(){
-                var sampleTags = ['sugar','too salty','E321','dangerous for babies'];
+            	console.log();
+                var sampleTags =$tags;
 
                 //-------------------------------
                 // Minimal
@@ -509,15 +510,6 @@
 										#if ($obj.get("edit")=="true")							
 										<i class="fa fa-times" onclick = "sendCommentToDelete($obj.get('id'))"></i>
 										#end
-										#if ($obj.get("edit")=="false")	
-										<button type="button" class="btn btn-default" aria-label="Right Align"  >
-  										<span class="glyphicon glyphicon-thumbs-up" style="color:$obj.get("like_value")"  aria-hidden="true" onclick="if (this.style.color=='red') {this.style.color='blue'; sendDislike($obj.get('id'), $logged_user);} else {if (this.style.color!='blue') {this.style.color='red'; sendFirstLike($obj.get('id'), $logged_user); } else {this.style.color='red'; sendLike($obj.get('id'), $logged_user); }} ;"></span>
-										</button>				
-										
-										<script>
-									
-										</script>
-										#end
 
 									<input type="hidden" value=$obj.get("id") id="hidden_variable">
 									</div>
@@ -689,7 +681,6 @@
     		console.log('Like:'+text);
     		xmlHttp.send(toSend);
             }
-
 		</script>
     </body>
 </html>
