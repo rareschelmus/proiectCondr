@@ -7,9 +7,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +23,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.deploy.ContextTransaction;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -27,13 +34,14 @@ import common.VelocityEngineObject;
 
 @WebServlet("/Product")
 public class Product extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private static final String STATEMENT = "select * from USER_COMMENT_ITEM_ c join USER_ u on u.id = c.user_id";
-	private static final String STATEMENT1 = "select * from USER_COMMENT_LIKE";
-	public Product()
-	{
+	 private static final long serialVersionUID = 1L;
+	 private static final String STATEMENT = "select * from USER_COMMENT_ITEM_ c join USER_ u on u.id = c.user_id";
+	 HashSet<String> hSet = new HashSet<String>();
+	 HashMap<String, Integer> tagsMap = new HashMap<String, Integer>();
+	 public Product()
+	 {
 		super();
-	}
+	 }
 	
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	 	   doPost(request,response);	
@@ -41,14 +49,14 @@ public class Product extends HttpServlet {
 	 
 	 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 VelocityEngine ve = common.VelocityEngineObject.getVelocityEngine();
-	 		
+		 
 		 StringWriter writer = new StringWriter();
 	 	 Template template = null;
 	 	 VelocityContext context = new VelocityContext();	
 	 	 
 	 	 String id_product = request.getParameter("id_product");
 	 	 if (id_product==null) id_product="0";
-
+	 	 tagsMap.clear();
 	     String sha256hex = DigestUtils.sha256Hex("2");
 	 	 context.put("encrypt_main_page",DigestUtils.sha256Hex("2"));
 	 	 context.put("encrypt_bootstrap_social", DigestUtils.sha256Hex("3"));
@@ -90,6 +98,7 @@ public class Product extends HttpServlet {
 				String userImage = resultSet.getString(10);
 				String userName = resultSet.getString(11);
 			//	System.out.println(tags+" "+rating+" "+commentId+" "+userID+" "+comment+" "+userImage+" "+userName);
+				splitTags(tags);
 				Map map = new HashMap();
 				map.put("id", commentId);
 				map.put("user_id", userID);
@@ -98,7 +107,7 @@ public class Product extends HttpServlet {
 				map.put("userImage", userImage);
 				map.put("rating", rating);
 				map.put("tags", tags);
-				
+				createTagProduct(tags);
 				if (rating.equals("5")){
 					averageRating += 5;
 					++nrRating;
@@ -126,39 +135,6 @@ public class Product extends HttpServlet {
 				
 				String valueOfLike="";
 				
-				 try {
-						st = (PreparedStatement) connection.prepareStatement(STATEMENT1);
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-					ResultSet resultSet1 = null;
-					try {
-						resultSet1 = st.executeQuery();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					try {
-						while (resultSet1.next()){
-								String user_id1 = (String) request.getSession().getAttribute("user_id");
-								String commentID = resultSet1.getString(3);
-								System.out.println("current comm_id "+commentId+" aux comm_id"+commentID);
-								if (commentID.equals(commentId) && !isEqual(user_id1, userID))
-								{
-								
-									valueOfLike = resultSet1.getString(4);
-									System.out.println("++++"+valueOfLike);
-									System.out.println(commentID+" "+commentId+" "+user_id1+" "+userID);
-									break;
-								}
-						
-						}
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}				
 				
 				String canEdit = "false";
 				if (userID!=null){
@@ -193,10 +169,12 @@ public class Product extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    
-	   	    
+	       
 	    context.put("comments", list);
 	    context.put("canAdd", canAdd);
+	    
+	    context.put("tagsComment",createTagsComment(hSet));
+	    context.put("tagsProduct", getTagsProduct());
 	    if (nrRating>0)
 	    {
 	    	context.put("rating", averageRating/nrRating);
@@ -208,25 +186,92 @@ public class Product extends HttpServlet {
 	    String loggedUserID = (String) request.getSession().getAttribute("user_id");
 	    System.out.println("user care ii logat"+loggedUserID);
 	    context.put("logged_user", loggedUserID);
-	    template.merge( context, writer );
+	    template.merge(context, writer);
 	    response.getWriter().println(writer.toString()); 
 	 }
 	 
-	 private boolean isEqual(String s1, String s2)
+	 private void splitTags(String tags)
 	 {
-		 if (s1 == null || s2==null)
+		 String[] splitTags = tags.split(",");
+		 for (int i=0; i<splitTags.length; ++i)
 		 {
-			 return  false;
+			 hSet.add(splitTags[i]);
+		 }
+	 }
+	 
+	 private String createTagsComment(HashSet hSet)
+	 {
+		 Iterator iterator = hSet.iterator();
+		 String tags="[";
+		 while (iterator.hasNext())
+		 {
+			 tags+="'"+iterator.next()+"'"+",";
 		 }
 		 
-		 for (int i=0; i<Math.min(s1.length(),13); ++i)
+		 String tagsReturn = tags.substring(0, tags.length()-2);
+		 tagsReturn+="']";
+		 System.out.println("tags"+tagsReturn);
+		 return tagsReturn;
+	 }
+	 
+	 private void createTagProduct(String  tags)
+	 {
+		 String[] splitTags = tags.split(",");
+		 for (int i=0; i<splitTags.length; ++i)
 		 {
-			 if (s1.charAt(i)!=s2.charAt(i))
+			 String text = splitTags[i];
+			 System.out.println(text+"trrr");
+			 if (!tagsMap.containsKey(text))
 			 {
-				 return false;
+				 System.out.println(text);
+				 Integer value = new Integer(1);
+				 tagsMap.put(text, value);
+			 }
+			 else
+			 {
+				 Integer value = tagsMap.get(text);
+				 Integer newValue = new Integer(value.intValue() + 1);
+				 tagsMap.put(text, newValue);
 			 }
 		 }
-		 
-		 return true;
 	 }
+	 
+	 private String getTagsProduct()
+	 {
+		 TreeMap<String, Integer> sortedMap = sortMapByValue(tagsMap);
+		 String tags="";
+		 for(Map.Entry<String,Integer> entry : sortedMap.entrySet()) 
+		 {
+			  String key = entry.getKey();
+			  tags+=key+",";
+		 	}
+		 String tagsReturn = tags.substring(0, tags.length()-2);
+		 System.out.println(tagsReturn);
+		 tagsReturn = tagsReturn.replaceAll(" ","");
+		 return tagsReturn;
+	 }
+	 
+	 private  static TreeMap<String, Integer> sortMapByValue(HashMap<String, Integer> map){
+			Comparator<String> comparator = new ValueComparator(map);
+			TreeMap<String, Integer> result = new TreeMap<String, Integer>(comparator);
+			result.putAll(map);
+			return result;
+		}
+	 
+	 private static class ValueComparator implements Comparator<String>{
+		 
+			HashMap<String, Integer> map = new HashMap<String, Integer>();
+		 
+			public ValueComparator(HashMap<String, Integer> map){
+				this.map.putAll(map);
+			}
+		 
+			public int compare(String s1, String s2) {
+				if(map.get(s1) >= map.get(s2)){
+					return -1;
+				}else{
+					return 1;
+				}	
+			}
+		}
 }
