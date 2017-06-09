@@ -7,12 +7,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.servlet.ServletException;
@@ -32,14 +34,14 @@ import common.VelocityEngineObject;
 
 @WebServlet("/Product")
 public class Product extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private static final String STATEMENT = "select * from USER_COMMENT_ITEM_ c join USER_ u on u.id = c.user_id";
-	HashSet<String> hSet = new HashSet<String>();
-	HashMap<String, Integer> tagsMap = new HashMap<String, Integer>();
-	public Product()
-	{
+	 private static final long serialVersionUID = 1L;
+	 private static final String STATEMENT = "select * from USER_COMMENT_ITEM_ c join USER_ u on u.id = c.user_id";
+	 HashSet<String> hSet = new HashSet<String>();
+	 HashMap<String, Integer> tagsMap = new HashMap<String, Integer>();
+	 public Product()
+	 {
 		super();
-	}
+	 }
 	
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	 	   doPost(request,response);	
@@ -47,14 +49,14 @@ public class Product extends HttpServlet {
 	 
 	 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 VelocityEngine ve = common.VelocityEngineObject.getVelocityEngine();
-	 		
+		 
 		 StringWriter writer = new StringWriter();
 	 	 Template template = null;
 	 	 VelocityContext context = new VelocityContext();	
 	 	 
 	 	 String id_product = request.getParameter("id_product");
 	 	 if (id_product==null) id_product="0";
-
+	 	 tagsMap.clear();
 	     String sha256hex = DigestUtils.sha256Hex("2");
 	 	 context.put("encrypt_main_page",DigestUtils.sha256Hex("2"));
 	 	 context.put("encrypt_bootstrap_social", DigestUtils.sha256Hex("3"));
@@ -171,7 +173,8 @@ public class Product extends HttpServlet {
 	    context.put("comments", list);
 	    context.put("canAdd", canAdd);
 	    
-	    context.put("tags",createTagsComment(hSet));
+	    context.put("tagsComment",createTagsComment(hSet));
+	    context.put("tagsProduct", getTagsProduct());
 	    if (nrRating>0)
 	    {
 	    	context.put("rating", averageRating/nrRating);
@@ -211,9 +214,8 @@ public class Product extends HttpServlet {
 		 return tagsReturn;
 	 }
 	 
-	 private String createTagProduct(String  tags)
+	 private void createTagProduct(String  tags)
 	 {
-		 Iterator iterator = hSet.iterator();
 		 String[] splitTags = tags.split(",");
 		 for (int i=0; i<splitTags.length; ++i)
 		 {
@@ -232,13 +234,44 @@ public class Product extends HttpServlet {
 				 tagsMap.put(text, newValue);
 			 }
 		 }
-		 SortedSet<String> keys = new TreeSet<String>(tagsMap.keySet());
-		 for (String key : keys)
-		 {
-			 Integer value = tagsMap.get(key);
-			 System.out.println(value+" "+key);
-		 }
-		 
-		 return null;
 	 }
+	 
+	 private String getTagsProduct()
+	 {
+		 TreeMap<String, Integer> sortedMap = sortMapByValue(tagsMap);
+		 String tags="";
+		 for(Map.Entry<String,Integer> entry : sortedMap.entrySet()) 
+		 {
+			  String key = entry.getKey();
+			  tags+=key+",";
+		 	}
+		 String tagsReturn = tags.substring(0, tags.length()-2);
+		 System.out.println(tagsReturn);
+		 tagsReturn = tagsReturn.replaceAll(" ","");
+		 return tagsReturn;
+	 }
+	 
+	 private  static TreeMap<String, Integer> sortMapByValue(HashMap<String, Integer> map){
+			Comparator<String> comparator = new ValueComparator(map);
+			TreeMap<String, Integer> result = new TreeMap<String, Integer>(comparator);
+			result.putAll(map);
+			return result;
+		}
+	 
+	 private static class ValueComparator implements Comparator<String>{
+		 
+			HashMap<String, Integer> map = new HashMap<String, Integer>();
+		 
+			public ValueComparator(HashMap<String, Integer> map){
+				this.map.putAll(map);
+			}
+		 
+			public int compare(String s1, String s2) {
+				if(map.get(s1) >= map.get(s2)){
+					return -1;
+				}else{
+					return 1;
+				}	
+			}
+		}
 }
