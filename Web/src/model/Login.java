@@ -155,7 +155,10 @@ public class Login extends HttpServlet {
 				
 			} 
 		} catch (SQLException e) {
-			e.printStackTrace();
+    		p.append("--");
+    		p.flush();
+    		p.close();
+    		return ;
 		}
 		p.append("++");
 		p.flush();
