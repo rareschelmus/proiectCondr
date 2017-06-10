@@ -30,8 +30,8 @@ import common.DBConnection;
  */
 @WebServlet("/AddComment")
 public class AddComment extends HttpServlet {
-	private static final String STATEMENT_INSERT = "insert into USER_COMMENT_ITEM_ (ID,USER_ID,ITEM_ID,COMM,RATING, TAGS, DATA) values (?,?,?,?,?,?,?)";
-	 private static final String STATEMENT_SELECT = "select * from USER_COMMENT_ITEM_ c join USER_ u on u.id = c.user_id";
+	private static final String STATEMENT_INSERT = "insert into USER_COMMENT_ITEM_ (ID,USER_ID,ITEM_ID,COMM,RATING, GOOD_TAGS, BAD_TAGS, DATA) values (?,?,?,?,?,?,?,?)";
+	private static final String STATEMENT_SELECT = "select * from USER_COMMENT_ITEM_ c join USER_ u on u.id = c.user_id";
 
 	
 
@@ -72,14 +72,16 @@ public class AddComment extends HttpServlet {
 		String comment = request.getParameter("comment");
 		String rating = request.getParameter("rating");
 		String productId = request.getParameter("product");
-		String tags = request.getParameter("tags");
+		String goodTags = request.getParameter("goodTags");
+		String badTags = request.getParameter("badTags");
+
 		
 		java.util.Date utilDate = new Date();
 
 		
 		java.sql.Date date = new java.sql.Date(utilDate.getTime());
 
-		System.out.println("taguri "+tags);
+		System.out.println("taguri "+goodTags+badTags);
 		System.out.println("comment "+comment);
 		System.out.println("rating "+rating);
 		System.out.println("product "+productId);
@@ -119,8 +121,10 @@ public class AddComment extends HttpServlet {
 			else pstmt.setString(5, rating);
 			
 		
-			pstmt.setString(6, tags);
-			pstmt.setDate(7, date);
+			pstmt.setString(6, goodTags);
+			pstmt.setString(7, badTags);
+
+			pstmt.setDate(8, date);
 			
 			if ( !(rating.equals("") && comment.equals(" ") ))
 			{
@@ -173,11 +177,13 @@ public class AddComment extends HttpServlet {
 				String userID = resultSet.getString(2);
 				String comment = resultSet.getString(4);
 				String rating = resultSet.getString(5);
-				String tags = resultSet.getString(6);
-				java.sql.Date date = resultSet.getDate(7);
+				String goodTags = resultSet.getString(6);
+				String badTags = resultSet.getString(7);
+
+				java.sql.Date date = resultSet.getDate(8);
 				
-				String userImage = resultSet.getString(11);
-				String userName = resultSet.getString(12);
+				String userImage = resultSet.getString(12);
+				String userName = resultSet.getString(13);
 				
 				System.out.println(comment+" "+userImage+" "+userName);
 				
@@ -185,7 +191,8 @@ public class AddComment extends HttpServlet {
 				
 				commentObj.setComment(comment);
 				commentObj.setRating(rating);
-				commentObj.setTags(tags);
+				commentObj.setGoodTags(goodTags);
+				commentObj.setBadTags(badTags);
 				commentObj.setUserId(userID);
 				commentObj.setUserImage(userImage);
 				commentObj.setCommentId(commentId);

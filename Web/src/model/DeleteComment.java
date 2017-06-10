@@ -127,16 +127,18 @@ public class DeleteComment extends HttpServlet {
 				String userID = resultSet.getString(2);
 				String comment = resultSet.getString(4);
 				String rating = resultSet.getString(5);
-				String tags = resultSet.getString(6);
-				java.sql.Date date = resultSet.getDate(7);
-				String userImage = resultSet.getString(11);
-				String userName = resultSet.getString(12);
+				String goodTags = resultSet.getString(6);
+				String badTags = resultSet.getString(7);
+				java.sql.Date date = resultSet.getDate(8);
+				String userImage = resultSet.getString(12);
+				String userName = resultSet.getString(13);
 				
 				Comment commentObj = new Comment();
 				
 				commentObj.setComment(comment);
 				commentObj.setRating(rating);
-				commentObj.setTags(tags);
+				commentObj.setGoodTags(goodTags);
+				commentObj.setBadTags(badTags);
 				commentObj.setUserId(userID);
 				commentObj.setUserImage(userImage);
 				commentObj.setCommentId(commentId);

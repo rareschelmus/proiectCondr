@@ -6,7 +6,8 @@ public class Comment  implements Comparable<Comment> {
 		private String userId;
 		private String commentId;
 		private String userImage;
-		private String tags;
+		private String badTags;
+		private String goodTags;
 		private String userName;
 		private String canEdit;
 		private java.sql.Date date;
@@ -23,20 +24,28 @@ public class Comment  implements Comparable<Comment> {
 			return userName;
 		}
 		
-		public String getTags() {
-			return tags;
+		public String getGoodTags() {
+			return goodTags;
 		}
 		
 		public String getUserImage() {
 			return userImage;
 		}
 		
-		public void setTags(String tags) {
-			this.tags = tags;
+		public void setBadTags(String badTags) {
+			this.badTags = badTags;
+		}
+		
+		public void setGoodTags(String tags) {
+			this.goodTags = tags;
 		}
 		
 		public void setUserImage(String userImage) {
 			this.userImage = userImage;
+		}
+		
+		public String getBadTags() {
+			return badTags;
 		}
 		
 		public String getComment() {
