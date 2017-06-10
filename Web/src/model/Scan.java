@@ -71,7 +71,14 @@ public class Scan extends HttpServlet {
     	  System.out.println(result);
     	  PrintWriter p = new PrintWriter(response.getOutputStream());
     	  if (result==null) {
-    		  
+      		p.append("null");
+      		p.flush();
+      		p.close();
+      		return ;
+    	  } else  {
+    		  p.write(result);
+    		  p.flush();
+    		  p.close();
     	  }
       }
 	}
