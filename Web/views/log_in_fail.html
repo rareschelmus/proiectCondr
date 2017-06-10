@@ -1,0 +1,93 @@
+<html lang="en">
+  
+<head>
+        <link rel="stylesheet" type="text/css" href="../ResourceLoader?v=$encrypt_main_page" />
+        <link rel="stylesheet" type="text/css" href="../ResourceLoader?v=$encrypt_bootstrap_social" />
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1"> <!--ca sa fie responsive-->
+       <script src="https://apis.google.com/js/api:client.js"></script>       
+       <script src="../ResourceLoader?v=$encrypt_js"></script> 
+
+       <title> Login Fail </title>
+    </head>
+  
+  <body>
+  
+  <!--Navbar-->
+        
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="my-navbar">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    
+                    <a href="http://localhost:8080/Web/Controller/MainPageModel" class="navbar-brand">Condr</a>
+                </div>
+                  
+            </div>
+        </nav>
+        
+        </br>
+        </br>
+        </br>
+        </br>
+  
+    <div class="container">
+
+      <form class="form-signin" action="#LogIn" method="post" >               
+                              <br/>
+                            <center>
+                                 <p style="color:#FF0000">Login Failure</p>
+                            </center>
+                              
+							<div id="customBtn" >
+							<a class="btn btn-block btn-social btn-google">
+								<span id="spn" class="fa fa-google-plus"></span> Log in with gmail
+								</a>
+							</div>
+							
+								<a class="btn btn-block btn-social btn-facebook" onclick="fb_login();">
+								<span class="fa fa-facebook"></span> Log in with facebook
+								</a>
+							</div>
+							<br/>
+							
+       </form>
+	  
+      <br/>
+      
+    </div> <!-- /container -->
+    
+    
+            <div class="container-full">
+          
+            <footer class="footer row navbar-fixed-bottom">
+
+                    <p >Condr, your daily asistant(c).</p>
+                    <p> <a href="#">Back to top</a> </p>  
+   
+            </footer>
+          
+        </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+     <script>startApp();</script>
+  
+
+</body></html>

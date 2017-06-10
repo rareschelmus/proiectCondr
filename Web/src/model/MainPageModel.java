@@ -35,9 +35,7 @@ public class MainPageModel extends HttpServlet {
 		VelocityContext context = new VelocityContext();
 		
 //		System.out.println(DigestUtils.sha256Hex("4"));
-		if (request.getParameter("l")!=null && request.getParameter("l").equals("f"))
-			context.put("loginFail", 1);
-       String sha256hex = DigestUtils.sha256Hex("2");
+
 		context.put("encrypt_main_page",DigestUtils.sha256Hex("2"));
 		context.put("encrypt_bootstrap_social", DigestUtils.sha256Hex("3"));
 		context.put("urlImage",(String) request.getSession().getAttribute("urlImage"));
