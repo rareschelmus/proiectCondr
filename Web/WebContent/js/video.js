@@ -112,11 +112,7 @@ http.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charse
 http.onreadystatechange = function() {//Call a function when the state changes.
     if(http.readyState == 4 && http.status == 200) {
         var text = http.responseText;
-        if (text=="null") {
-        	
-        } else {
-        	
-        }
+        window.location.replace("http://localhost:8080/Web/Search?EAN="+text);
     } else {
     	console.log("ceva nu a mers bine");
     }
