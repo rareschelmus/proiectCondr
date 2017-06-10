@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -61,9 +62,9 @@ public class Product extends HttpServlet {
 	 	 context.put("encrypt_main_page",DigestUtils.sha256Hex("2"));
 	 	 context.put("encrypt_bootstrap_social", DigestUtils.sha256Hex("3"));
 	 	 context.put("id_product", id_product);
-	 	context.put("urlImage",(String) request.getSession().getAttribute("urlImage"));
-		context.put("name", (String) request.getSession().getAttribute("name"));
-		context.put("encrypt_js", DigestUtils.sha256Hex("5"));
+	 	 context.put("urlImage",(String) request.getSession().getAttribute("urlImage"));
+	 	 context.put("name", (String) request.getSession().getAttribute("name"));
+	 	 context.put("encrypt_js", DigestUtils.sha256Hex("5"));
 	 	 
 	 	 template = ve.getTemplate("product_container.html");
 	 	 int averageRating = 0;
@@ -85,7 +86,9 @@ public class Product extends HttpServlet {
 		}
 	    
 	     
-	     String canAdd = "true";
+	    String canAdd = "true";
+	    List<Comment> comments = new ArrayList<Comment>();
+
 	    try {
 			ResultSet resultSet = st.executeQuery();
 			while (resultSet.next()){
@@ -95,80 +98,112 @@ public class Product extends HttpServlet {
 				String comment = resultSet.getString(4);
 				String rating = resultSet.getString(5);
 				String tags = resultSet.getString(6);
-				String userImage = resultSet.getString(10);
-				String userName = resultSet.getString(11);
-			//	System.out.println(tags+" "+rating+" "+commentId+" "+userID+" "+comment+" "+userImage+" "+userName);
-				splitTags(tags);
-				Map map = new HashMap();
-				map.put("id", commentId);
-				map.put("user_id", userID);
-				map.put("comment", comment);
-				map.put("userName", userName);
-				map.put("userImage", userImage);
-				map.put("rating", rating);
-				map.put("tags", tags);
-				createTagProduct(tags);
-				if (rating.equals("5")){
-					averageRating += 5;
-					++nrRating;
-				}
+				java.sql.Date date = resultSet.getDate(7);
+
+				String userImage = resultSet.getString(11);
+				String userName = resultSet.getString(12);
 				
-				if (rating.equals("4")){
-					averageRating += 4;
-					++nrRating;
-				}
+				Comment commentObj = new Comment();
 				
-				if (rating.equals("3")){
-					averageRating += 5;
-					++nrRating;
-				}
+				commentObj.setComment(comment);
+				commentObj.setRating(rating);
+				commentObj.setTags(tags);
+				commentObj.setUserId(userID);
+				commentObj.setUserImage(userImage);
+				commentObj.setCommentId(commentId);
+				commentObj.setUserName(userName);
+				commentObj.setDate(date);
 				
-				if (rating.equals("2")){
-					averageRating += 2;
-					++nrRating;
-				}
-				
-				if (rating.equals("1")){
-					averageRating += 1;
-					++nrRating;
-				}
-				
-				String valueOfLike="";
-				
-				
-				String canEdit = "false";
-				if (userID!=null){
 				if (userID.equals(request.getSession().getAttribute("user_id")))
 				{
-						canEdit = "true";
-						canAdd = "false";
+					commentObj.setCanEdit("true");
 				}
-				}
-				map.put("edit",canEdit);
-				System.out.println("lala"+valueOfLike);
-				if (valueOfLike.equals("like"))
+				else 
 				{
-					System.out.println("aici");
-					map.put("like_value", "red");
+					commentObj.setCanEdit("false");
 				}
-				else
-					if (valueOfLike.equals("dislike"))
-					{
-						System.out.println("aic2");
-						map.put("like_value", "blue");
-					}
-					else
-					{
-						System.out.println("aic3");
-						map.put("like_value", "black");	
-					}
-				list.add(map);
-				System.out.println("lal"+map.get("like_value"));
+				
+
+				comments.add(commentObj);
+			//	System.out.println(tags+" "+rating+" "+commentId+" "+userID+" "+comment+" "+userImage+" "+userName);
+				splitTags(tags);
+				createTagProduct(tags); 
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	    
+	    
+		Collections.sort(comments);
+	    
+	    for (Comment commentObj : comments )
+	    {
+	    	Map map = new HashMap();
+			map.put("id", commentObj.getCommentID());
+			map.put("user_id", commentObj.getUserId());
+			map.put("comment", commentObj.getComment());
+			map.put("userName", commentObj.getUserName());
+			map.put("userImage", commentObj.getUserImage());
+			map.put("rating", commentObj.getRating());
+			map.put("tags", commentObj.getTags());
+			
+			if (commentObj.getRating().equals("5")){
+				averageRating += 5;
+				++nrRating;
+			}
+			
+			if (commentObj.getRating().equals("4")){
+				averageRating += 4;
+				++nrRating;
+			}
+			
+			if (commentObj.getRating().equals("3")){
+				averageRating += 5;
+				++nrRating;
+			}
+			
+			if (commentObj.getRating().equals("2")){
+				averageRating += 2;
+				++nrRating;
+			}
+			
+			if (commentObj.getRating().equals("1")){
+				averageRating += 1;
+				++nrRating;
+			}
+			
+			String valueOfLike="";
+			
+			
+			String canEdit = "false";
+			if (commentObj.getUserId()!=null){
+			if (commentObj.getUserId().equals(request.getSession().getAttribute("user_id")))
+			{
+					canEdit = "true";
+					canAdd = "false";
+			}
+			}
+			map.put("edit",canEdit);
+			System.out.println("lala"+valueOfLike);
+			if (valueOfLike.equals("like"))
+			{
+				System.out.println("aici");
+				map.put("like_value", "red");
+			}
+			else
+				if (valueOfLike.equals("dislike"))
+				{
+					System.out.println("aic2");
+					map.put("like_value", "blue");
+				}
+				else
+				{
+					System.out.println("aic3");
+					map.put("like_value", "black");	
+				}
+			list.add(map);
+	    }
 	       
 	    context.put("comments", list);
 	    context.put("canAdd", canAdd);
@@ -207,16 +242,19 @@ public class Product extends HttpServlet {
 		 {
 			 tags+="'"+iterator.next()+"'"+",";
 		 }
-		 
+		 if (tags.length()>2){
 		 String tagsReturn = tags.substring(0, tags.length()-2);
 		 tagsReturn+="']";
 		 System.out.println("tags"+tagsReturn);
 		 return tagsReturn;
+		 }
+		 else return "[]";
 	 }
 	 
 	 private void createTagProduct(String  tags)
 	 {
 		 String[] splitTags = tags.split(",");
+		 System.out.println("array "+splitTags);
 		 for (int i=0; i<splitTags.length; ++i)
 		 {
 			 String text = splitTags[i];
@@ -245,10 +283,14 @@ public class Product extends HttpServlet {
 			  String key = entry.getKey();
 			  tags+=key+",";
 		 	}
+		 System.out.println("vassile "+tags);
+		 if (tags.length()>2){
 		 String tagsReturn = tags.substring(0, tags.length()-2);
-		 System.out.println(tagsReturn);
+		 System.out.println("dsda"+tagsReturn);
 		 tagsReturn = tagsReturn.replaceAll(" ","");
 		 return tagsReturn;
+		 }
+		 else return "";
 	 }
 	 
 	 private  static TreeMap<String, Integer> sortMapByValue(HashMap<String, Integer> map){
