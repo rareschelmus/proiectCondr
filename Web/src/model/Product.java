@@ -37,8 +37,12 @@ import common.VelocityEngineObject;
 public class Product extends HttpServlet {
 	 private static final long serialVersionUID = 1L;
 	 private static final String STATEMENT = "select * from USER_COMMENT_ITEM_ c join USER_ u on u.id = c.user_id";
-	 HashSet<String> hSet = new HashSet<String>();
-	 HashMap<String, Integer> tagsMap = new HashMap<String, Integer>();
+	 HashSet<String> hGoodSet = new HashSet<String>();
+	 HashSet<String> hBadSet = new HashSet<String>();
+
+	 HashMap<String, Integer> goodTagsMap = new HashMap<String, Integer>();
+	 HashMap<String, Integer> badTagsMap = new HashMap<String, Integer>();
+
 	 public Product()
 	 {
 		super();
@@ -57,7 +61,9 @@ public class Product extends HttpServlet {
 	 	 
 	 	 String id_product = request.getParameter("id_product");
 	 	 if (id_product==null) id_product="0";
-	 	 tagsMap.clear();
+	 	 goodTagsMap.clear();
+	 	 badTagsMap.clear();
+
 	     String sha256hex = DigestUtils.sha256Hex("2");
 	 	 context.put("encrypt_main_page",DigestUtils.sha256Hex("2"));
 	 	 context.put("encrypt_bootstrap_social", DigestUtils.sha256Hex("3"));
@@ -97,17 +103,20 @@ public class Product extends HttpServlet {
 				String userID = resultSet.getString(2);
 				String comment = resultSet.getString(4);
 				String rating = resultSet.getString(5);
-				String tags = resultSet.getString(6);
-				java.sql.Date date = resultSet.getDate(7);
+				String goodTags = resultSet.getString(6);
+				String badTags = resultSet.getString(7);
 
-				String userImage = resultSet.getString(11);
-				String userName = resultSet.getString(12);
+				java.sql.Date date = resultSet.getDate(8);
+
+				String userImage = resultSet.getString(12);
+				String userName = resultSet.getString(13);
 				
 				Comment commentObj = new Comment();
 				
 				commentObj.setComment(comment);
 				commentObj.setRating(rating);
-				commentObj.setTags(tags);
+				commentObj.setGoodTags(goodTags);
+				commentObj.setBadTags(badTags);
 				commentObj.setUserId(userID);
 				commentObj.setUserImage(userImage);
 				commentObj.setCommentId(commentId);
@@ -126,8 +135,12 @@ public class Product extends HttpServlet {
 
 				comments.add(commentObj);
 			//	System.out.println(tags+" "+rating+" "+commentId+" "+userID+" "+comment+" "+userImage+" "+userName);
-				splitTags(tags);
-				createTagProduct(tags); 
+				splitGoodTags(goodTags);
+				splitBadTags(badTags);
+
+				createGoodTagProduct(goodTags); 
+				createBadTagProduct(badTags); 
+
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -146,7 +159,9 @@ public class Product extends HttpServlet {
 			map.put("userName", commentObj.getUserName());
 			map.put("userImage", commentObj.getUserImage());
 			map.put("rating", commentObj.getRating());
-			map.put("tags", commentObj.getTags());
+			map.put("goodTags", commentObj.getGoodTags());
+			map.put("badTags", commentObj.getBadTags());
+
 			
 			if (commentObj.getRating().equals("5")){
 				averageRating += 5;
@@ -208,8 +223,12 @@ public class Product extends HttpServlet {
 	    context.put("comments", list);
 	    context.put("canAdd", canAdd);
 	    
-	    context.put("tagsComment",createTagsComment(hSet));
-	    context.put("tagsProduct", getTagsProduct());
+	    context.put("goodTagsComment",createGoodTagsComment(hGoodSet));
+	    context.put("badTagsComment",createGoodTagsComment(hBadSet));
+
+	    context.put("goodTagsProduct", getGoodTagsProduct());
+	    context.put("badTagsProduct", getBadTagsProduct());
+
 	    if (nrRating>0)
 	    {
 	    	context.put("rating", averageRating/nrRating);
@@ -225,16 +244,29 @@ public class Product extends HttpServlet {
 	    response.getWriter().println(writer.toString()); 
 	 }
 	 
-	 private void splitTags(String tags)
+	 private void splitGoodTags(String tags)
 	 {
-		 String[] splitTags = tags.split(",");
-		 for (int i=0; i<splitTags.length; ++i)
-		 {
-			 hSet.add(splitTags[i]);
+		 if (tags!=null){
+			 String[] splitTags = tags.split(",");
+			 for (int i=0; i<splitTags.length; ++i)
+			 {
+				 hGoodSet.add(splitTags[i]);
+			 }
 		 }
 	 }
 	 
-	 private String createTagsComment(HashSet hSet)
+	 private void splitBadTags(String tags)
+	 {
+		 if (tags!=null){
+			 String[] splitTags = tags.split(",");
+			 for (int i=0; i<splitTags.length; ++i)
+			 {
+				 hBadSet.add(splitTags[i]);
+			 }
+		 }
+	 }
+	 
+	 private String createGoodTagsComment(HashSet hSet)
 	 {
 		 Iterator iterator = hSet.iterator();
 		 String tags="[";
@@ -251,32 +283,99 @@ public class Product extends HttpServlet {
 		 else return "[]";
 	 }
 	 
-	 private void createTagProduct(String  tags)
+	 private String createBadTagsComment(HashSet hSet)
 	 {
-		 String[] splitTags = tags.split(",");
-		 System.out.println("array "+splitTags);
-		 for (int i=0; i<splitTags.length; ++i)
+		 Iterator iterator = hSet.iterator();
+		 String tags="[";
+		 while (iterator.hasNext())
 		 {
-			 String text = splitTags[i];
-			 System.out.println(text+"trrr");
-			 if (!tagsMap.containsKey(text))
+			 tags+="'"+iterator.next()+"'"+",";
+		 }
+		 if (tags.length()>2){
+		 String tagsReturn = tags.substring(0, tags.length()-2);
+		 tagsReturn+="']";
+		 System.out.println("tags"+tagsReturn);
+		 return tagsReturn;
+		 }
+		 else return "[]";
+	 }
+	 
+
+	 
+	 private void createGoodTagProduct(String  tags)
+	 {
+		 if (tags!=null){
+			 String[] splitTags = tags.split(",");
+			 System.out.println("array "+splitTags);
+			 for (int i=0; i<splitTags.length; ++i)
 			 {
-				 System.out.println(text);
-				 Integer value = new Integer(1);
-				 tagsMap.put(text, value);
-			 }
-			 else
-			 {
-				 Integer value = tagsMap.get(text);
-				 Integer newValue = new Integer(value.intValue() + 1);
-				 tagsMap.put(text, newValue);
+				 String text = splitTags[i];
+				 System.out.println(text+"trrr");
+				 if (!goodTagsMap.containsKey(text))
+				 {
+					 System.out.println(text);
+					 Integer value = new Integer(1);
+					 goodTagsMap.put(text, value);
+				 }
+				 else
+				 {
+					 Integer value = goodTagsMap.get(text);
+					 Integer newValue = new Integer(value.intValue() + 1);
+					 goodTagsMap.put(text, newValue);
+				 }
 			 }
 		 }
 	 }
 	 
-	 private String getTagsProduct()
+	 private void createBadTagProduct(String  tags)
 	 {
-		 TreeMap<String, Integer> sortedMap = sortMapByValue(tagsMap);
+		 if (tags!=null){
+			 String[] splitTags = tags.split(",");
+			 System.out.println("array "+splitTags);
+			 for (int i=0; i<splitTags.length; ++i)
+			 {
+				 String text = splitTags[i];
+				 System.out.println(text+"trrr");
+				 if (!badTagsMap.containsKey(text))
+				 {
+					 System.out.println(text);
+					 Integer value = new Integer(1);
+					 badTagsMap.put(text, value);
+				 }
+				 else
+				 {
+					 Integer value = badTagsMap.get(text);
+					 Integer newValue = new Integer(value.intValue() + 1);
+					 badTagsMap.put(text, newValue);
+				 }
+			 }
+		 }
+	 }
+	
+	 
+	 private String getGoodTagsProduct()
+	 {
+		 TreeMap<String, Integer> sortedMap = sortMapByValue(goodTagsMap);
+		 String tags="";
+		 for(Map.Entry<String,Integer> entry : sortedMap.entrySet()) 
+		 {
+			  String key = entry.getKey();
+			  tags+=key+",";
+		 	}
+		 
+		 System.out.println("vassile "+tags);
+		 if (tags.length()>2){
+		 String tagsReturn = tags.substring(0, tags.length()-2);
+		 System.out.println("dsda"+tagsReturn);
+		 tagsReturn = tagsReturn.replaceAll(" ","");
+		 return tagsReturn;
+		 }
+		 else return "";
+	 }
+	 
+	 private String getBadTagsProduct()
+	 {
+		 TreeMap<String, Integer> sortedMap = sortMapByValue(badTagsMap);
 		 String tags="";
 		 for(Map.Entry<String,Integer> entry : sortedMap.entrySet()) 
 		 {
