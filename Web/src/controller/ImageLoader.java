@@ -1,4 +1,4 @@
-package model;
+package controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;

@@ -35,17 +35,15 @@ public class LoginFail extends HttpServlet {
  		VelocityContext context = new VelocityContext();
  		
  		
- 		
-        String sha256hex = DigestUtils.sha256Hex("2");
  		context.put("encrypt_main_page",DigestUtils.sha256Hex("2"));
  		context.put("encrypt_bootstrap_social", DigestUtils.sha256Hex("3"));
+ 		context.put("encrypt_js", DigestUtils.sha256Hex("5"));
  		
  		template = ve.getTemplate("log_in_fail.html");        
  		
  		template.merge( context, writer );
         response.getWriter().println(writer.toString());
-        String s = request.getParameter("UserComment");
-        System.out.println(s);
+        
  	}
 
 }

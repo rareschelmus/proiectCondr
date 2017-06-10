@@ -13,7 +13,7 @@
                  if (httpG.responseText=="++")  {
                 	 window.location.replace("http://localhost:8080/Web/Controller/MainPageModel");
                  } else {
-                	 window.location.replace("http://localhost:8080/Web/Controller/MainPageModel?l=f");
+                	 window.location.replace("http://localhost:8080/Web/Controller/LoginFail");
                  }
              }
          }

@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
@@ -66,7 +67,19 @@ public class Scan extends HttpServlet {
       if (x!=null) {
     	  byte[] imagedata = DatatypeConverter.parseBase64Binary(x);
     	  BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imagedata));
-    	  System.out.println(common.BarcodeScanner.getResult(bufferedImage));
+    	  String result= common.BarcodeScanner.getResult(bufferedImage);
+    	  System.out.println(result);
+    	  PrintWriter p = new PrintWriter(response.getOutputStream());
+    	  if (result==null) {
+      		p.append("null");
+      		p.flush();
+      		p.close();
+      		return ;
+    	  } else  {
+    		  p.write(result);
+    		  p.flush();
+    		  p.close();
+    	  }
       }
 	}
 
