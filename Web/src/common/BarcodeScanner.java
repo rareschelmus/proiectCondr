@@ -1,4 +1,5 @@
-package model;
+package common;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,28 +25,27 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 
 public class BarcodeScanner {
-	private String path;
-	private String result; 
-	public BarcodeScanner(String path2)  {
-		this.path = path2;
-		String charset = "UTF-8"; // or "ISO-8859-1"
-		Map<EncodeHintType, ErrorCorrectionLevel> hintMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
-		hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
-		result = readQRCode(this.path,charset,hintMap);
-		System.out.println(result);
-	}
 
-public  String readQRCode(String filePath, String charset, Map hintMap)
+		
+		static String charset = "UTF-8"; // or "ISO-8859-1"
+		static Map<EncodeHintType, ErrorCorrectionLevel> hintMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
+		
+		static {
+		   hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
+		}
+
+public static String getResult(BufferedImage bufferedImage){
+	return readQRCode(bufferedImage, charset, hintMap);
+}
+
+static String readQRCode(BufferedImage bufferedImage, String charset, Map hintMap)
    {
 	BinaryBitmap binaryBitmap = null;
-	try {
+
 		binaryBitmap = new BinaryBitmap(new HybridBinarizer(
 				new BufferedImageLuminanceSource(
-						ImageIO.read(new FileInputStream(filePath)))));
-	} catch (IOException e) {
-		e.printStackTrace();
-		System.out.println("File not found");
-	}
+						bufferedImage)));
+	
 	Result qrCodeResult = null;
 	try {
 		qrCodeResult = new MultiFormatReader().decode(binaryBitmap,
@@ -53,7 +53,9 @@ public  String readQRCode(String filePath, String charset, Map hintMap)
 	} catch (NotFoundException e) {
 		// TODO Auto-generated catch block
 		System.out.println("Barcode not found");
+		return null;
 	}
+
 	return qrCodeResult.getText();
 }
 
@@ -64,13 +66,6 @@ public static Map<EncodeHintType, ErrorCorrectionLevel> getMap()
 	return hintMap;
 }
 
-public void setPath(String path)
-{
-	this.path = path;
-}
-public String getResult()
-{
-	return this.result;
-}
+
 
 }

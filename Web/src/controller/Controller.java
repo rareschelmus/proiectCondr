@@ -75,6 +75,9 @@ public class Controller extends HttpServlet {
 			result=url.charAt(i)+result;
 			i--;
 		}
+		
+		if (result.equals("BarScanner"))
+			 requestDispatcher = request.getRequestDispatcher("/BarScanner"); else
 		if (result.equals("CommentRating"))
 			 requestDispatcher = request.getRequestDispatcher("/CommentRating"); else
 		if (result.equals("DeleteComment"))

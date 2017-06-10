@@ -84,13 +84,32 @@ public class Search extends HttpServlet {
 					res=(OracleResultSet) st.executeQuery();
 					while (res.next()) {
 						arr.add(new common.Product(res.getString(1), res.getString(2), res.getString(3)));						
-						arr.add(new common.Product(res.getString(1), res.getString(2), res.getString(3)));		
+						arr.add(new common.Product(res.getString(1), res.getString(2), res.getString(3)));
+						arr.add(new common.Product(res.getString(1), res.getString(2), res.getString(3)));						
+						arr.add(new common.Product(res.getString(1), res.getString(2), res.getString(3)));
+						arr.add(new common.Product(res.getString(1), res.getString(2), res.getString(3)));						
+						arr.add(new common.Product(res.getString(1), res.getString(2), res.getString(3)));
+						arr.add(new common.Product(res.getString(1), res.getString(2), res.getString(3)));						
+						arr.add(new common.Product(res.getString(1), res.getString(2), res.getString(3)));
 					}
 					if (arr.size()>0) {
 						context.put("exists_product", arr.size());
 						
-						if (arr.size()>5)
-							context.put("total",arr.size()); else {
+						if (arr.size()>5) {
+							int sz = arr.size()/5;
+							if (arr.size()%5>0) sz++;
+							context.put("total",sz);
+							String page = request.getParameter("page");
+							if (page==null) page="1";
+							int pg = Integer.parseInt(page);
+							
+							ArrayList<common.Product> array = new ArrayList<common.Product>();
+							for (int i=5*(pg-1);i<5*pg && arr.size()>i;++i)
+								array.add(arr.get(i));
+							context.put("arr", array);
+							context.put("startpage", pg);
+							
+						} else {
 						       context.put("total", 0);
 						       context.put("arr", arr);
 							}
@@ -101,10 +120,10 @@ public class Search extends HttpServlet {
 				
 			} 
 
-			
 			context.put("encrypt_search_page",DigestUtils.sha256Hex("6"));
 			context.put("encrypt_starabiliti_master",DigestUtils.sha256Hex("8"));
 			context.put("encrypt_bootstrap_social", DigestUtils.sha256Hex("3"));
+			
 			context.put("urlImage",(String) request.getSession().getAttribute("urlImage"));
 			context.put("name", (String) request.getSession().getAttribute("name"));
 			context.put("encrypt_js", DigestUtils.sha256Hex("5"));

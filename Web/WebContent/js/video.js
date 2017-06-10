@@ -17,6 +17,7 @@ var intervalId = 0;
 var videoWidth = 640, videoHeight = 480;
 var mobileVideoWidth = 240, mobileVideoHeight = 320;
 var isPC = true;
+var obj = null;
 
 // check devices
 function browserRedirect() {
@@ -39,10 +40,15 @@ function browserRedirect() {
 }
 
 if (browserRedirect() == 'pc') {
-  isPC = true;
+   elm = document.getElementById("vidos");
+   elm.setAttribute("width", 720);
+   elm.setAttribute("height", 640);
 }
 else {
   isPC = false;
+  elm = document.getElementById("vidos");
+  elm.setAttribute("width", 320);
+  elm.setAttribute("height", 480);
 }
 
 
@@ -105,7 +111,12 @@ http.open("POST", url, true);
 http.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
 http.onreadystatechange = function() {//Call a function when the state changes.
     if(http.readyState == 4 && http.status == 200) {
-        console.log("ceva este");
+        var text = http.responseText;
+        if (text=="null") {
+        	
+        } else {
+        	
+        }
     } else {
     	console.log("ceva nu a mers bine");
     }
@@ -130,12 +141,8 @@ buttonGo.onclick = function() {
 if (navigator.getUserMedia || navigator.mozGetUserMedia) {
   navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia;
   startCamera({
-    video: {
-      // mandatory: {
-      //   maxWidth: 640,
-      //   maxHeight: 480
-      // }
-    }
+	  
+    video: obj
   });
 }
 else if (navigator.webkitGetUserMedia) {
@@ -152,7 +159,6 @@ function scanBarcode() {
 //
 //  }, 200);
   
-  barcode_result.innerHTML ="haha";
   var data = null, newblob = null;
  
   
@@ -163,6 +169,7 @@ function scanBarcode() {
     // convert base64 to binary
 
    http.send("image="+data);
+   
   }
   else {
 

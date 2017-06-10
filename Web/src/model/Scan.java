@@ -16,12 +16,6 @@ import javax.xml.bind.DatatypeConverter;
 
 
 
-
-
-
-
-
-
 @WebServlet("/Scan")
 public class Scan extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -70,11 +64,9 @@ public class Scan extends HttpServlet {
        x=x.split(",")[1];
 
       if (x!=null) {
-
     	  byte[] imagedata = DatatypeConverter.parseBase64Binary(x);
     	  BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imagedata));
-    	  ImageIO.write(bufferedImage, "png", new File("/home/nemo/Desktop/img.png"));
-
+    	  System.out.println(common.BarcodeScanner.getResult(bufferedImage));
       }
 	}
 
