@@ -61,7 +61,7 @@ public class Search extends HttpServlet {
 					st.setString(1, e);
 				} else 
 				if (p!=null) {
-					st = (OraclePreparedStatement) con.prepareStatement("select id,name,description from item_ where lower(name)=lower(?)");
+					st = (OraclePreparedStatement) con.prepareStatement("select id,name,description from item_ where lower(name) like '%'||lower(?)||'%'");
 				    st.setString(1, p);
 				} else 
 				if (b!=null) {
@@ -69,7 +69,7 @@ public class Search extends HttpServlet {
 				    st.setString(1, b);
 				} else 
 				if (c!=null) {
-					st = (OraclePreparedStatement) con.prepareStatement("select i.id,i.name,i.description from item_ i join category_item_ c on i.id=c.item_id join category_ cc on c.category_id=cc.category_id where lower(cc.name)=lower(?)");
+					st = (OraclePreparedStatement) con.prepareStatement("select i.id,i.name,i.description from item_ i join category_item_ c on i.id=c.item_id join category_ cc on c.category_id=cc.category_id where lower(cc.name) like %'||lower(?)||'%'");
 				    st.setString(1, c);
 				}
 			} catch (SQLException e1) {
@@ -83,14 +83,7 @@ public class Search extends HttpServlet {
 				try {
 					res=(OracleResultSet) st.executeQuery();
 					while (res.next()) {
-						arr.add(new common.Product(res.getString(1), res.getString(2), res.getString(3)));						
-						arr.add(new common.Product(res.getString(1), res.getString(2), res.getString(3)));
-						arr.add(new common.Product(res.getString(1), res.getString(2), res.getString(3)));						
-						arr.add(new common.Product(res.getString(1), res.getString(2), res.getString(3)));
-						arr.add(new common.Product(res.getString(1), res.getString(2), res.getString(3)));						
-						arr.add(new common.Product(res.getString(1), res.getString(2), res.getString(3)));
-						arr.add(new common.Product(res.getString(1), res.getString(2), res.getString(3)));						
-						arr.add(new common.Product(res.getString(1), res.getString(2), res.getString(3)));
+						arr.add(new common.Product(res.getString(1), res.getString(2), res.getString(3)));	
 					}
 					if (arr.size()>0) {
 						context.put("exists_product", arr.size());
@@ -112,6 +105,7 @@ public class Search extends HttpServlet {
 						} else {
 						       context.put("total", 0);
 						       context.put("arr", arr);
+						       context.put("startpage", 1);
 							}
 					}
 				} catch (SQLException e1) {

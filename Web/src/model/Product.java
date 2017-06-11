@@ -73,12 +73,16 @@ public class Product extends HttpServlet {
 	 	 badTagsMap.clear();
 
 
-	 	 context.put("encrypt_main_page",DigestUtils.sha256Hex("2"));
+	
 	 	 context.put("encrypt_bootstrap_social", DigestUtils.sha256Hex("3"));
 	 	 context.put("id_product", id_product);
 	 	 context.put("urlImage",(String) request.getSession().getAttribute("urlImage"));
 	 	 context.put("name", (String) request.getSession().getAttribute("name"));
 	 	 context.put("encrypt_js", DigestUtils.sha256Hex("5"));
+	 	 String amazon = common.TestEAN.getResult(id_product);
+	 	 if (amazon!=null) {
+	 		 context.put("amazon", "https://www.amazon.com/dp/"+amazon);
+	 	 }
 	 	 
 	 	 template = ve.getTemplate("product_container.html");
 	 	 int averageRating = 0;
@@ -245,6 +249,7 @@ public class Product extends HttpServlet {
 				}
 			list.add(map);
 	    }
+
 	    
 	    String loggedUserID = (String) request.getSession().getAttribute("user_id");
 		System.out.println("userul logat"+request.getSession().getAttribute("user_id") );
@@ -270,6 +275,7 @@ public class Product extends HttpServlet {
 	    {
 	    	context.put("rating", 0);
 	    }
+
 	    context.put("logged_user", loggedUserID);
 	    template.merge(context, writer);
 	    response.getWriter().println(writer.toString()); 
