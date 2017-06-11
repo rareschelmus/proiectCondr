@@ -10,9 +10,9 @@ public class Comment  implements Comparable<Comment> {
 		private String goodTags;
 		private String userName;
 		private String canEdit;
-		private java.sql.Date date;
+		private java.sql.Timestamp date;
 		
-		public void setDate(java.sql.Date date) {
+		public void setDate(java.sql.Timestamp date) {
 			this.date = date;
 		}
 		
@@ -88,7 +88,7 @@ public class Comment  implements Comparable<Comment> {
 			this.canEdit = canEdit;
 		}
 		
-		public java.sql.Date getDate() {
+		public java.sql.Timestamp getDate() {
 			return date;
 		}
 
