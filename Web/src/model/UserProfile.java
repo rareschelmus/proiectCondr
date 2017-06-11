@@ -97,7 +97,7 @@ public class UserProfile extends HttpServlet {
 	    context.put("activity", list);
 	    
 	    List topList = new ArrayList();
-	    ArrayList<TopProduct> topProducts = null;
+	    ArrayList<GenericProduct> topProducts = null;
 	    
 	    try {
 			 topProducts = getTopProducts();
@@ -106,7 +106,7 @@ public class UserProfile extends HttpServlet {
 			e.printStackTrace();
 		}
 	    
-	    for (TopProduct topProduct :topProducts)
+	    for (GenericProduct topProduct :topProducts)
 	    {
 	    	Map map = new HashMap();
 			map.put("name", topProduct.getName());
@@ -132,9 +132,9 @@ public class UserProfile extends HttpServlet {
  	}
  	
  	
- 	private ArrayList<TopProduct> getTopProducts() throws SQLException
+ 	private ArrayList<GenericProduct> getTopProducts() throws SQLException
  	{
- 		ArrayList<TopProduct>  products = new ArrayList<TopProduct>();
+ 		ArrayList<GenericProduct>  products = new ArrayList<GenericProduct>();
  		
  		Calendar cal = Calendar.getInstance();
  	    cal.setTime(new Date());
@@ -181,7 +181,7 @@ public class UserProfile extends HttpServlet {
 	   			}
 	   		}
 	   		
-	   		TopProduct topProducts = new TopProduct();
+	   		GenericProduct topProducts = new GenericProduct();
 	   		if (count>0)
 	   		{
 	   			rating = rating / count;
@@ -194,6 +194,7 @@ public class UserProfile extends HttpServlet {
 	   		
 	   		products.add(topProducts);
 	   	}
+	   	
 	   	Collections.sort(products);
 	   	
  		return products;

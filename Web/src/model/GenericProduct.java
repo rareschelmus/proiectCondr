@@ -1,12 +1,17 @@
 package model;
 
-public class TopProduct implements Comparable<TopProduct> {
+public class GenericProduct implements Comparable<GenericProduct> {
 	private String name;
 	private String id;
 	private String rating;
+	private int    relatedRating;
 	
 	public String getId() {
 		return id;
+	}
+	
+	public int getRelatedRating() {
+		return relatedRating;
 	}
 	
 	public String getName() {
@@ -29,8 +34,15 @@ public class TopProduct implements Comparable<TopProduct> {
 		this.rating = rating;
 	}
 
-	public int compareTo(TopProduct arg0) {
+	public int compareTo(GenericProduct arg0) {
+		if (this.rating!=null){
 		return Integer.parseInt(this.rating) - Integer.parseInt(arg0.getRating());
+		}
+		return relatedRating = arg0.getRelatedRating();
+	}
+	
+	public void setRelatedRating(int relatedRating) {
+		this.relatedRating = relatedRating;
 	}
 	
 }
