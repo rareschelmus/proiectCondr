@@ -69,28 +69,7 @@ public class Test extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-VelocityEngine ve = common.VelocityEngineObject.getVelocityEngine();
-		
-
-        if (request.getParameter("filename")==null) {
-		StringWriter writer = new StringWriter();
-		Template template = null;
-		VelocityContext context = new VelocityContext();
-		
-		context.put("encrypt_search_page",DigestUtils.sha256Hex("6"));
-		context.put("encrypt_bootstrap_social", DigestUtils.sha256Hex("3"));
-		context.put("urlImage",(String) request.getSession().getAttribute("urlImage"));
-		context.put("name", (String) request.getSession().getAttribute("name"));
-		context.put("encrypt_js", DigestUtils.sha256Hex("5"));
-       
-		template = ve.getTemplate("bar_scanner.html");        
-		
-		template.merge( context, writer );
-        response.getWriter().println(writer.toString());
-        } else { 
-        	System.out.println("ceva este");
-        }
+      
 	}
 
 }
