@@ -182,3 +182,7 @@ footer{
     border-color:#999;
     margin-bottom:10px;
 }
+
+.liked {
+    background-color: lightblue;
+}

@@ -40,6 +40,10 @@ public class ImageLoader extends HttpServlet {
 		OracleConnection c = DBConnection.getConnection();
 		
 		String id = request.getParameter("id");
+		String ccc = request.getParameter("c");
+		if (ccc==null) ccc="1";
+		if (!ccc.equals("1") && !ccc.equals("2") && !ccc.equals("3"))
+			 ccc="1";
 		System.out.println(id);
 		try {
 //			OraclePreparedStatement st = (OraclePreparedStatement) c.prepareStatement("insert into item_ values('0070221005979','Jacobs',?,?,?,'1','Cea mai buna cafea insantanee')");
@@ -49,7 +53,7 @@ public class ImageLoader extends HttpServlet {
 //		    st.executeUpdate();
 //		    st.close();
 //		    c.commit();
-			OraclePreparedStatement st = (OraclePreparedStatement) c.prepareStatement("select image1 from item_ where id=?");
+			OraclePreparedStatement st = (OraclePreparedStatement) c.prepareStatement("select image"+ccc+" from item_ where id=?");
 			st.setString(1, id);
 		    OracleResultSet r = (OracleResultSet) st.executeQuery();
 		    if (r.next()) {

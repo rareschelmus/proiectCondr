@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import oracle.jdbc.driver.OracleConnection;
+
 import org.apache.catalina.deploy.ContextTransaction;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.velocity.Template;
@@ -36,7 +38,7 @@ import common.VelocityEngineObject;
 @WebServlet("/Product")
 public class Product extends HttpServlet {
 	 private static final long serialVersionUID = 1L;
-	 private static final String STATEMENT = "select * from USER_COMMENT_ITEM_ c join USER_ u on u.id = c.user_id";
+	 private static final String STATEMENT = "select * from USER_COMMENT_ITEM_ c join USER_ u on u.id = c.user_id where ITEM_ID=?";
 	 HashSet<String> hGoodSet = new HashSet<String>();
 	 HashSet<String> hBadSet = new HashSet<String>();
 
@@ -61,10 +63,16 @@ public class Product extends HttpServlet {
 	 	 
 	 	 String id_product = request.getParameter("id_product");
 	 	 if (id_product==null) id_product="0";
+	 	 common.Product p = getProduct(id_product);
+	 	 if (p!=null) {
+	 		 context.put("exist", 1); 
+	 		 context.put("product", p);
+	 	 }
+	 		      
 	 	 goodTagsMap.clear();
 	 	 badTagsMap.clear();
 
-	     String sha256hex = DigestUtils.sha256Hex("2");
+
 	 	 context.put("encrypt_main_page",DigestUtils.sha256Hex("2"));
 	 	 context.put("encrypt_bootstrap_social", DigestUtils.sha256Hex("3"));
 	 	 context.put("id_product", id_product);
@@ -85,6 +93,7 @@ public class Product extends HttpServlet {
 	     
 	     try {
 		 st = (PreparedStatement) connection.prepareStatement(STATEMENT);
+		 st.setString(1, id_product);
 		 
 	     } catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -415,4 +424,23 @@ public class Product extends HttpServlet {
 				}	
 			}
 		}
+	 
+	 private common.Product getProduct(String id) {
+		 OracleConnection con = common.DBConnection.getConnection();
+		 PreparedStatement st;
+		 common.Product p=null;
+		try {
+			st = con.prepareStatement("select name,description from item_ where id=?");
+			st.setString(1, id);
+			ResultSet r = st.executeQuery();
+			if (!r.next()) return null;
+		     p = new common.Product(id,r.getString(1), r.getString(2));
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return p;
+	 }
 }

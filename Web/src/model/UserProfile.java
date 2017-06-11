@@ -37,6 +37,8 @@ public class UserProfile extends HttpServlet {
  		Template template = null;
  		VelocityContext context = new VelocityContext();
  		
+ 		System.out.println("pla");
+ 		
  		
  		context.put("encrypt_user_profile",DigestUtils.sha256Hex("4"));
  		context.put("name", (String) request.getSession().getAttribute("name"));
