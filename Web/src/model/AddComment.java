@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -79,7 +80,7 @@ public class AddComment extends HttpServlet {
 		java.util.Date utilDate = new Date();
 
 		
-		java.sql.Date date = new java.sql.Date(utilDate.getTime());
+		java.sql.Date date = new java.sql.Date((System.currentTimeMillis()));
 
 		System.out.println("taguri "+goodTags+badTags);
 		System.out.println("comment "+comment);
@@ -124,7 +125,7 @@ public class AddComment extends HttpServlet {
 			pstmt.setString(6, goodTags);
 			pstmt.setString(7, badTags);
 
-			pstmt.setDate(8, date);
+			pstmt.setTimestamp(8, new Timestamp(System.currentTimeMillis()));
 			
 			if ( !(rating.equals("") && comment.equals(" ") ))
 			{
@@ -180,7 +181,7 @@ public class AddComment extends HttpServlet {
 				String goodTags = resultSet.getString(6);
 				String badTags = resultSet.getString(7);
 
-				java.sql.Date date = resultSet.getDate(8);
+				java.sql.Timestamp date = resultSet.getTimestamp(8);
 				
 				String userImage = resultSet.getString(12);
 				String userName = resultSet.getString(13);

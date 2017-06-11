@@ -108,45 +108,75 @@
 
  
                     <img id="profile_img" src="$urlImage" class="profile-img center-block xxx" align="left" height="250" width="250">
-			
+					<h3>$name</h3>
 					
                 </div>
-                <div class="col-md-9 col-sm-9">
-                    <div class="text-produs">
-                        <h4><b>$name</b></h4><br/>
-                        
-                        <p> My recent choises</p>
-                        <div class="jumbotron">
-                          <div class="container">
-                            <div class="col-md-2 col-sm-2 liked">
-                              <div class="suggestion-container liked">
-            
-                                </div>
-                           
-                        </div>
-                          </div>
-                        </div>
-                    </div>
-               </div>
-            </div>
 
         </div>
-        
-        
+<div class="jumbotron "> 
+<h3>Your activity</h3>
+<div class="DocumentList">
+    <ul class="list-inline">
+    #foreach( $obj in $activity)
+        <li class="DocumentItem">
+                <div class="DocumentItem-imgContainer">
+                    <img src="../images/capsuna.jpg" class="image-responsive DocumentItem-img"/>
+                </div>
+                
+                		#if ($obj.get("rating")=="1")
+						  <div class="DocumentItem-imgContainer1">
+                    <img src="../images/1.png" class="image-responsive DocumentItem-img">
+               			 </div>
+						#end
+						#if ($obj.get("rating")=="2")
+						 <div class="DocumentItem-imgContainer1">
+                    <img src="../images/2.png" class="image-responsive DocumentItem-img">
+               			 </div>
+						#end
+						#if ($obj.get("rating")=='3')
+						 <div class="DocumentItem-imgContainer1">
+                    <img src="../images/3.png" class="image-responsive DocumentItem-img">
+               			 </div>
+						#end
+						#if ($obj.get("rating")=='4')
+						 <div class="DocumentItem-imgContainer1">
+                    <img src="../images/4.png" class="image-responsive DocumentItem-img">
+               			 </div>
+						#end
+						#if ($obj.get("rating")=="5")
+						 <div class="DocumentItem-imgContainer1">
+                    <img src="../images/5.png" class="image-responsive DocumentItem-img">
+               			 </div>
+						#end
+              
+                <div class="DocumentItem-text">
+                    <h5 class="text-format">$obj.get("name")</h5>
+                    <h6 class="text-format">$obj.get("description")</h6>
+                </div>
+                
+         
+        </li>
+    #end
+       
+    </ul>
+</div>
+</div>   
     
 	
 	<div class="jumbotron">
             <div class="container">
                 <h4>Top products of the month</h4>
                 <div class="row">
+                #foreach( $obj in $top)
+                    <a href=$obj.get("link")>
                     <div class="col-md-2 col-sm-2">
                         <div class="suggestion-container">
                             <div class="suggestion-container-img ">
-                                <img src="../WebContent/images/capsuna.jpg" class="center-block">
+                                <img src="../images/jacobs.jpg" class="center-block">
                             </div>
                             
                             <div class="suggestion-title">
-                                <h5>Capsuna</h5>
+                                <h5>$obj.get("name")</h5>
                             </div>
                             
                             <div class="button-product">
@@ -156,95 +186,9 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="col-md-2 col-sm-2">
-                        <div class="suggestion-container">
-                            <div class="suggestion-container-img ">
-                                <img src="../WebContent/images/capsuna.jpg" class="center-block">
-                            </div>
-                            
-                            <div class="suggestion-title">
-                                <h5>Capsuna</h5>
-                            </div>
-                            
-                            <div class="button-product">
-                                <button class="btn btn-primary center-block ">
-                                    Check it
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-2 col-sm-2">
-                        <div class="suggestion-container">
-                            <div class="suggestion-container-img ">
-                                <img src="../WebContent/images/capsuna.jpg" class="center-block">
-                            </div>
-                            
-                            <div class="suggestion-title">
-                                <h5>Capsuna</h5>
-                            </div>
-                            
-                            <div class="button-product">
-                                <button class="btn btn-primary center-block ">
-                                    Check it
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-sm-2">
-                        <div class="suggestion-container">
-                            <div class="suggestion-container-img ">
-                                <img src="../WebContent/images/capsuna.jpg" class="center-block">
-                            </div>
-                            
-                            <div class="suggestion-title">
-                                <h5>Capsuna</h5>
-                            </div>
-                            
-                            <div class="button-product">
-                                <button class="btn btn-primary center-block ">
-                                    Check it
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-2 col-sm-2">
-                        <div class="suggestion-container">
-                            <div class="suggestion-container-img ">
-                                <img src="../WebContent/images/capsuna.jpg" class="center-block">
-                            </div>
-                            
-                            <div class="suggestion-title">
-                                <h5>Capsuna</h5>
-                            </div>
-                            
-                            <div class="button-product">
-                                <button class="btn btn-primary center-block ">
-                                    Check it
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-2 col-sm-2">
-                        <div class="suggestion-container">
-                            <div class="suggestion-container-img ">
-                                <img src="../WebContent/images/capsuna.jpg" class="center-block">
-                            </div>
-                            
-                            <div class="suggestion-title">
-                                <h5>Capsuna</h5>
-                            </div>
-                            
-                            <div class="button-product">
-                                <button class="btn btn-primary center-block ">
-                                    Check it
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    </a> 
+                 #end           
+
                 </div>
             </div>
         </div>

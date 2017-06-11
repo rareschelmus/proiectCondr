@@ -7,7 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -27,7 +31,10 @@ import common.DBConnection;
 public class UserProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String STATEMENT_SELECT = "SELECT * FROM USER_COMMENT_ITEM_ U join ITEM_ I on U.ITEM_ID = I.ID where U.USER_ID = ?";
-    public UserProfile() {
+    private static final String STATEMENT_SELECT_ITEM = "SELECT * FROM ITEM_";
+    private static final String STATEMENT_SELECT_COMMENT = "SELECT * FROM USER_COMMENT_ITEM_";
+    
+	public UserProfile() {
         super();
     }
 
@@ -66,12 +73,15 @@ public class UserProfile extends HttpServlet {
 		ResultSet resultSet = st.executeQuery();
 		while (resultSet.next())
 		{
+			String productId = resultSet.getString(3);
 			String rating = resultSet.getString(5);
 			String name =  resultSet.getString(10);
 			String description = resultSet.getString(15);
+			
 			System.out.println(rating+" "+description);
 			
 			Map map = new HashMap();
+			map.put("productImage", "/Web/ImageLoader?id="+productId);
 			map.put("rating", rating);
 			map.put("name", name);
 			map.put("description", description);
@@ -79,17 +89,34 @@ public class UserProfile extends HttpServlet {
 		}
 		
 		
-	} catch (SQLException e1) {
+	   } catch (SQLException e1) {
 		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
+		   e1.printStackTrace();
+	   	}
 
- 	 
 	    context.put("activity", list);
- 		
- 		
- 		System.out.println("pla");
- 		
+	    
+	    List topList = new ArrayList();
+	    ArrayList<TopProduct> topProducts = null;
+	    
+	    try {
+			 topProducts = getTopProducts();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+	    for (TopProduct topProduct :topProducts)
+	    {
+	    	Map map = new HashMap();
+			map.put("name", topProduct.getName());
+			map.put("rating",  topProduct.getRating());
+			map.put("productImage", "/Web/ImageLoader?id="+ topProduct.getId());
+			map.put("link", "/Web/Controller/Product?id_product="+topProduct.getId());
+			topList.add(map);
+	    }
+	    
+	    context.put("top", topList);
  		
  		context.put("encrypt_user_profile",DigestUtils.sha256Hex("4"));
  		context.put("name", (String) request.getSession().getAttribute("name"));
@@ -102,6 +129,74 @@ public class UserProfile extends HttpServlet {
  		template.merge( context, writer );
  		response.setCharacterEncoding("UTF-8");
         response.getWriter().println(writer.toString());
+ 	}
+ 	
+ 	
+ 	private ArrayList<TopProduct> getTopProducts() throws SQLException
+ 	{
+ 		ArrayList<TopProduct>  products = new ArrayList<TopProduct>();
+ 		
+ 		Calendar cal = Calendar.getInstance();
+ 	    cal.setTime(new Date());
+ 	    cal.add(Calendar.MONTH, - 1);
+ 	    
+ 	    Date oneMonthBack = cal.getTime();
+ 	    
+ 	    System.out.println(oneMonthBack);
+ 		
+  	   	Connection connection = DBConnection.getConnection(); 
+  	   	PreparedStatement stItem = (PreparedStatement) connection.prepareStatement(STATEMENT_SELECT_ITEM);
+  	   	PreparedStatement stComm = (PreparedStatement) connection.prepareStatement(STATEMENT_SELECT_COMMENT);
+
+  	   	
+	   	ResultSet resultSetItem = stItem.executeQuery();
+	   	
+	   	while (resultSetItem.next())
+	   	{
+	   		ResultSet resultSetComm = stComm.executeQuery();
+	   		String id1 = resultSetItem.getString(1);
+	   		String name = resultSetItem.getString(2);
+	   		
+	   		int rating = 0;
+	   		int count  = 0;
+	   		
+	   		while (resultSetComm.next())
+	   		{
+	   			String commId = resultSetComm.getString(3);
+	   			System.out.println("id comment"+commId);
+	   			if (commId.equals(id1))
+	   			{
+	   				java.sql.Date  date = resultSetComm.getDate(8);
+	   				if (date.compareTo(oneMonthBack)>0)
+	   				{
+	   					String commRating = resultSetComm.getString(5);
+	   					if (commRating.equals(" ")) { continue; }
+	   					if (Integer.parseInt(commRating)>=1 && Integer.parseInt(commRating)<=5 )
+	   					{
+	   							rating += Integer.parseInt(commRating);
+	   							++count;
+	   					}
+	   					
+	   				}
+	   			}
+	   		}
+	   		
+	   		TopProduct topProducts = new TopProduct();
+	   		if (count>0)
+	   		{
+	   			rating = rating / count;
+	   		}
+	   		else rating  = 0;
+	   		
+	   		topProducts.setRating(new Integer(rating).toString());
+	   		topProducts.setId(id1);
+	   		topProducts.setName(name);
+	   		
+	   		products.add(topProducts);
+	   	}
+	   	Collections.sort(products);
+	   	
+ 		return products;
  	}
 
 }

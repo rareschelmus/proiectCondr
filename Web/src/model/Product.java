@@ -119,7 +119,7 @@ public class Product extends HttpServlet {
 				String goodTags = resultSet.getString(6);
 				String badTags = resultSet.getString(7);
 
-				java.sql.Date date = resultSet.getDate(8);
+				java.sql.Timestamp date = resultSet.getTimestamp(8);
 
 				String userImage = resultSet.getString(12);
 				String userName = resultSet.getString(13);
@@ -165,17 +165,33 @@ public class Product extends HttpServlet {
 	    
 	    for (Comment commentObj : comments )
 	    {
+			String isGoodTag = "true";
+			String isBadTag = "true";
 	    	Map map = new HashMap();
+	    	System.out.println(commentObj.getDate().getTime()+"+++++++++++++++ ");
 			map.put("id", commentObj.getCommentID());
 			map.put("user_id", commentObj.getUserId());
 			map.put("comment", commentObj.getComment());
 			map.put("userName", commentObj.getUserName());
 			map.put("userImage", commentObj.getUserImage());
 			map.put("rating", commentObj.getRating());
+			System.out.println("tagurile sunt "+commentObj.getGoodTags()+" "+commentObj.getBadTags());
 			map.put("goodTags", commentObj.getGoodTags());
 			map.put("badTags", commentObj.getBadTags());
-
 			
+			if (commentObj.getGoodTags().equals(" "))
+			{
+				isGoodTag = "false";
+			}
+			
+			if (commentObj.getBadTags().equals(" ") )
+			{
+				isBadTag = "false";
+			}
+			
+			map.put("isGoodTags", isGoodTag);
+			map.put("isBadTags", isBadTag);
+
 			if (commentObj.getRating().equals("5")){
 				averageRating += 5;
 				++nrRating;
@@ -212,6 +228,7 @@ public class Product extends HttpServlet {
 					canAdd = "false";
 			}
 			}
+			
 			map.put("edit",canEdit);
 			System.out.println("lala"+valueOfLike);
 			if (valueOfLike.equals("like"))
@@ -233,11 +250,14 @@ public class Product extends HttpServlet {
 			list.add(map);
 	    }
 
+	    
 	    String loggedUserID = (String) request.getSession().getAttribute("user_id");
-	    if (loggedUserID==null)
-	    {
-	    	canAdd = "false";
-	    }
+		System.out.println("userul logat"+request.getSession().getAttribute("user_id") );
+		if (loggedUserID==null)
+		{
+			canAdd = "false";
+		}
+	       
 	    context.put("comments", list);
 	    context.put("canAdd", canAdd);
 	    
@@ -255,7 +275,7 @@ public class Product extends HttpServlet {
 	    {
 	    	context.put("rating", 0);
 	    }
-	    System.out.println("user care ii logat"+loggedUserID);
+
 	    context.put("logged_user", loggedUserID);
 	    template.merge(context, writer);
 	    response.getWriter().println(writer.toString()); 

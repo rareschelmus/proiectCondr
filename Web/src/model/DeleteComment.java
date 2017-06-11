@@ -129,7 +129,7 @@ public class DeleteComment extends HttpServlet {
 				String rating = resultSet.getString(5);
 				String goodTags = resultSet.getString(6);
 				String badTags = resultSet.getString(7);
-				java.sql.Date date = resultSet.getDate(8);
+				java.sql.Timestamp date = resultSet.getTimestamp(8);
 				String userImage = resultSet.getString(12);
 				String userName = resultSet.getString(13);
 				

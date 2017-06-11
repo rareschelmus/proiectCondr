@@ -471,13 +471,16 @@
 									<div class="comment-content">
 										$obj.get("comment")
 									</div>
-								
-									<div>
+									#if ($obj.get("isGoodTags")=="true")							
+										<div>
 									<input class="form-control"  value=$obj.get("goodTags") data-role="tagsinput"> 									
 									</div>
+									#end
+									#if ($obj.get("isBadTags")=="true")	
 									<div>
 									<input class="form-control"  value=$obj.get("badTags") data-role="tagsinput"> 									
 									</div>
+									#end
 								</div>
 							</div>
 						#end				
