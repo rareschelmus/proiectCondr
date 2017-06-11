@@ -222,4 +222,8 @@ footer{
 
 .list-inline {
   white-space:nowrap;
+
+.liked {
+    background-color: lightblue;
+
 }

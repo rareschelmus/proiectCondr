@@ -75,6 +75,9 @@ public class Controller extends HttpServlet {
 			result=url.charAt(i)+result;
 			i--;
 		}
+		
+		if (result.equals("BarScanner"))
+			 requestDispatcher = request.getRequestDispatcher("/BarScanner"); else
 		if (result.equals("CommentRating"))
 			 requestDispatcher = request.getRequestDispatcher("/CommentRating"); else
 		if (result.equals("DeleteComment"))
@@ -110,10 +113,11 @@ public class Controller extends HttpServlet {
 			 if (result.equals("TestL"))
 				 requestDispatcher = request.getRequestDispatcher("/TestL"); else 
 	    if (result.equals("Login"))
-		 requestDispatcher = request.getRequestDispatcher("/Login"); else 
-		if (request.getSession().getAttribute("name")==null)
-	     requestDispatcher = request.getRequestDispatcher("/MainPageModel"); else 
-	    	 requestDispatcher = request.getRequestDispatcher("/UserProfile");
+		 requestDispatcher = request.getRequestDispatcher("/Login"); else {
+		     if (request.getSession().getAttribute("name")==null)
+	            requestDispatcher = request.getRequestDispatcher("/MainPageModel"); else 
+	    	      requestDispatcher = request.getRequestDispatcher("/UserProfile");
+		 }
 	    
 		 	 
 		requestDispatcher.forward(request, response);

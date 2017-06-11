@@ -88,6 +88,8 @@ public class UserProfile extends HttpServlet {
 	    context.put("activity", list);
  		
  		
+ 		System.out.println("pla");
+ 		
  		
  		context.put("encrypt_user_profile",DigestUtils.sha256Hex("4"));
  		context.put("name", (String) request.getSession().getAttribute("name"));

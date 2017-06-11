@@ -20,7 +20,7 @@
         <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 		
-		<script src="js/like-dislike.js"></script>
+		
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1"> <!--ca sa fie responsive-->
@@ -107,7 +107,7 @@
                     
                 </div>
                 <div class="col-sm-6">
-                   <form class="navbar-form" action="/Web/Search"  method="POST" role="search">
+                   <form class="navbar-form" action="/Web/Search"  method="GET" role="search">
                     <div class="input-group">
                      <div class="input-group-btn">
                       <button type="button" class="btn btn-default dropdown-toggle search-button-style" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
@@ -145,7 +145,6 @@
                     <ul class="nav navbar-nav">
                     #if ($urlImage)
                         <li> 
-                        
                        <div class="image-cropper">
                        
                          <img class="my-picture" src="$urlImage" alt="This is a picture of me"/>
@@ -169,11 +168,10 @@
             </div>
         </nav>
         
-        
+      #if ($exist)  
         <div class="container container-produs">
             <div class="row">
                 <div class="col-md-5">
-                    <!--<img src="jacobs.jpg" class="img-produs center-block"> -->
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
@@ -185,15 +183,15 @@
                           <!-- Wrapper for slides -->
                         <div class="carousel-inner gallery" role="listbox">
                             <div class="item active">
-                                <img src="../images/jacobs.jpg" class="vertical-center">
+                                <img src="/Web/ImageLoader?id=$id_product&c=1" class="vertical-center" height="375" width="400">
                             </div>
 
                             <div class="item">
-                                <img src="../images/coffee.jpg" class="vertical-center">
+                                <img src="/Web/ImageLoader?id=$id_product&c=2" class="vertical-center" height="375" width="400">
                             </div>
 
                             <div class="item">
-                                <img src="../images/bean.jpg" class="vertical-center cneter-block">
+                                <img src="/Web/ImageLoader?id=$id_product&c=3" class="vertical-center" height="375" width="400">
                             </div>
                         </div>
 
@@ -210,53 +208,18 @@
                 </div>
                 <div class="col-md-7">
                     <div id="x" name="$id_product" class="text-produs">
-                        <h4><b>Jacobs</b></h4><br/>
-                        
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        <div class="greutate-produs">
-                            <b>Weight:</b> 200g
-                        </div>
-                        <div>
-                            <h5><b>Ingredients:</b></h5>
-                            <div class="produs-substante">
-                                <button class="btn btn-info">
-                                    Coffee
-                                </button>
-                                
-                                <button class="btn btn-danger">
-                                    Milk
-                                </button>
-                                
-                                <button class="btn btn-warning">
-                                    Cinammon
-                                </button>
-                            </div>
-                            
-                            <h5><b>Alergens:</b></h5>
-                            <div class="produs-substante">
-                                <button class="btn btn-info">
-                                    Gluten
-                                </button>
-                                
-                                <button class="btn btn-info">
-                                    Alune
-                                </button>
-                                
-                                <button class="btn btn-danger">
-                                    Eritromicina
-                                </button>
-                                
-                                <button class="btn btn-info">
-                                    Lactate
-                                </button>
-                                
-                            </div>
-                                 <input name="tagsProduct1" id="goodTagsProduct" value = $goodTagsProduct> 
-                            </div>
-                            
-                             </div>
+                        <h4><b>$product.getName()</b></h4><br/>
+                                <label>ceva bun trebuie de editat</label>
+                                 <input name="tagsProduct1" id="goodTagsProduct" value = $goodTagsProduct>  
+                                <label>ceva rau trebuie de editat</label>    
                                  <input name="tagsProduct2" id="badTagsProduct" value = $badTagsProduct> 
+                            <div>
+                                <h1 style="text-align: center;">Description</h1>
+                              <span>$product.getDescription()</span>
                             </div>
+                     
+                 </div>
+            </div>
                           
 						         
                             #if ($rating==1)
@@ -274,12 +237,9 @@
 							#if ($rating==5)
 						     	<img src="../images/5.png" class="comment-star">
 								#end
-							</div>
-                        </div>
-                    </div>
+				  </div>
                </div>
-           </div>
-        </div>
+                    
         
         <br/>
         
@@ -791,5 +751,10 @@
 		});
 		});
 		</script>
+	#else 
+	  <div class="container corp-container first-space">
+           <h2 style="text-align: center;"> Something is wrong </h2>
+         </div>
+	#end
     </body>
 </html>
