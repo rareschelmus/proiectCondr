@@ -38,7 +38,10 @@ import common.VelocityEngineObject;
 @WebServlet("/Product")
 public class Product extends HttpServlet {
 	 private static final long serialVersionUID = 1L;
-	 private static final String STATEMENT = "select * from USER_COMMENT_ITEM_ c join USER_ u on u.id = c.user_id where ITEM_ID=?";
+	 private static final String STATEMENT_SELECT_COMMENT = "select * from USER_COMMENT_ITEM_ c join USER_ u on u.id = c.user_id where ITEM_ID=?";
+	 private static final String STATEMENT_SELECT_REL_PRODUCTS  = "select * from ITEM_ where ID <> ?";
+	 private static final String STATEMENT_UPDATE_TAGS = "update ITEM_ set GOOD_TAGS = ?, BAD_TAGS = ? where ID = ?";
+	 
 	 HashSet<String> hGoodSet = new HashSet<String>();
 	 HashSet<String> hBadSet = new HashSet<String>();
 
@@ -96,7 +99,7 @@ public class Product extends HttpServlet {
 	     PreparedStatement st = null;
 	     
 	     try {
-		 st = (PreparedStatement) connection.prepareStatement(STATEMENT);
+		 st = (PreparedStatement) connection.prepareStatement(STATEMENT_SELECT_COMMENT);
 		 st.setString(1, id_product);
 		 
 	     } catch (SQLException e) {
@@ -263,7 +266,22 @@ public class Product extends HttpServlet {
 	    
 	    context.put("goodTagsComment",createGoodTagsComment(hGoodSet));
 	    context.put("badTagsComment",createGoodTagsComment(hBadSet));
-
+	    
+	    String goodTagsProduct = getGoodTagsProduct();
+	    String badTagsProduct = getBadTagsProduct();
+	    
+	    try {
+			st = (PreparedStatement) connection.prepareStatement(STATEMENT_UPDATE_TAGS);
+			st.setString(1, goodTagsProduct);
+			st.setString(2, badTagsProduct);
+			st.setString(3, id_product);
+			st.executeUpdate();
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		   
 	    context.put("goodTagsProduct", getGoodTagsProduct());
 	    context.put("badTagsProduct", getBadTagsProduct());
 
@@ -471,4 +489,91 @@ public class Product extends HttpServlet {
 		
 		return p;
 	 }
+	 
+	 private ArrayList<GenericProduct> getRelatedProducts(String goodTags, String badTags, String currProductId) throws SQLException
+	 {
+		 hBadSet.clear();
+		 hGoodSet.clear();
+		 
+		 ArrayList<GenericProduct> list = new ArrayList<GenericProduct>();
+		 
+		 HashSet<String> l_hGoodSet = new HashSet<String>();
+		 HashSet<String> l_hBadSet = new HashSet<String>();
+		 
+		 splitBadTags(badTags);
+		 splitGoodTags(goodTags);
+
+		 Connection connection = DBConnection.getConnection(); 
+	  	 PreparedStatement stItem = (PreparedStatement) connection.prepareStatement(STATEMENT_SELECT_REL_PRODUCTS);
+	  	 
+	  	 stItem.setString(1, currProductId);
+	  	 
+	  	 ResultSet resultSet = stItem.executeQuery(); 
+	  	 
+	  	 while (resultSet.next())
+	  	 {
+	  		 String l_goodTags = resultSet.getString(8);
+	  		 String l_badTags = resultSet.getString(9);
+	  		 
+	  		if (l_goodTags!=null){
+				 String[] splitTags = l_goodTags.split(",");
+				 for (int i=0; i<splitTags.length; ++i)
+				 {
+					 l_hGoodSet.add(splitTags[i]);
+				 }
+			 }
+	  		
+	  		if (l_badTags!=null){
+				 String[] splitTags = l_badTags.split(",");
+				 for (int i=0; i<splitTags.length; ++i)
+				 {
+					 l_hBadSet.add(splitTags[i]);
+				 }
+			 }
+	  		int countHits = 0;
+	  		
+	  		Iterator iterator = hBadSet.iterator();
+	  		while (iterator.hasNext())
+	  		{
+	  			if (l_hBadSet.contains(iterator.next()))
+	  			{
+	  				countHits++;
+	  			}
+	  			if (l_hGoodSet.contains(iterator.next()))
+	  			{
+	  				countHits++;
+	  			}
+	  		}
+	  		
+	  	    iterator = hGoodSet.iterator();
+	  		while (iterator.hasNext())
+	  		{
+	  			if (l_hBadSet.contains(iterator.next()))
+	  			{
+	  				countHits++;
+	  			}
+	  			if (l_hGoodSet.contains(iterator.next()))
+	  			{
+	  				countHits++;
+	  			}
+	  		}
+	  		
+	  		GenericProduct genericProduct = new GenericProduct();
+	  		
+	  		String id = resultSet.getString(1);
+	  		String name = resultSet.getString(2);
+	  		
+	  		genericProduct.setId(id);
+	  		genericProduct.setName(name);
+
+	  		list.add(genericProduct);
+	  		
+	  	 }
+	  	 
+		 Collections.sort(list);
+		 
+		 return null;
+	 }
+	 
+	 
 }
