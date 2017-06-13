@@ -16,6 +16,8 @@ drop table user_counts_ CASCADE CONSTRAINTS;
 /
 drop table user_comment_item_ CASCADE CONSTRAINTS;
 /
+drop table category_item_;
+/
 drop table util;
 /
 drop table log;
@@ -71,16 +73,15 @@ category_id varchar2(30)
 
 create table item_ (
 id varchar2(30) primary key ,
-name varchar2(30),
-image1 blob,
-image2 blob,
-image3 blob,
+name varchar2(60),
+image1 varchar2(256),
+image2 varchar2(256),
+image3 varchar2(256),
 brand_id varchar2(30),
 good_tags varchar(1024),
 bad_tags varchar(1024),
 description clob 
-, constraint fk_brand_item foreign key (brand_id) references brand_ (brand_id) , 
-constraint fk_category_item foreign key (category_id) references category_ (category_id)
+, constraint fk_brand_item foreign key (brand_id) references brand_ (brand_id)
 )
 /
 

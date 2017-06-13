@@ -478,11 +478,11 @@ public class Product extends HttpServlet {
 		 PreparedStatement st;
 		 common.Product p=null;
 		try {
-			st = con.prepareStatement("select name,description from item_ where id=?");
+			st = con.prepareStatement("select name,description,image1,image2,image3 from item_ where id=?");
 			st.setString(1, id);
 			ResultSet r = st.executeQuery();
 			if (!r.next()) return null;
-		     p = new common.Product(id,r.getString(1), r.getString(2));
+		     p = new common.Product(id,r.getString(1), r.getString(2),r.getString(3),r.getString(4),r.getString(5));
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
