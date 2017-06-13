@@ -82,12 +82,14 @@ public class Product extends HttpServlet {
 	 	 context.put("urlImage",(String) request.getSession().getAttribute("urlImage"));
 	 	 context.put("name", (String) request.getSession().getAttribute("name"));
 	 	 context.put("encrypt_js", DigestUtils.sha256Hex("5"));
+	 	 template = ve.getTemplate("product_container.html");
+
+	 	 
 	 	 String amazon = common.TestEAN.getResult(id_product);
 	 	 if (amazon!=null) {
 	 		 context.put("amazon", "https://www.amazon.com/dp/"+amazon);
 	 	 }
 	 	 
-	 	 template = ve.getTemplate("product_container.html");
 	 	 int averageRating = 0;
 	 	 int nrRating = 0;
 	    // response.getWriter().println(writer.toString()); 
