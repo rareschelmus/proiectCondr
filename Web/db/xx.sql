@@ -1,4 +1,3 @@
-
 drop table user_  CASCADE CONSTRAINTS;
 /
 drop table category_ CASCADE CONSTRAINTS;
@@ -77,6 +76,8 @@ image1 blob,
 image2 blob,
 image3 blob,
 brand_id varchar2(30),
+good_tags varchar(1024),
+bad_tags varchar(1024),
 description clob 
 , constraint fk_brand_item foreign key (brand_id) references brand_ (brand_id) , 
 constraint fk_category_item foreign key (category_id) references category_ (category_id)
@@ -89,7 +90,8 @@ user_id varchar2(30) not null,
 item_id varchar2(30) not null ,
 comm clob,
 rating varchar2(4),
-tags varchar(1024),
+good_tags varchar(1024),
+bad_tags varchar(1024),
 data DATE
 )
 /
@@ -119,3 +121,4 @@ count_dislikes number(30) ,
 constraint fk_user_count foreign key (user_id) references user_ (id) 
 )
 /
+

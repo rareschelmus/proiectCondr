@@ -176,10 +176,15 @@
 
 
         #else 
-         <div class="container corp-container first-space">
-           <h4> No Results</h4>
-         </div>
-         
+            #if ($asin) 
+               <div class="container corp-container first-space">
+		           <h4> No Results</h4>
+		       </div>
+            #else
+		         <div class="container corp-container first-space">
+		           <h4> No Results</h4>
+		         </div>
+            #end
         #end
         
 
