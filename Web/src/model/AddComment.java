@@ -32,7 +32,7 @@ import common.DBConnection;
 @WebServlet("/AddComment")
 public class AddComment extends HttpServlet {
 	private static final String STATEMENT_INSERT = "insert into USER_COMMENT_ITEM_ (ID,USER_ID,ITEM_ID,COMM,RATING, GOOD_TAGS, BAD_TAGS, DATA) values (?,?,?,?,?,?,?,?)";
-	private static final String STATEMENT_SELECT = "select * from USER_COMMENT_ITEM_ c join USER_ u on u.id = c.user_id";
+	private static final String STATEMENT_SELECT = "select * from USER_COMMENT_ITEM_ c join USER_ u on u.id = c.user_id where c.item_id = ?";
 
 	
 
@@ -144,7 +144,7 @@ public class AddComment extends HttpServlet {
 		JsonElement element = null;
 		
 		try {
-		    element = jSon.toJsonTree(getComments(request),  new TypeToken<List<Comment>>() {}.getType());
+		    element = jSon.toJsonTree(getComments(request,productId),  new TypeToken<List<Comment>>() {}.getType());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -156,7 +156,7 @@ public class AddComment extends HttpServlet {
 		out.close();
 	}
 	
-	private List<Comment> getComments(HttpServletRequest request) throws SQLException
+	private List<Comment> getComments(HttpServletRequest request, String productId) throws SQLException
 	{
 		Connection connection = DBConnection.getConnection();
 	    PreparedStatement st = null;
@@ -165,6 +165,7 @@ public class AddComment extends HttpServlet {
 	     
 	    try {
 		st = (PreparedStatement) connection.prepareStatement(STATEMENT_SELECT);
+		st.setString(1, productId);
 		 
 	    } catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -5,6 +5,15 @@ public class GenericProduct implements Comparable<GenericProduct> {
 	private String id;
 	private String rating;
 	private int    relatedRating;
+	private String image;
+	
+	public void setImage(String image) {
+		this.image = image;
+	}
+	
+	public String getImage() {
+		return image;
+	}
 	
 	public String getId() {
 		return id;
