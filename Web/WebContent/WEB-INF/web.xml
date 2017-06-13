@@ -9,5 +9,4 @@
     <servlet-name>Controller</servlet-name>
     <url-pattern>/Controller/*</url-pattern>
   </servlet-mapping>
-  
 </web-app>

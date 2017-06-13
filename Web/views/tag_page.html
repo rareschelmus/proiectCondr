@@ -37,6 +37,7 @@
 		<script src="https://apis.google.com/js/api:client.js"></script>
 	
 
+
         <script>
             $(function(){
             	console.log();
@@ -177,6 +178,26 @@
 
         <br/>
         
+
+     <div class="container">
+     #foreach( $obj in $products)
+     <h4>$tag_name</h4>
+        <div class="jumbotron">
+		
+            <div class="container">
+                
+                <div class="row">
+                  
+                    <a href=$obj.get("link")>
+                    <div class="col-md-2 col-sm-2">
+                        <div class="suggestion-container">
+                            <div class="suggestion-container-img ">
+                                <img src="../images/jacobs.jpg" class="center-block">
+                            </div>
+                            
+                            <div class="suggestion-title">
+                                <h5>$obj.get("name")</h5>
+
       
         
         <div class="jumbotron">
@@ -281,6 +302,7 @@
                             
                             <div class="suggestion-title">
                                 <h5>Capsuna</h5>
+
                             </div>
                             
                             <div class="button-product">
@@ -290,6 +312,16 @@
                             </div>
                         </div>
                     </div>
+
+                    </a> 
+                 
+                               </div>
+                </div>
+        </div>
+         #end  
+        </div>  
+       
+
                 </div>
             </div>
         </div>
@@ -410,6 +442,7 @@
             </div>
         </div>
         
+
        
         <div class="container-full">    
             <footer class="footer"> <!-- -->
@@ -422,6 +455,7 @@
             </footer>
         </div>
     
+
         <script>
 		function sendComment(){
 		console.log("entered send Comment function");
@@ -705,6 +739,7 @@
            <h2 style="text-align: center;"> Something is wrong </h2>
          </div>
 	#end
+
 	
 	#if (!$urlImage)
                         
