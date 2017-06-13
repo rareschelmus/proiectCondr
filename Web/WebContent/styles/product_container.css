@@ -159,9 +159,8 @@ text-align : center;
 } 
   
 .goodTag{
-    color
 }
 
 .badTag{
-    
+    color:red;
 }

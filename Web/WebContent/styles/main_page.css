@@ -55,20 +55,6 @@ float : left;
 width : 320px;
 margin-top : 15px;
 margin-left : 20px;
-}
-footer {
-    
-background-color : #222;
-border-color : #080808;
-height : 120px;
-}
-footer > p {
-color : #eee;
-text-align : center;
-}
-
-footer{
-    color:#999;
 } 
 
 .slider {
@@ -190,3 +176,18 @@ margin-bottom : 10px;
     height:100px;
     padding:10px 10px 10px 10px;
 }
+
+footer {
+    
+background-color : #222;
+border-color : #080808;
+height : 320px;
+}
+footer > p {
+color : #eee;
+text-align : center;
+}
+
+footer{
+    color:#999;
+} 
