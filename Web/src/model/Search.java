@@ -69,7 +69,7 @@ public class Search extends HttpServlet {
 				    st.setString(1, b);
 				} else 
 				if (c!=null) {
-					st = (OraclePreparedStatement) con.prepareStatement("select i.id,i.name,i.description from item_ i join category_item_ c on i.id=c.item_id join category_ cc on c.category_id=cc.category_id where lower(cc.name) like %'||lower(?)||'%'");
+					st = (OraclePreparedStatement) con.prepareStatement("select i.id,i.name,i.description from item_ i join category_item_ c on i.id=c.item_id join category_ cc on c.category_id=cc.category_id where lower(cc.name) like '%'||lower(?)||'%' ");
 				    st.setString(1, c);
 				}
 			} catch (SQLException e1) {
@@ -106,13 +106,18 @@ public class Search extends HttpServlet {
 						       context.put("total", 0);
 						       context.put("arr", arr);
 						       context.put("startpage", 1);
-						       if (arr.size()==0 && e!=null) {
-						    	   String asin = common.TestEAN.getResult(e);
-						    	   if (asin!=null) {
-						    		   context.put("asin", asin);
-						    	   }
-						       }
+						       
 							}
+					} else {
+						if (e!=null) {
+					    	   System.out.println(e);
+					    	   String asin = common.TestEAN.getResult(e);
+					    	   
+					    	   if (asin!=null) {
+					    		   context.put("asin", asin);
+					    		   System.out.println(asin);
+					    	   }
+					       }
 					}
 				} catch (SQLException e1) {
 					e1.printStackTrace();
