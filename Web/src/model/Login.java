@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.servlet.ServletException;
@@ -19,11 +20,18 @@ import oracle.jdbc.driver.OracleConnection;
 import oracle.jdbc.internal.OraclePreparedStatement;
 import oracle.jdbc.internal.OracleResultSet;
 
+import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Version;
+import com.restfb.exception.FacebookException;
+import com.restfb.exception.FacebookGraphException;
+import com.restfb.exception.FacebookJsonMappingException;
+import com.restfb.exception.FacebookNetworkException;
 import com.restfb.exception.FacebookOAuthException;
+import com.restfb.exception.FacebookResponseStatusException;
 import com.restfb.types.User;
+
 import common.DBConnection;
 
 
@@ -54,8 +62,12 @@ public class Login extends HttpServlet {
 			try {
 			FacebookClient facebookClient = new DefaultFacebookClient(token, "28bb62c0578cef84b395e0269349d152", Version.LATEST);        
 	        User user = facebookClient.fetchObject("me", User.class);
+
 	        name= user.getName();
 	        user_id= user.getId();
+	        System.out.println(user_id);
+	        
+	        
 	        urlImage = "https://graph.facebook.com/"+user_id+"/picture?type=large";
 			} catch (FacebookOAuthException e) {
 				p.append("--");
