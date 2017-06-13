@@ -39,6 +39,7 @@ public class ImageLoader extends HttpServlet {
 		byte[] content =null;
 		OracleConnection c = DBConnection.getConnection();
 		
+		
 		String id = request.getParameter("id");
 		String ccc = request.getParameter("c");
 		if (ccc==null) ccc="1";
@@ -46,13 +47,7 @@ public class ImageLoader extends HttpServlet {
 			 ccc="1";
 		System.out.println(id);
 		try {
-//			OraclePreparedStatement st = (OraclePreparedStatement) c.prepareStatement("insert into item_ values('0070221005979','Jacobs',?,?,?,'1','Cea mai buna cafea insantanee')");
-//		    st.setBinaryStream(1, new ByteArrayInputStream(extractBytes("/home/nemo/Desktop/1.jpg")));
-//		    st.setBinaryStream(2, new ByteArrayInputStream(extractBytes("/home/nemo/Desktop/1.jpg")));
-//		    st.setBinaryStream(3, new ByteArrayInputStream(extractBytes("/home/nemo/Desktop/1.jpg")));
-//		    st.executeUpdate();
-//		    st.close();
-//		    c.commit();
+			
 			OraclePreparedStatement st = (OraclePreparedStatement) c.prepareStatement("select image"+ccc+" from item_ where id=?");
 			st.setString(1, id);
 		    OracleResultSet r = (OracleResultSet) st.executeQuery();
