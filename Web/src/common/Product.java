@@ -20,6 +20,7 @@ public class Product {
 	   return name;
    }
    public String getDescription() {
+	   if (description==null) return "Something good";
 	   return description;
    }
    public String getId() {
