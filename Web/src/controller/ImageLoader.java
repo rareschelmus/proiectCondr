@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import oracle.jdbc.OracleConnection;
 import oracle.jdbc.internal.OraclePreparedStatement;
 import oracle.jdbc.internal.OracleResultSet;
+import oracle.sql.BLOB;
 import common.DBConnection;
 
 
@@ -64,7 +65,6 @@ public class ImageLoader extends HttpServlet {
 		
 		
 		response.setContentType("image/jpg");
-        response.setContentLength(content.length);
         response.getOutputStream().write(content);
         response.getOutputStream().flush();
         response.getOutputStream().close();
