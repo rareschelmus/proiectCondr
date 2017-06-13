@@ -2,17 +2,6 @@ body {
 margin : 0 0 0 0;
 }
 
-footer{
-    background-color: #222;
-    border-color: #080808;
-    height:100px;
-}
-
-footer>p{
-    color:#eee;
-    text-align:center;
-}
-
 .header {
 height : 90px;
 background-color : rgb(27, 197, 237);
@@ -169,4 +158,10 @@ text-align : center;
     width: 100%;
 } 
   
+.goodTag{
+    color
+}
 
+.badTag{
+    
+}
