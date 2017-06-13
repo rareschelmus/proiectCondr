@@ -633,6 +633,8 @@
 		function sendCommentToDelete(text){
             console.log("entered delete Comment function");
     		var toSend = "delete="+text;
+    		var id_produs = document.getElementById("x").getAttribute("name");
+    		toSend+="&productId="+id_produs;
     		$.ajax({
     			type: "POST",
     			url:"Web/Controller/DeleteComment",

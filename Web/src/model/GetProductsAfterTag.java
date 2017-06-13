@@ -87,12 +87,27 @@ public class GetProductsAfterTag extends HttpServlet {
 			{
 				String id = resultSet.getString(1);
 				String name = resultSet.getString(2);
+				String image = resultSet.getString(3);
+				System.out.println("produs nume="+name);
 				String goodTags = resultSet.getString(8);
 				String badTags = resultSet.getString(9);
+				String[] goodTagsList = null;
+				String[] badTagsList = null;
 				
-				String[] goodTagsList = goodTags.split(",");
-				String[] badTagsList = badTags.split(",");
+				System.out.println("tagul cel bun:"+goodTags);
+				if (goodTags!=null) {
+				    goodTagsList = goodTags.split(",");
+				    for (int i=0; i<goodTagsList.length; ++i)
+				    System.out.println(goodTagsList[i]);
+				}
+				if (badTags!=null) {
+				    badTagsList = badTags.split(",");
+				    for (int i=0; i<badTagsList.length; ++i)
+					    System.out.println(badTagsList[i]);
+				}
 				
+				if (goodTagsList!=null){
+					//System.out.println(goodTagsList[0]);
 				for (int i=0; i<goodTagsList.length; ++i)
 				{
 					if (goodTagsList[i].equals(tag))
@@ -100,8 +115,10 @@ public class GetProductsAfterTag extends HttpServlet {
 						isFound = true;
 						break;
 					}
+				 }
 				}
 				
+				if (badTagsList!=null){
 				for (int i=0; i<badTagsList.length; ++i)
 				{
 					if (badTagsList[i].equals(tag))
@@ -109,17 +126,18 @@ public class GetProductsAfterTag extends HttpServlet {
 						isFound = true;
 						break;
 					}
+				 }
 				}
-				
 				GenericProduct genericProduct = new GenericProduct();
 				
 				genericProduct.setId(id);
 				genericProduct.setName(name);
+				genericProduct.setImage(image);
 				
 				if (isFound)
 				{
 					genericProducts.add(genericProduct);
-					break;
+					isFound = false;
 				}
 			}
 			
@@ -135,7 +153,7 @@ public class GetProductsAfterTag extends HttpServlet {
 			Map map = new HashMap();
 			map.put("name", genericProducts.get(i).getName());
 			map.put("id",  genericProducts.get(i).getId());
-			map.put("productImage", "/Web/ImageLoader?id="+genericProducts.get(i).getId());
+			map.put("productImage", genericProducts.get(i).getImage());
 			map.put("link", "/Web/Controller/Product?id_product="+genericProducts.get(i).getId());
 			list.add(map);
 		}
