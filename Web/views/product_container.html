@@ -53,7 +53,10 @@
                 //-------------------------------
                 $('#singleFieldTagsGood').tagit({
                     availableTags: sampleTags1,
-                    singleField: true
+                    singleField: true,
+                    tagLimit: 10,
+                    maxLength: 15,
+                    placeholderText : 'Maximum tags number 10'
                 });
                 
                 $('#singleFieldTagsBad').tagit({
@@ -61,16 +64,46 @@
                             $('#singleFieldTagsBad').css('background', 'red')
                     },
                 	availableTags: sampleTags2,
-                    singleField: true
+                    singleField: true,
+                    tagLimit : 10,
+                    maxLength: 15,
+                    placeholderText : 'Maximum tags number 10'
                     
                 });
                 
                 $('#goodTagsProduct').tagit({
-                	readOnly: true
+                	tagLimit : 10,
+                	readOnly: true,
+                	  onTagClicked: function(event, ui) {
+                          	console.log(ui.tagLabel);
+                          	var tag = ui.tagLabel
+	                      	var xmlHttp = new XMLHttpRequest();
+	                		var toSend = "tag=";
+	                		toSend+=tag;
+	                		var url = "Web/Controller/GetProductsAfterTag";
+	                		console.log(ui.tagLabel);
+	                      	var tag = ui.tagLabel
+	                      	var xmlHttp = new XMLHttpRequest();
+	                		var toSend = "tag=";
+	                		toSend+=tag;
+	                		var url = "/Web/Controller/GetProductsAfterTag?tag="+tag;
+	                		window.location.replace(url);
+                      }
                 });
                 
                 $('#badTagsProduct').tagit({
-                	readOnly: true
+                	tagLimit: 10,
+                	readOnly: true,
+                	onTagClicked: function(event, ui) {
+                      	console.log(ui.tagLabel);
+                      	var tag = ui.tagLabel
+                      	var xmlHttp = new XMLHttpRequest();
+                		var toSend = "tag=";
+                		toSend+=tag;
+                		var url = "/Web/Controller/GetProductsAfterTag?tag="+tag;
+                		window.location.replace(url);
+                		
+                      }
                 });
                 var eventTags = $('#eventTags');
 
@@ -503,6 +536,26 @@
         </div>
     
         <script>
+        function sendTag(tag)
+        {
+    		var xmlHttp = new XMLHttpRequest();
+    		var toSend = "tag=";
+    		var url = "Web/Controller/GetProductsAfterTag";
+    		console.log(tag);
+    		xmlHttp.open("POST", url, true); //  asynchronous 
+    		xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+    		xmlHttp.onreadystatechange = function() { 
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+            	
+            }
+    			else {
+    			console.log("nu este text in comment box");
+    			}
+    		}
+    		
+    		xmlHttp.send(toSend);
+        }
+        
 		function sendComment(){
 		console.log("entered send Comment function");
 		var xmlHttp = new XMLHttpRequest();

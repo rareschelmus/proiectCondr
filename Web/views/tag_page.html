@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="../styles/product_container.css" />
+        <link rel="stylesheet" type="text/css" href="/Web/ResourceLoader?v=$encrypt_bootstrap_social" />
+        
+		<link rel="stylesheet" href="../starability-master/starability-minified/starability-all.min.css">
+        <link rel="stylesheet" type="text/css" href="../styles/comments.css" />
+                <link rel="stylesheet" type="text/css" href="../styles/bootstrap-tagsinput.css" />
+        
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <script src="/Web/ResourceLoader?v=$encrypt_js"></script>  
+
+
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+		
+		
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1"> <!--ca sa fie responsive-->
+        
+        <link href="../styles/jquery.tagit.css" rel="stylesheet" type="text/css">
+        <link href="../styles/tagit.ui-zendesk.css" rel="stylesheet" type="text/css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- The real deal -->
+        <script src="../js/tag-it.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/bootstrap-tagsinput.js"></script>
+		<script src="https://apis.google.com/js/api:client.js"></script>
+	
+
+        
+    </head>
+    
+    <body>
+<nav class="navbar navbar-inverse navbar-fixed-top" id="my-navbar">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    
+                    <a href="http://localhost:8080/Web/Controller/MainPageModel" class="navbar-brand">Condr</a>
+                    
+                </div>
+                <div class="col-sm-6">
+                   <form class="navbar-form" action="/Web/Search"  method="GET" role="search">
+                    <div class="input-group">
+                     <div class="input-group-btn">
+                      <button type="button" class="btn btn-default dropdown-toggle search-button-style" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                         <span id="active_search_type">EAN</span>
+                         <span class="caret"></span>
+                      </button>
+                       <ul class="dropdown-menu">
+                             <li  data-attr-type="ean" data-attr-name="EAN" data-attr-placeholder="Search  barcode">
+                               <a id="eanSearch" class="dropdown_item" href="#" onclick="eanSearch();">EAN</a>
+                             </li>
+                             <li  data-attr-type="product" data-attr-name="Product" data-attr-placeholder="Search product name">
+                               <a  id="productSearch" class="dropdown_item" href="#" onclick="productSearch();">Product</a>
+                             </li>
+                             <li  data-attr-type="brand" data-attr-name="Brand" data-attr-placeholder="Search brand name">
+                               <a id="brandSearch" class="dropdown_item" href="#" onclick="brandSearch();">Brand</a>
+                             </li>
+                             <li  data-attr-type="brand" data-attr-name="Category" data-attr-placeholder="Search category name">
+                               <a id="categorySearch" class="dropdown_item" href="#" onclick="categorySearch();">Category</a>
+                             </li>
+                             <li>
+                               <a href="/Web/Controller/BarScanner"><span>BarCodeScanner</span></a>
+                             </li>
+                            
+                            </ul>
+                     </div>   
+                        <input id="searchText"  type="text" name="EAN" class="form-control" placeholder="Search barcode"> 
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                       
+                    </div>
+                </form>
+                </div>
+               
+                <div class="collapse navbar-collapse navbar-right" id="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                    #if ($urlImage)
+                        <li> 
+                        
+                       <div class="image-cropper">
+                       
+                         <img class="my-picture" src="$urlImage" alt="This is a picture of me"/>
+                         
+                       </div>
+                       <li><a href="http://localhost:8080/Web/Controller/UserProfile">$name</a>
+                        <li class="dropdown">
+                        </li>
+                        <li><a href="#log-out" onclick="logout();">Log out</a>
+       
+                     #else
+                        <li><a href="#log-in" data-toggle="modal" data-target="#sign-in-modal" ><span class="glyphicon glyphicon-log-in"> </span> Log-in</a>
+                       #end 
+                        
+                        <li><a href="#about"><span class="glyphicon glyphicon-th"> </span> About</a>
+                        
+                      
+                    </ul>
+                    
+                </div>    
+            </div>
+        </nav>
+        
+
+        <br/>
+        
+     <div class="container">
+     #foreach( $obj in $products)
+     <h4>$tag_name</h4>
+        <div class="jumbotron">
+		
+            <div class="container">
+                
+                <div class="row">
+                  
+                    <a href=$obj.get("link")>
+                    <div class="col-md-2 col-sm-2">
+                        <div class="suggestion-container">
+                            <div class="suggestion-container-img ">
+                                <img src="../images/jacobs.jpg" class="center-block">
+                            </div>
+                            
+                            <div class="suggestion-title">
+                                <h5>$obj.get("name")</h5>
+                            </div>
+                            
+                            <div class="button-product">
+                                <button class="btn btn-primary center-block ">
+                                    Check it
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    </a> 
+                 
+                               </div>
+                </div>
+        </div>
+         #end  
+        </div>  
+       
+       
+       
+        <div class="container-full">    
+            <footer class="footer"> <!-- -->
+                
+                    <p >Condr, your daily asistant(c).</p>
+                    <p>
+                        <a href="#">Back to top</a>
+                    </p>
+                
+            </footer>
+        </div>
+    
+	
+	#if (!$urlImage)
+                        
+     <div class="modal fade" id="sign-in-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form class="form-signin" action="#LogIn" method="post">               
+                              <br/>
+                              #if ($loginFail) 
+                                 <p style="color:#FF0000";>Login Failure</p>
+                              #end
+                              
+							<div id="customBtn" >
+							<a class="btn btn-block btn-social btn-google">
+								<span id="spn" class="fa fa-google-plus"></span> Log in with gmail
+								</a>
+							</div>
+							
+								<a class="btn btn-block btn-social btn-facebook" onclick="fb_login();">
+								<span class="fa fa-facebook"></span> Log in with facebook
+								</a>
+							</div>
+							<br/>
+							
+                        </form>
+                    </div>
+                </div>    
+            </div>
+        </div>
+        <script>
+          startApp();
+        </script>
+        
+        
+   #end
+    </body>
+</html>
