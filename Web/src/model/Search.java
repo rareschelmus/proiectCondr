@@ -106,6 +106,12 @@ public class Search extends HttpServlet {
 						       context.put("total", 0);
 						       context.put("arr", arr);
 						       context.put("startpage", 1);
+						       if (arr.size()==0 && e!=null) {
+						    	   String asin = common.TestEAN.getResult(e);
+						    	   if (asin!=null) {
+						    		   context.put("asin", asin);
+						    	   }
+						       }
 							}
 					}
 				} catch (SQLException e1) {

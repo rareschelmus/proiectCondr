@@ -127,7 +127,7 @@
                      
                     </div>
                     
-                    <div class="col-md-9 col-sm-9">
+                    <div class="col-md-9 col-sm-9 ">
                         <h4> $product.getName()</h4><br/>
                         <p>  $product.getDescription()</p>
                     </div>
@@ -176,10 +176,15 @@
 
 
         #else 
-         <div class="container corp-container first-space">
-           <h4> No Results</h4>
-         </div>
-         
+            #if ($asin) 
+               <div class="container corp-container first-space">
+		           <h4> No Results</h4>
+		       </div>
+            #else
+		         <div class="container corp-container first-space">
+		           <h4> No Results</h4>
+		         </div>
+            #end
         #end
         
 
