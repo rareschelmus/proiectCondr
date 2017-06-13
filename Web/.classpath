@@ -10,13 +10,13 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/Vasile Catana/Documents/GitHub/proiectCondr/Web/WebContent/WEB-INF/lib/commons-codec-1.9.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Vasile Catana/Documents/GitHub/proiectCondr/Web/WebContent/WEB-INF/lib/core-2.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Vasile Catana/Documents/GitHub/proiectCondr/Web/WebContent/WEB-INF/lib/gson-2.3.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Vasile Catana/Documents/GitHub/proiectCondr/Web/WebContent/WEB-INF/lib/javase-2.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Vasile Catana/Documents/GitHub/proiectCondr/Web/WebContent/WEB-INF/lib/ojdbc6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Vasile Catana/Documents/GitHub/proiectCondr/Web/WebContent/WEB-INF/lib/restfb-2.0.0-rc.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Vasile Catana/Documents/GitHub/proiectCondr/Web/WebContent/WEB-INF/lib/velocity-1.7.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Vasile Catana/Documents/GitHub/proiectCondr/Web/WebContent/WEB-INF/lib/velocity-1.7-dep.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ionjo/Desktop/proiectCondr/Web/WebContent/WEB-INF/lib/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ionjo/Desktop/proiectCondr/Web/WebContent/WEB-INF/lib/core-2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ionjo/Desktop/proiectCondr/Web/WebContent/WEB-INF/lib/gson-2.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ionjo/Desktop/proiectCondr/Web/WebContent/WEB-INF/lib/javase-2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ionjo/Desktop/proiectCondr/Web/WebContent/WEB-INF/lib/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ionjo/Desktop/proiectCondr/Web/WebContent/WEB-INF/lib/restfb-2.0.0-rc.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ionjo/Desktop/proiectCondr/Web/WebContent/WEB-INF/lib/velocity-1.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ionjo/Desktop/proiectCondr/Web/WebContent/WEB-INF/lib/velocity-1.7-dep.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

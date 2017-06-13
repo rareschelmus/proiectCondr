@@ -132,8 +132,8 @@ public class Search extends HttpServlet {
 			context.put("urlImage",(String) request.getSession().getAttribute("urlImage"));
 			context.put("name", (String) request.getSession().getAttribute("name"));
 			context.put("encrypt_js", DigestUtils.sha256Hex("5"));
-			context.put("sageata_stanga",'←');
-			context.put("sageata_dreapta",'→');
+			context.put("sageata_stanga",' ');
+			context.put("sageata_dreapta",' ');
 			template = ve.getTemplate("search_page.html");        
 			
 			template.merge( context, writer );
