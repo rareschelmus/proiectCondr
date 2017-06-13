@@ -1,0 +1,34 @@
+.suggestion-container{
+    height:280px;
+    padding:5px 5px 5px 5px;
+    background-color:white;
+    border-radius:5%;
+    border-width:1;
+    border-color: rgba(0,0,0,.1);
+}
+
+.suggestion-container-img{
+    padding-top:10px;
+    padding-bottom:10px;
+    height:120px;
+}
+
+.suggestion-container-img > img{
+    
+    height:100px;
+}
+
+.button-product{
+    position:relative;
+}
+
+
+.suggestion-title{
+    height:100px;
+    padding:10px 10px 10px 10px;
+}
+
+.suggestion-title{
+    height:100px;
+    padding:10px 10px 10px 10px;
+}

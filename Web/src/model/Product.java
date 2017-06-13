@@ -38,7 +38,7 @@ import common.VelocityEngineObject;
 @WebServlet("/Product")
 public class Product extends HttpServlet {
 	 private static final long serialVersionUID = 1L;
-	 private static final String STATEMENT_SELECT_COMMENT = "select * from USER_COMMENT_ITEM_ c join USER_ u on u.id = c.user_id where ITEM_ID=?";
+	 private static final String STATEMENT_SELECT_COMMENT = "select * from USER_COMMENT_ITEM_ c join USER_ u on u.id = c.user_id where ITEM_ID=? and DATA_DELETE is null";
 	 private static final String STATEMENT_SELECT_REL_PRODUCTS  = "select * from ITEM_ where ID <> ?";
 	 private static final String STATEMENT_UPDATE_TAGS = "update ITEM_ set GOOD_TAGS = ?, BAD_TAGS = ? where ID = ?";
 	 
@@ -267,7 +267,7 @@ public class Product extends HttpServlet {
 	    context.put("canAdd", canAdd);
 	    
 	    context.put("goodTagsComment",createGoodTagsComment(hGoodSet));
-	    context.put("badTagsComment",createGoodTagsComment(hBadSet));
+	    context.put("badTagsComment",createBadTagsComment(hBadSet));
 	    
 	    String goodTagsProduct = getGoodTagsProduct();
 	    String badTagsProduct = getBadTagsProduct();

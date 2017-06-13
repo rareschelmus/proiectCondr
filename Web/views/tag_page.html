@@ -180,16 +180,18 @@
         
 
      <div class="container">
+	#set($count=0)
+	     <h4>$tag_name</h4>
      #foreach( $obj in $products)
-     <h4>$tag_name</h4>
+		#if ($count==0)
         <div class="jumbotron">
 		
+		
             <div class="container">
-                
                 <div class="row">
-                  
                     <a href=$obj.get("link")>
                     <div class="col-md-2 col-sm-2">
+	    #end
                         <div class="suggestion-container">
                             <div class="suggestion-container-img ">
                                 <img src="../images/jacobs.jpg" class="center-block">
@@ -221,6 +223,7 @@
                                 </button>
                             </div>
                         </div>
+		#if ($count==0)
                     </div>
                     
                     <div class="col-md-2 col-sm-2">
@@ -315,11 +318,17 @@
 
                     </a> 
                  
-                               </div>
                 </div>
-        </div>
-         #end  
-        </div>  
+           </div>
+		
+		</div>
+		#end
+		#set($count=$count+1)
+		#if($count==5)
+		  #set($count=5)
+		#end
+    #end  
+</div> 
        
 
                 </div>
