@@ -69,7 +69,20 @@ public class Test extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      
+		VelocityEngine ve = common.VelocityEngineObject.getVelocityEngine();
+		StringWriter writer = new StringWriter();
+		Template template = null;
+		template = ve.getTemplate("test.vm");
+		
+		
+		VelocityContext context = new VelocityContext();
+		
+		
+		context.put("obj", common.TestEAN.getResult("4006067081521"));
+		template.merge( context, writer );
+		response.setCharacterEncoding("UTF-8");
+		
+        response.getWriter().println(writer.toString());
 	}
 
 }

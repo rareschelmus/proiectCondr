@@ -31,9 +31,9 @@ public class TestEAN {
            if (inputLine.contains("\"status\":4")) {
         	   return null;
            }
-           
-           
+ 
            str = inputLine.split("\"asins\":")[1].split("\"")[1].split("\"")[0];
+           return str;
            
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

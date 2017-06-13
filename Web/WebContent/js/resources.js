@@ -60,15 +60,16 @@
         	                var email = response.email;
         	                var name = response.name;   
         	                console.log(access_token);
-        	                httpF.send("token="+access_token+"&mt=f");
-        	                
+        	                httpF.send("token="+access_token+"&mt=f");     
         	            });
+        	            
 
         	        } else {
         	            //user hit cancel button
         	            console.log('User cancelled login or did not fully authorize.');
         	        }
         	    },{scope : 'email' });
+        	    
         	 
          }
          
