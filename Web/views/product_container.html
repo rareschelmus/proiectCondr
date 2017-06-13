@@ -4,6 +4,7 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="../styles/product_container.css" />
+        <link rel="stylesheet" type="text/css" href="../styles/c_footer.css"/>
         <link rel="stylesheet" type="text/css" href="/Web/ResourceLoader?v=$encrypt_bootstrap_social" />
         
 		<link rel="stylesheet" href="../starability-master/starability-minified/starability-all.min.css">
@@ -250,9 +251,9 @@
                         <h1 style="text-align: center;"><b>$product.getName()</b></h1><br/>
                         <div class="form-group">
                                 <label>Positive tags</label>
-                                 <input name="tagsProduct1" id="goodTagsProduct" class="form-control" value = $goodTagsProduct>  
+                                 <input name="tagsProduct1" id="goodTagsProduct" class="form-control goodTag" value = $goodTagsProduct>  
                                 <label>Negative tags</label>    
-                                 <input name="tagsProduct2" id="badTagsProduct" class="form-control" value = $badTagsProduct> 
+                                 <input name="tagsProduct2" id="badTagsProduct" class="form-control badTag" value = $badTagsProduct> 
                             <div>
                         </div>
                                 <h1 style="text-align: center;">Description</h1>
@@ -524,15 +525,39 @@
            
             
         
-        <div class="container-full">    
-            <footer class="footer"> <!-- -->
-                
+        <div class="container-full">
+          
+            <footer class="footer">
+
                     <p >Condr, your daily asistant(c).</p>
-                    <p>
-                        <a href="#">Back to top</a>
-                    </p>
-                
+                    <div class="container">
+                        <section>
+                            <div class="page-header" id="contact">
+                                <h2>Contact Us.</h2>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <p>Send us the message, or contact us through a pigeon.</p>
+                                    
+                                    <address>
+                                        <strong>Ceva SRL</strong><br/>
+                                        str. Bomfaierul Ghidus, 72, Pipera<br/> 
+                                        Iasi, Romania<br>
+                                        Fax: 09283789992
+                                    </address>
+                                </div>
+                                
+                                <div class="col-lg-8">
+                                    <h4> office.condr.vccngsc@condr.com
+                                </div>
+                                
+                            </div>
+                        </section>
+                    </div>
+                    <p> <a href="#">Back to top</a> </p>  
+   
             </footer>
+          
         </div>
     
         <script>
