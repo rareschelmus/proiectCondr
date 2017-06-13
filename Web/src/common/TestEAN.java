@@ -28,11 +28,11 @@ public class TestEAN {
                b.append(inputLine);
            in.close();
            inputLine = b.toString();
+           System.out.println(inputLine);
            if (inputLine.contains("\"status\":4")) {
         	   return null;
            }
-           
-           
+ 
            str = inputLine.split("\"asins\":")[1].split("\"")[1].split("\"")[0];
            
 		} catch (IOException e) {
